@@ -176,8 +176,7 @@ class Tabs {
         element.addEventListener('keydown', psKeydownHandler);
         element.addEventListener('ps-y-reach-end', fixPsSCroll);
         element.addEventListener('wheel', event => {
-          if (element.perfectScrollbar.reach.y === 'end'
-          && event.deltaY > 0) fixPsSCroll(event);
+          if (event.deltaY > 0) fixPsSCroll(event);
         });
 
         removeTabIndex(element);

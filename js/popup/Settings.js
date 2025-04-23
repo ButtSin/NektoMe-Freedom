@@ -87,9 +87,13 @@ class Settings {
     await afterVisualUpdate(() => {
       document.documentElement.classList.remove(
         this.stateClasses.isAnimationDisabled);
+
         this.setTabsHeight();
-        this.rootElement.style.visibility = "visible";
-        this.rootElement.style.overflow = "visible";
+        
+        requestAnimationFrame(() => {
+          this.rootElement.style.visibility = "visible";
+          this.rootElement.style.overflow = "visible";    
+        });
     });
   }
 
