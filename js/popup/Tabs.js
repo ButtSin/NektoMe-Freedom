@@ -6,7 +6,7 @@ import getCurrentDuration from '../utils/getCurrentDuration.js';
 import SettingsManager from '../SettingsManager.js';
 import setupVerticalShadow from '../utils/setupVerticalShadow.js';
 import psKeydownHandler from '../utils/psKeydownHandler.js';
-import fixPsSCroll from '../utils/fixPsSCroll.js';
+import fixPsScroll from '../utils/fixPsScroll.js';
 
 const rootSelector = '[data-js-tabs]';
 
@@ -174,10 +174,8 @@ class Tabs {
         setupVerticalShadow(this.shadowSettings);
 
         element.addEventListener('keydown', psKeydownHandler);
-        element.addEventListener('ps-y-reach-end', fixPsSCroll);
-        element.addEventListener('wheel', event => {
-          if (event.deltaY > 0) fixPsSCroll(event);
-        });
+        element.addEventListener('ps-y-reach-end', fixPsScroll);
+        element.addEventListener('ps-scroll-up', fixPsScroll);
 
         removeTabIndex(element);
       } else element.perfectScrollbar.update();

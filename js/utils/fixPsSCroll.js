@@ -1,8 +1,18 @@
-function fixPsSCroll(event) {
+function fixPsScroll(event) {
   const container = event.currentTarget;
+
+  if (event.type === 'ps-scroll-up' && container.prevPdBottom !== 'undefined') {
+    container.style.paddingBottom = container.prevPdBottom + "px";
+    return;
+  } else if (event.type === 'ps-scroll-up') return;
+
   const containerStyles = getComputedStyle(container);
   const containerPdBottom = parseFloat(containerStyles.paddingBottom);
   const containerReach = container.perfectScrollbar.reach.y;
+
+  if (container.prevPdBottom === undefined) {
+    container.prevPdBottom = containerPdBottom;
+  }   
   
   const reil = container.querySelector('.ps__rail-y');
   const thumb = container.querySelector('.ps__thumb-y');
@@ -33,4 +43,4 @@ function fixPsSCroll(event) {
   }
 }
 
-export default fixPsSCroll;
+export default fixPsScroll;
