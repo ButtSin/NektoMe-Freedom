@@ -2,9 +2,8 @@
 
 .scrollbar {
   --scrollbarWidth: #{rem(16)};
-  --scrollbarContentOffset: #{rem(4)};
 
-  padding-right: calc(var(--scrollbarWidth) + var(--scrollbarContentOffset));
+  padding-right: var(--scrollbarWidth);
 
   &:focus-within, 
   &:hover {
@@ -22,7 +21,7 @@
   }
 
   .ps__rail-y.ps--clicking .ps__thumb-y {
-    width: calc(var(--scrollbarWidth) - rem(2));
+    width: calc(var(--scrollbarWidth) - var(--outline-width));
 
     background-color: var(--color-state-active);
     filter: var(--focus-visible);
@@ -37,7 +36,7 @@
 
     &:hover {
       .ps__thumb-y {
-        width: calc(var(--scrollbarWidth) - rem(2));
+        width: calc(var(--scrollbarWidth) - var(--outline-width));
 
         background-color: var(--color-state-active);
       }
@@ -48,7 +47,7 @@
     right: 50%;
     translate: 50% 0%;
 
-    width: calc(var(--scrollbarWidth) - rem(2));
+    width: calc(var(--scrollbarWidth) - var(--outline-width));
 
     border: var(--outline);
     border-radius: var(--border-radius-big);
@@ -63,64 +62,4 @@
       filter: var(--focus-visible);
     }
   }
-
-  // &:focus-within, 
-  // &:hover {
-  //   .simplebar-scrollbar::before {
-  //     background-color: var(--color-state-active);
-  //   }
-  // }
-
-  // &:focus-within:has(.simplebar-content-wrapper:focus-visible)  {
-  //   .simplebar-scrollbar::before {
-  //     filter: var(--focus-visible);
-  //     background-color: var(--color-state-active);
-  //   }
-  // }
-
-  // .simplebar-scrollbar {
-  //   transition-property: filter;
-  //   transition-duration: var(--transition-duration);
-
-  //   &::before {
-      // top: 0;
-      // bottom: 0;
-      // left: auto;
-      // right: 50%;
-      // translate: 50% 0;
-
-      // width: calc(var(--scrollbarWidth) - rem(2));
-
-      // border: var(--outline);
-      // border-radius: var(--border-radius-big);
-      // background-color: var(--color-background);
-
-      // opacity: 1;
-
-      // transition-property: filter, background-color;
-      // transition-duration: var(--transition-duration);
-  //   }
-  // }
-
-  // .simplebar-vertical.simplebar-hover .simplebar-scrollbar.simplebar-hover,
-  // &.simplebar-dragging .simplebar-vertical .simplebar-scrollbar {
-  //   &::before {
-  //     filter: var(--focus-visible);
-  //   }
-  // }
-
-  // .simplebar-track.simplebar-vertical {
-  //   width: var(--scrollbarWidth);
- 
-  //   background-color: var(--color-containers);
-  // }
-
-  // .simplebar-content-wrapper {
-
-  //   padding-right: calc(var(--scrollbarWidth) + var(--scrollbarContentOffset));
-
-  //   &:focus-visible {
-  //     outline: none;
-  //   }
-  // }
 }

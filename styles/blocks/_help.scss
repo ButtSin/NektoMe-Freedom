@@ -11,4 +11,9 @@
     
     list-style: disc;
   }
+
+  &__list,
+  &__text {
+    margin-right: var(--tabs-content-offset);
+  }
 }

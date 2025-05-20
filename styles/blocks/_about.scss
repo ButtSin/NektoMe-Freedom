@@ -20,4 +20,9 @@
       filter: invert(1);
     }
   }
+
+  &__list,
+  &__text {
+    margin-right: var(--tabs-content-offset);
+  }
 }
