@@ -139,11 +139,13 @@
   &__header {
     position: relative;
 
-    margin-bottom: rem(17);
+    padding-bottom: rem(17);
+
+    border-bottom: var(--border);
   }
 
   &__body {    
-    border-top: var(--border);
+    border-bottom: var(--border);
 
     transition-property: border;
     transition-duration: var(--transition-duration);

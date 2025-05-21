@@ -12,7 +12,14 @@ function fixPsScroll(event) {
 
   if (container.prevPdBottom === undefined) {
     container.prevPdBottom = containerPdBottom;
-  }   
+  }
+  
+  if (containerReach === 'end' && event.type === 'keydown') {
+    event.preventDefault();
+  } else if (containerReach === 'end' && event?.deltaY < 0) {
+    event.preventDefault();
+    return;
+  } 
   
   const reil = container.querySelector('.ps__rail-y');
   const thumb = container.querySelector('.ps__thumb-y');
@@ -20,7 +27,7 @@ function fixPsScroll(event) {
   const reilHeight = parseFloat(reil.style.height);
   const thumbHeigth = parseFloat(thumb.style.height);
   const thumbTop = parseFloat(thumb.style.top);
-  
+
   const difference = reilHeight - (thumbHeigth + thumbTop);
 
   if (difference && containerReach === 'end') {

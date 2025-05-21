@@ -176,6 +176,7 @@ class Tabs {
         element.addEventListener('keydown', psKeydownHandler);
         element.addEventListener('ps-y-reach-end', fixPsScroll);
         element.addEventListener('ps-scroll-up', fixPsScroll);
+        element.addEventListener('wheel', fixPsScroll);
 
         removeTabIndex(element);
       } else element.perfectScrollbar.update();
@@ -191,7 +192,7 @@ class Tabs {
     } else setupEffects();
   }
 
-  fixFullVwLine(top = true) {
+  fixFullVwLine() {
     //Когда borderWidth = 1px, в хром может появиться баг, при котором 
     //borderWidth окажется равным 0.8px. Также в целом могут примениться 
     //неожиданные округления. Данный метод избавляет нас от них и позволяет
@@ -201,9 +202,12 @@ class Tabs {
     let elementsWithLine = document.querySelectorAll('.full-vw-line');
 
     elementsWithLine.forEach((element) => {
-      let borderWidth = top ? getComputedStyle(element).borderTopWidth 
-      : getComputedStyle(element).borderTopWidth;
-      
+      let isTop = element.classList.contains('full-vw-line--completely-top') ?
+        true : false;
+
+      let borderWidth = isTop ? getComputedStyle(element).borderTopWidth 
+      : getComputedStyle(element).borderBottomWidth;
+
       element.style.setProperty('--border-width', borderWidth);
     });
   }
