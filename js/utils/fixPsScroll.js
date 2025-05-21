@@ -46,6 +46,7 @@ function fixPsScroll(event) {
       container.style.paddingBottom = containerPdBottom + 
         containerScrollfraction + "px";
       container.scrollTop = container.scrollHeight - container.clientHeight;
+      container.perfectScrollbar.update();
     }
   }
 }
