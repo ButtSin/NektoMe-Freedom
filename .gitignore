@@ -1,5 +1,7 @@
 node_modules
 .editorconfig
+
+# Project specific
 js/utils/remToPx.js
 js/utils/pxToRem.js
 js/utils/fixSimpleBarA11y.js
