@@ -1,0 +1,189 @@
+@use "../helpers/index" as *;
+
+.tabs {
+  &.is-light {
+    --inputIconFilter: invert(1);
+
+    .tabs__button:hover {
+      --inputTextFilter: invert(0.35);
+    }
+  }
+
+  &.is-dark {
+    --inputIconFilter: invert(0);
+
+    .tabs__button:hover { 
+      --inputTextFilter: invert(0.2);
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    --inputIconFilter: invert(1);
+
+    .tabs__button:hover {
+      --inputTextFilter: invert(0.35);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --inputIconFilter: invert(0);
+
+    .tabs__button:hover { 
+      --inputTextFilter: invert(0.2);
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: rem(4);
+
+    border-radius: var(--border-radius-big);
+    background-color: var(--color-containers);
+
+    transition-property: background-color;
+    transition-duration: var(--transition-duration);
+
+    &-status {
+      position: absolute;
+      top: rem(4);
+      left: rem(7);
+  
+      content: "";
+      width: rem(130);
+      height: rem(32);
+  
+      border: var(--border);
+      border-radius: var(--border-radius);
+      background: var(--color-background);
+
+      transform-origin: left center;
+      will-change: transform, width, left;
+      transition-property: border-color, background-color;
+      transition-duration: var(--transition-duration);
+    }
+  }
+
+  &__button {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    height: var(--button-height);
+    padding: rem(8) rem(16);
+
+    font-size: rem(15);
+    font-weight: 400;
+    line-height: var(--line-height-sm);
+    white-space: nowrap;
+
+    user-select: none;
+
+    transition-duration: var(--transition-duration);
+
+    &:is(:focus-visible, :hover) {
+      --inputTextFilter: invert(0.2);
+    }
+
+    &.is-active {
+      pointer-events: none;
+      
+      &:where(:focus-visible, :hover) {
+        --inputTextFilter: invert(0);
+      }
+
+      &:focus-visible ~ .tabs__buttons-status {
+        outline-offset: rem(-1);
+        outline: var(--outline);
+      }
+    }
+
+    &-icon {
+      position: absolute;
+      top: 50%;
+      left: rem(16);
+      translate: 0 -50%;
+
+      content: "";
+      @include square(rem(16));
+
+      background: url("../../icons/tabs/settings.svg") center / contain 
+        no-repeat;
+
+      filter: var(--inputIconFilter);
+
+      transition-duration: var(--transition-duration);
+
+      &--about {
+        background-image: url("../../icons/tabs/about.svg");
+      }
+
+      &--help {
+        background-image: url("../../icons/tabs/help.svg");
+      }
+    }
+
+    &-text {
+      position: relative;
+
+      padding-left: rem(22);
+
+      filter: var(--inputTextFilter);
+
+      transition-property: filter;
+      transition-duration: var(--transition-duration);
+    }
+  }
+
+  &__header {
+    position: relative;
+
+    padding-bottom: rem(17);
+
+    border-bottom: var(--border);
+  }
+
+  &__body {    
+    border-bottom: var(--border);
+
+    transition-property: border;
+    transition-duration: var(--transition-duration);
+
+    &::before,
+    &::after {
+      transition-property: background-color;
+      transition-duration: var(--transition-duration);
+    }
+  }
+
+  &__content {
+    position: relative;
+    
+    display: none;
+    flex-direction: column;
+    max-height: var(--popupTabsHeight);
+    padding-block: calc(var(--container-padding-y) / 2);
+    row-gap: calc(var(--container-padding-y) / 2);
+    
+    overflow: hidden;
+
+    &.ps {
+      padding-bottom: 0;
+    }
+
+    &:focus-visible {
+      filter: var(--focus-visible);
+      outline: none;
+    }
+
+    &.is-active {
+      display: flex;
+      gap: calc(var(--container-padding-y) / 2);
+    }
+
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@use "../helpers/index" as *;
+
+.popup {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &__header {
+    margin-bottom: calc(var(--container-padding-y) / 2);
+  }
+
+  &__heading {
+    position: relative;
+
+    width: fit-content;
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: calc(100% + rem(5));
+      translate: 0 rem(-1);
+      
+      content: "";
+      @include square(rem(20));
+
+      background: url("../../icons/lock.svg") no-repeat center / contain;
+
+      transition-property: filter;
+      transition-duration: var(--transition-duration);
+    }
+
+    @media (prefers-color-scheme: light) {
+      &::after {
+        filter: invert(1);
+      }
+    }
+
+    &.is-light {
+      &::after {
+        filter: invert(1);
+      }
+    }
+  }
+
+  &__main {
+    flex-grow: 1;
+  }
+
+  &__footer {
+    padding-top: calc(var(--container-padding-y) / 2);
+
+    font-size: 75%;
+
+    transition-property: border, color;
+    transition-duration: var(--transition-duration);
+
+    &::before,
+    &::after {
+      transition-property: background-color;
+      transition-duration: var(--transition-duration);
+    }
+  }
+}

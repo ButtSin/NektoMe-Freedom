@@ -1,0 +1,155 @@
+@use "helpers/index" as *;
+
+:where(.reset-link) {
+  @include reset-link;
+}
+
+:where(.reset-button) {
+  @include reset-button;
+}
+
+:where(.reset-input-text) {
+  @include reset-input-text;
+}
+
+:where(.reset-input-range) {
+  @include reset-input-range;
+}
+
+:where(.reset-input-number) {
+  @include reset-input-number;
+}
+
+.is-disabled-animation {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+
+.container {
+  width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  padding-inline: var(--container-padding-x);
+  padding-block: var(--container-padding-y);
+  margin-inline: auto;
+}
+
+.full-vw-line {
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+
+    content: "";
+    width: calc(
+      (100vw - var(--container-width)) / 2
+    );
+    height: var(--border-width);
+
+    background-color: var(--color-borders);
+  }
+
+  &--completely-top {
+    &::before {
+      bottom: 100%;
+      right: 100%;
+    }
+
+    &::after {
+      bottom: 100%;
+      left: 100%;
+    }
+  }
+
+  &--completely-bottom {
+    &::before {
+      top: 100%;
+      right: 100%;
+    }
+
+    &::after {
+      top: 100%;
+      left: 100%;
+    }
+  }
+
+  &--top {
+    &::before {
+      bottom: 100%;
+    }
+  }
+
+  &--bottom {
+    &::after {
+      top: 100%;
+    }
+  }
+
+  &--left {
+    &::before,
+    &::after {
+      right: 100%;
+    }
+  }
+
+  &--right {
+    &::before,
+    &::after {
+      left: 100%;
+    }
+  }
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.visible-tablet-b {
+  @include tablet-b-above {
+    display: none !important;
+  }
+}
+
+.hidden-tablet-b {
+  @include tablet-b {
+    display: none !important;
+  }
+}
+
+.visible-tablet {
+  @include tablet-above {
+    display: none !important;
+  }
+}
+
+.hidden-tablet {
+  @include tablet {
+    display: none !important;
+  }
+}
+
+.visible-mobile-b {
+  @include mobile-b-above {
+    display: none !important;
+  }
+}
+
+.hidden-mobile-b {
+  @include mobile-b {
+    display: none !important;
+  }
+}
+
+.visible-mobile {
+  @include mobile-above {
+    display: none !important;
+  }
+}
+
+.hidden-mobile {
+  @include mobile {
+    display: none !important;
+  }
+}

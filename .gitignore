@@ -1,0 +1,19 @@
+node_modules
+.editorconfig
+
+# Project specific
+styles/main.css
+styles/main.css.map
+styles/main-min.css.map
+
+styles/variables-theme-dark.css
+styles/variables-theme-dark.css.map
+styles/variables-theme-dark-min.css.map
+
+styles/variables-theme-light.css
+styles/variables-theme-light.css.map
+styles/variables-theme-light-min.css.map
+
+js/utils/remToPx.js
+js/utils/pxToRem.js
+js/utils/fixSimpleBarA11y.js

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 
+    user-scalable=no">
+  <title>NektoMe Freedom</title>
+
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" 
+  content="#333333">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" 
+  content="#ffffff">
+
+  <link href="/styles/main-min.css" rel="stylesheet">
+  <link href="/styles/variables-theme-dark-min.css"
+  media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="/styles/variables-theme-light-min.css"
+  media="(prefers-color-scheme: light)" rel="stylesheet">
+
+  <link href="../node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
+  rel="stylesheet">
+  <script src="../node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js" 
+  type="module"></script>
+
+  <script src="/js/popup/popup.js" type="module"></script>
+</head>
+<body class="popup container">
+  <header class="popup__header">
+    <h1 class="popup__heading h1" data-js-theme-switchable>
+      Расширение «NektoMe Freedom» — <b>говорите вне лимитов</b>
+    </h1>
+  </header>
+  <main class="popup__main">
+    <section class="tabs" data-js-tabs data-js-theme-switchable>
+      <h2 class="visually-hidden" id="settings-sections">
+        Навигация по расширению
+      </h2>
+      <header class="tabs__header full-vw-line full-vw-line--completely-bottom" 
+      data-js-tabs-navigation>
+        <div class="tabs__buttons" role="tablist" 
+        aria-labelledby="settings-sections">
+          <button
+            class="tabs__button button reset-button is-active" 
+            id="tab-1" 
+            data-js-tabs-button
+            tabindex="0"
+            type="button" 
+            role="tab"
+            aria-controls="tabpanel-1" 
+            aria-selected="true"
+          >
+            <span class="tabs__button-icon"></span>
+            <span class="tabs__button-text">
+              Настройки
+            </span>
+          </button>
+          <button 
+            class="tabs__button reset-button" 
+            id="tab-2" 
+            data-js-tabs-button
+            tabindex="-1"
+            type="button" 
+            role="tab"
+            aria-controls="tabpanel-2" 
+            aria-selected="false"
+          >
+            <span class="tabs__button-icon tabs__button-icon--about"></span>
+            <span class="tabs__button-text">
+              О расширении
+            </span>
+          </button>
+          <button 
+            class="tabs__button reset-button" 
+            id="tab-3" 
+            data-js-tabs-button
+            tabindex="-1"
+            type="button" 
+            role="tab"
+            aria-controls="tabpanel-3" 
+            aria-selected="false"
+          >
+            <span class="tabs__button-icon tabs__button-icon--help"></span>
+            <span class="tabs__button-text">
+              Помочь проекту
+            </span>
+          </button>
+          <div class="tabs__buttons-status" data-js-tabs-status></div>
+        </div>
+      </header>
+      <div class="tabs__body full-vw-line full-vw-line--completely-bottom">
+        <div
+          class="tabs__content is-active"
+          id="tabpanel-1"
+          data-js-tabs-content
+          data-js-settings
+          role="tabpanel"
+          aria-labelledby="tab-1"
+          tabindex="0"
+          style="visibility: hidden"
+        >
+          <label class="checkbox" data-js-theme-switchable>
+            <input 
+              class="checkbox__input" 
+              data-js-settings-checkbox-unlockSexField 
+              type="checkbox" 
+              checked
+            >
+            <span class="checkbox__text">
+              Искать любых собеседников во флирте и ролке
+            </span>
+          </label>
+          <label class="checkbox" data-js-theme-switchable>
+            <input 
+              class="checkbox__input" 
+              data-js-settings-checkbox-unlockCopy
+              type="checkbox" 
+              checked 
+            >
+            <span class="checkbox__text">
+              Копировать текст до истечения таймера
+            </span>
+          </label>
+          <fieldset class="theme-switcher" data-js-settings-themeSwitcher
+          data-js-theme-switchable>
+            <legend class="theme-switcher__legend">
+              Тема оформления:
+            </legend>
+            <div class="theme-switcher__radios">
+              <label class="theme-switcher__radio">
+                <input 
+                  class="theme-switcher__radio-input
+                  theme-switcher__radio-input--light" 
+                  data-js-settings-themeSwitcher-input
+                  name="theme"
+                  value="light"
+                  type="radio">
+                <span class="theme-switcher__radio-text">Светлая</span> 
+              </label>
+              <label class="theme-switcher__radio">
+                <input 
+                  class="theme-switcher__radio-input
+                  theme-switcher__radio-input--dark" 
+                  data-js-settings-themeSwitcher-input
+                  name="theme" 
+                  value="dark"
+                  type="radio">
+                <span class="theme-switcher__radio-text">Тёмная</span>
+              </label>
+              <label class="theme-switcher__radio">
+                <input 
+                  class="theme-switcher__radio-input
+                  theme-switcher__radio-input--system" 
+                  data-js-settings-themeSwitcher-input 
+                  name="theme" 
+                  value="auto"
+                  type="radio" 
+                  checked>
+                <span class="theme-switcher__radio-text">Системная</span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="tabs__content about scrollbar"
+          id="tabpanel-2"
+          data-js-tabs-content
+          role="tabpanel"
+          aria-labelledby="tab-2"
+          tabindex="0"
+        >
+          <p class="about__text">
+            Автор данного расширения не пропагандирует какие-либо социальные, 
+            политические или идеологические взгляды. Взаимодействие участников 
+            осуществляется исключительно по общему согласию и регулируется 
+            правилами платформы «NektoMe». Используя это расширение, вы 
+            подтверждаете, что достигли совершеннолетнего возраста и не выходите 
+            за рамки законодательства страны, в которой пребываете. Разработчик 
+            не несёт ответственности за нарушения пользователями тех или иных
+            правил и законов.
+          </p>
+          <hr class="about__divider" data-js-theme-switchable>
+          <p class="about__text">
+            Термины «флирт» и «ролка» на площадке «NektoMe» подразумевают 
+            исключительно лёгкое социальное взаимодействие без намёков на 
+            противоправные действия. 
+          </p>
+          <hr class="about__divider" data-js-theme-switchable>
+          <p class="about__text">
+            Исходный код расширения под лицензией MIT вы можете найти на 
+            <a
+              data-js-theme-switchable    
+              target="_blank" 
+              href="https://github.com/ButtSin/NektoMe-Freedom"
+            >
+              GitHub<!--
+         --></a>.
+          </p>
+          <hr class="about__divider" data-js-theme-switchable>
+          <p class="about__text">
+            Спасибо
+            <a 
+              data-js-theme-switchable  
+              target="_blank" 
+              href="https://github.com/VolrakNik"
+            > 
+              NikoLie'ю CarLove'у<!--
+         --></a> за объяснение работы backend-части сайта "nekto.me".
+          </p>
+          <hr class="about__divider" data-js-theme-switchable>
+          <p class="about__text">
+            Текущая версия расширения использует макет
+            <a 
+              data-js-theme-switchable
+              target="_blank" 
+              href="https://www.figma.com/community/file/1067365960355572415"
+            >
+              «Tabs & themes»<!--
+          --></a>, созданный
+            <a 
+              data-js-theme-switchable
+              target="_blank" 
+              href="https://www.figma.com/@pedronline"
+            >
+              Pit'ом Carlop'ом<!--
+          --></a>, на условиях лицензии
+            <a 
+              data-js-theme-switchable
+              target="_blank" 
+              href="https://creativecommons.org/licenses/by/4.0/"
+            >
+              Creative Commons CC BY 4.0<!--
+          --></a>. В исходный дизайн было внесено множество изменений.
+          </p>
+          <hr class="about__divider" data-js-theme-switchable>
+          <p class="about__text">
+            Некоторые иконки для расширения были взяты с сайта
+            <a 
+              data-js-theme-switchable
+              target="_blank" 
+              href="https://icons8.ru/"
+            >
+              icons8<!--
+          --></a>.
+          </p>
+          <hr class="about__divider" data-js-theme-switchable>
+          <p class="about__text">
+            Текущая версия расширения: 0.6.5
+          </p>
+        </div>
+        <div
+          class="tabs__content help scrollbar"
+          id="tabpanel-3"
+          data-js-tabs-content
+          role="tabpanel"
+          aria-labelledby="tab-3"
+          tabindex="0"
+        >
+          <p class="help__text">
+            Расширение было, есть и всегда будет бесплатным. Более того, его
+            исходный код уже появился на
+            <a
+              data-js-theme-switchable    
+              target="_blank" 
+              href="https://github.com/ButtSin/NektoMe-Freedom"
+            >
+              GitHub<!--
+         --></a> под лицензией MIT. 
+            В будущем имеются планы (но не уверен насчёт их выполнения) по 
+            добавлению как минимум двух следующих функций в указанном порядке: 
+          </p>
+          <ul class="help__list">
+            <li class="help__list-item">
+              форматирование буфера обмена, при котором протокол и 
+              домены верхнего уровня — .ru, .com, .org и т.д. — автоматически 
+              заменяются на заранее подготовленные валидные аналоги, 
+              которые не будут отфильтрованы сайтом. Например, ссылка 
+              https://habr.com/ при вставке в чат приобретёт вид 
+              "[https]://habr[.com]". При желании можно будет добавить в конец
+              изменённой ссылки примечание о необходимости очистки 
+              квадратных скобок перед её использованием;
+            </li>
+            <li class="help__list-item">
+              отправка заранее подготовленных сообщений в чат по нажатию 
+              определённой комбинации клавиш или кнопки в плавающем окне 
+              рядом с текстовым полем. Эта функция как минимум избавит вас от 
+              необходимости постоянно контролировать буфер обмена.
+            </li>
+          </ul>
+          <p class="help__text">
+            Однако любой труд, по моему мнению, должен быть оплачен. Для меня
+            валютой послужила бы ваша благодарность, выражаемая отзывами со
+            справедливыми оценками в магазине расширений, письмами, в которых вы 
+            сообщаете о багах или своих пожеланиях, а также самим использованием 
+            данного программного продукта.   
+          </p>
+          <p class="help__text">
+            Замечательных вам диалогов, друзья!
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="popup__footer footer">
+   <address class="popup__footer-contacts">
+    Баги, вопросы, пожелания, сотрудничество:
+    <a href="mailto:dmitrii.buttsin@gmail.com">
+      dmitrii.buttsin@gmail.com
+    </a>
+   </address> 
+  </footer>
+</body>
+</html>

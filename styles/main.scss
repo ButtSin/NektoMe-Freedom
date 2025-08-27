@@ -1,0 +1,16 @@
+@use "normalize"; 
+@use "ownNormalize"; 
+@use "fonts";
+@use "variables";
+@use "utils";
+@use "globals";
+
+@use "blocks/shadow.scss";
+@use "blocks/checkbox.scss";
+@use "blocks/theme-switcher.scss";
+@use "blocks/popup.scss";
+@use "blocks/tabs.scss";
+@use "blocks/scrollbar.scss";
+@use "blocks/about.scss";
+@use "blocks/help.scss";
+

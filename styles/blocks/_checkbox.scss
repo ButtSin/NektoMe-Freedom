@@ -1,0 +1,110 @@
+@use "../helpers/index" as *;
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-height: rem(32);
+
+  user-select: none;
+
+  &:hover {
+    --inputTextMarginLeft: #{rem(10)};
+  }
+
+  @media (prefers-color-scheme: light) {
+    --inputIconFilter: invert(1);
+
+    &:hover,
+    .checkbox__input:focus-visible + .checkbox__text {
+      --inputTextFilter: invert(0.35);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --inputIconFilter: invert(0);
+
+    &:hover,
+    .checkbox__input:focus-visible + .checkbox__text {
+      --inputTextFilter: invert(0.2);
+    }
+  }
+
+  &.is-light {
+    --inputIconFilter: invert(1);
+
+    &:hover,
+    .checkbox__input:focus-visible + .checkbox__text {
+      --inputTextFilter: invert(0.35);
+    }
+  }
+
+  &.is-dark {
+    --inputIconFilter: invert(0);
+
+    &:hover,
+    .checkbox__input:focus-visible + .checkbox__text {
+      --inputTextFilter: invert(0.2);
+    } 
+  }
+
+  &__text {
+    margin-left: var(--inputTextMarginLeft);
+
+    filter: var(--inputTextFilter);
+
+    transition-duration: var(--transition-duration);
+  }
+
+  &__input {
+    position: relative;
+
+    flex-shrink: 0;
+    @include square(var(--inputSize));
+
+    border: var(--border);
+    border-radius: 50%;
+
+    appearance: none;
+
+    transition-property: background-color, border-color;
+    transition-duration: var(--transition-duration);
+
+    &:focus-visible {
+      outline: var(--outline);
+    }
+
+    &:focus-visible + .checkbox__text {
+      --inputTextMarginLeft: #{rem(10)};
+
+      filter: var(--inputTextFilter);
+    }
+
+    &:checked {
+      background-color: var(--color-state-active);
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -45%;
+
+      @include square(rem(12));
+
+      content: "";
+
+      background: url("../../icons/tabs/checkbox.svg") center / contain 
+        no-repeat;
+
+      opacity: 0;
+
+      transition-duration: var(--transition-duration);
+    }
+
+    &:checked::after {
+      opacity: 1;
+      filter: var(--inputIconFilter);
+    }
+  }
+}
