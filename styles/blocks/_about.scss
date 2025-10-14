@@ -1,0 +1,28 @@
+@use "../helpers/index" as *;
+
+.about {
+  margin-right: calc(-1 * var(--container-padding-x));
+
+  &__divider {
+    width: 100%;
+    flex-shrink: 0;
+    height: rem(56);
+    margin: 0;
+
+    border: none;
+    background: url("../../icons/about/chain.svg") no-repeat center / contain;
+
+    @media (prefers-color-scheme: light) {
+      filter: invert(1);
+    }
+
+    &.is-light {
+      filter: invert(1);
+    }
+  }
+
+  &__list,
+  &__text {
+    margin-right: var(--tabs-content-offset);
+  }
+}

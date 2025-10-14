@@ -1,0 +1,21 @@
+# Project specific
+node_modules
+
+styles/main.css
+styles/main.css.map
+styles/main.min.css.map
+
+styles/variables-theme-dark.css
+styles/variables-theme-dark.css.map
+styles/variables-theme-dark.min.css.map
+
+styles/variables-theme-light.css
+styles/variables-theme-light.css.map
+styles/variables-theme-light.min.css.map
+
+# WebStorm specific files
+.idea
+
+#VS Code specific files
+.vs
+.vscode

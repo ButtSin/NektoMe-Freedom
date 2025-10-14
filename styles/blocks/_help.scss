@@ -1,0 +1,19 @@
+@use "../helpers/index" as *;
+
+.help {
+  margin-right: calc(-1 * var(--container-padding-x));
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--container-padding-y) / 2);
+    margin-left: calc(var(--container-padding-x) + rem(1));
+    
+    list-style: disc;
+  }
+
+  &__list,
+  &__text {
+    margin-right: var(--tabs-content-offset);
+  }
+}

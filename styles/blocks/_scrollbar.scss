@@ -1,0 +1,65 @@
+@use "../helpers/index" as *;
+
+.scrollbar {
+  --scrollbarWidth: #{rem(16)};
+
+  padding-right: var(--scrollbarWidth);
+
+  &:focus-within, 
+  &:hover {
+    filter: none;
+    
+    .ps__thumb-y {
+      background-color: var(--color-state-active);
+    }
+  }
+
+  &:focus-within:has(.ps__thumb-y:focus-visible)  {
+    .ps__thumb-y {
+      opacity: 0.5;
+    }
+  }
+
+  .ps__rail-y.ps--clicking .ps__thumb-y {
+    width: calc(var(--scrollbarWidth) - var(--outline-width));
+
+    background-color: var(--color-state-active);
+    filter: var(--focus-visible);
+  }
+
+  .ps__rail-y {
+    width: var(--scrollbarWidth);
+
+    background-color: var(--color-containers) !important;
+
+    opacity: 1 !important;
+
+    &:hover {
+      .ps__thumb-y {
+        width: calc(var(--scrollbarWidth) - var(--outline-width));
+
+        background-color: var(--color-state-active);
+      }
+    }
+  }
+
+  .ps__thumb-y {
+    right: 50%;
+    translate: 50% 0%;
+
+    width: calc(var(--scrollbarWidth) - var(--outline-width));
+
+    border: var(--outline);
+    border-radius: var(--border-radius-big);
+    background-color: var(--color-background);
+
+    opacity: 1;
+
+    transition-property: filter, background-color;
+    transition-duration: var(--transition-duration);
+
+    &:hover {
+      filter: var(--focus-visible);
+    }
+  }
+}
