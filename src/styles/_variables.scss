@@ -1,0 +1,57 @@
+@use 'helpers/index' as *;
+
+:root {
+  --color-grayish-orange: #beae97;
+  --color-dark: #211e1c;
+  --color-dark-alt: #1d1a19;
+  --color-graysh-dark: #36332e;
+  --color-very-dark: #12110f;
+  --color-red: #e05b49;
+  --color-green: #3a954e;
+  --color-dark-green: #4a6c4d;
+
+  --font-family-base: 'Montserrat', sans-serif;
+  --font-family-second: 'Open Sans', sans-serif;
+  --font-family-family: 'Inter', sans-serif;
+
+  --container-width: #{fluid(1440, 390)};
+  --container-padding-x: #{fluid(80, 20)};
+
+  // --line-height-xs: 0.85;
+  // --line-height: 1;
+  // --line-height-sm: 1.1;
+  // --line-height-md: 1.2;
+  // --line-height-lg: 1.3;
+  // --line-height-lg-alt: 1.37;
+  // --line-height-xl: 1.4;
+  // --line-height-xl-alt: 1.47;
+  // --line-height-xxl: 1.5;
+
+  // --letter-spacing-xxs: -0.022em;
+  // --letter-spacing-xs: -0.02em;
+  // --letter-spacing-sm: -0.01em;
+  // --letter-spacing: 0.01em;
+  // --letter-spacing-md: 0.02em;
+  // --letter-spacing-lg: 0.052em;
+
+  // --scrollbar-color: var(--color-light-orange) var(--color-grey);
+
+  // --button-height: #{rem(56)};
+  // --button-height-little: #{rem(51)};
+  // --button-width-big: #{rem(194)};
+  // --button-width: #{rem(143)};
+  // --button-width-little: #{rem(133)};
+
+  // --outline-size: #{rem(1)};
+  // --outline-size-big: #{rem(2)};
+  // --outline-color: var(--color-orange);
+  // --outline: var(--outline-size) solid var(--outline-color);
+  // --outline-big: var(--outline-size-big) solid var(--outline-color);
+
+  // --linear-gradient: linear-gradient(180deg, var(--color-blue) 0%, rgba(6, 37, 91, 0) 100%);
+  // --linear-gradient-alt: linear-gradient(90deg, var(--color-blue) 0%, rgba(6, 37, 91, 0) 100%);
+
+  // --shadow-orange: inset 0 0 rem(100) rem(100) rgba(243, 0, 0, 0.25);
+
+  --transition-duration: 0.2s;
+}
