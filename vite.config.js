@@ -18,7 +18,6 @@ export default defineConfig({
       scss: {
         additionalData: `
           @use "@/styles/helpers/_index.scss" as *;
-          @use "@/styles/_utils.scss" as *;
         `,
       },
     },
