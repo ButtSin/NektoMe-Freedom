@@ -3,14 +3,18 @@
 body {
   display: flex;
   flex-direction: column;
+  width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  padding-inline: var(--container-padding-x);
+  padding-block: var(--container-padding-y);
 
   font-family: var(--font-family-base);
-  font-size: rem(16);
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 1.28;
-  color: var(--color-dark);
+  line-height: var(--line-height-xl-alt);
+  color: var(--color-muted);
+  letter-spacing: var(--letter-spacing-sm);
 
-  background-color: var(--color-violet);
+  background-color: var(--color-background);
 }
 
 main {
@@ -38,23 +42,8 @@ a {
 
 h1,
 .h1 {
-  @include fluid-text(64, 38);
-  line-height: var(--line-height-big);
-  letter-spacing: var(--letter-spacing-very-little);
-  color: var(--color-light-alt);
-}
-
-h2,
-.h2 {
-  @include fluid-text(40, 28);
-  font-weight: 700;
-  line-height: var(--line-height);
-  letter-spacing: var(--letter-spacing-very-little);
-}
-
-h3,
-.h3 {
-  @include fluid-text(32, 26);
-  font-weight: 300;
-  color: var(--color-dark-alt);
+  color: var(--color-default-foreground);
+  font-size: rem(16);
+  line-height: var(--line-height-xxl);
+  font-weight: 600;
 }
