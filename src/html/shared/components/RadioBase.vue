@@ -51,7 +51,6 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
 
     appearance: none;
 
-    transition-property: background-color, border-color, box-shadow;
     transition-duration: var(--transition-duration);
 
     &::before {
@@ -61,6 +60,7 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
       @include square(100%);
 
       border-radius: 50%;
+      border: 0 solid transparent;
 
       transition-duration: var(--transition-duration);
     }
@@ -88,7 +88,7 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
       outline-offset: rem(2);
       box-shadow: none;
 
-      transition: initial;
+      transition-property: background-color, border-color;
     }
 
     &:checked,
@@ -99,7 +99,7 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
     }
 
     &:checked::before {
-      border: rem(0.5) solid var(--color-accent-hover);
+      border: rem(0.5) solid var(--color-accent);
       @include square(rem(16));
 
       background: var(--color-accent);
