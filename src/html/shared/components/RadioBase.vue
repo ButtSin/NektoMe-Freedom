@@ -51,6 +51,7 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
 
     appearance: none;
 
+    transition-property: background-color, border, box-shadow;
     transition-duration: var(--transition-duration);
 
     &::before {
@@ -80,7 +81,11 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
 
     @include hover(innerElements) {
       border: var(--border-field-hover);
-      background: var(--color-field-background-hover);
+      background-color: var(--color-field-background-hover);
+
+      &:checked::before {
+        background-color: var(--color-accent-hover);
+      }
     }
 
     &:focus-visible {
@@ -98,15 +103,17 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
       box-shadow: 0 rem(1) rem(2) 0 rgba(0, 0, 0, 0.05);
     }
 
-    &:checked::before {
-      border: rem(0.5) solid var(--color-accent);
-      @include square(rem(16));
-
-      background: var(--color-accent);
+    &:checked {
+      border: rem(1) solid var(--color-accent-hover);
+      background-color: transparent;
     }
 
-    &:checked:hover::before {
-      background: var(--color-accent-hover);
+    &:checked::before {
+      z-index: -1;
+
+      @include square(rem(16));
+
+      background-color: var(--color-accent);
     }
 
     &:checked::after {
