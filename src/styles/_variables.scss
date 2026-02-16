@@ -38,7 +38,7 @@
     color-mix(in srgb, var(--color-white) 4%, transparent)
   );
 
-  --border-field: #{rem(1)} solid var(--color-background);
+  --border-field: #{rem(1)} solid var(--color-border);
   --border-field-hover: #{rem(1)} solid var(--color-border-hover);
   --border-field-focus: #{rem(1)} solid var(--color-field-background);
 
