@@ -11,14 +11,14 @@ $mobile-b-media: null;
 $mobile-media: 480.98;
 $mobile-l-media: 390.98;
 
-$desktop-b: 2560;
-$desktop: 1728;
-$desktop-l: 1480;
-$tablet-b: 1180;
-$tablet: 834;
-$tablet-l: 824;
-$mobile-b: 580;
-$mobile: 500;
+$desktop-b: null;
+$desktop: 1440;
+$desktop-l: null;
+$tablet-b: 1000;
+$tablet: 768;
+$tablet-l: null;
+$mobile-b: null;
+$mobile: 480;
 $mobile-l: 390;
 
 // @mixin desktop-b {
