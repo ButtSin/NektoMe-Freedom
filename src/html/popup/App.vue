@@ -1,19 +1,30 @@
 <script setup>
-import BaseTabs from '@/components/BaseTabs.vue';
 import IconLock from '@/icons/IconLock.vue';
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+import TheSettings from './components/TheSettings.vue';
+import settingsManager from '@/js/SettingsManager';
 
-const tabs = [
-  { name: 'Settings', label: 'Настройки' },
-  { name: 'About', label: 'О расширении' },
-  { name: 'Help', label: 'Помочь проекту' },
-];
+onMounted(async () => {
+  await settingsManager.loadAllSettings();
+});
 
-const selectedTab = ref('Settings');
+watch(
+  () => settingsManager.theme.value,
+  (newTheme) => {
+    const html = document.documentElement;
+    html.classList.remove('is-light', 'is-dark');
 
-const changeTab = (tabName) => {
-  selectedTab.value = tabName;
-};
+    if (newTheme === 'light') {
+      html.classList.add('is-light');
+    } else if (newTheme === 'dark') {
+      html.classList.add('is-dark');
+    } else if (newTheme === 'system') {
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      html.classList.add(systemDark ? 'is-dark' : 'is-light');
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -27,11 +38,7 @@ const changeTab = (tabName) => {
     </h1>
   </header>
   <main class="main">
-    <BaseTabs :names="tabs" :selectedTab="selectedTab" @changeTab="changeTab">
-      <div v-if="selectedTab === 'Settings'">1</div>
-      <div v-if="selectedTab === 'About'">2</div>
-      <div v-if="selectedTab === 'Help'">3</div>
-    </BaseTabs>
+    <TheSettings />
   </main>
 </template>
 
@@ -46,6 +53,8 @@ const changeTab = (tabName) => {
 
     &-text {
       hyphens: auto;
+
+      transition-duration: var(--transition-duration);
     }
 
     &-icon {
