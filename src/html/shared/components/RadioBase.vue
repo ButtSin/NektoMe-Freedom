@@ -1,5 +1,5 @@
 <script setup>
-const { value, name, mainDescription, secondaryDescription } = defineProps({
+const { value, name, mainDescription, secondaryDescription, checked } = defineProps({
   value: {
     type: String,
     required: true,
@@ -13,15 +13,18 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
     required: true,
   },
   secondaryDescription: String,
+  checked: Boolean,
 });
 </script>
 
 <template>
   <label class="radio">
-    <input class="radio__control" type="radio" :value :name />
+    <input class="radio__control" type="radio" :value :name :checked />
     <div class="radio__descriptions">
       <span class="radio__main-description">{{ mainDescription }}</span>
-      <span class="radio__secondary-description">{{ secondaryDescription }}</span>
+      <span v-if="secondaryDescription" class="radio__secondary-description">
+        {{ secondaryDescription }}
+      </span>
     </div>
   </label>
 </template>
@@ -32,6 +35,8 @@ const { value, name, mainDescription, secondaryDescription } = defineProps({
   gap: rem(12);
 
   cursor: pointer;
+
+  @include ensure-click-area(null);
 
   &__control {
     position: relative;
