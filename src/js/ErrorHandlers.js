@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 class ErrorHandlers {
   _onPromiseGlobalError(event) {
     alert(
-      'Произошла ошибка обработки асинхронного кода. ' +
-        'Расширение может начать работать некорректо.',
+      'Произошла ошибка обработки асинхронного кода. Расширение может начать работать некорректно.',
     );
     console.error('Nekto Me Plus. Unhandled Promise Rejection: ', event.reason);
 
