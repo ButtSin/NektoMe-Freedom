@@ -99,7 +99,7 @@ const emit = defineEmits(['update:checked']);
     }
 
     @include hover {
-      outline-color: var(--border-field-hover);
+      outline-color: var(--color-border-hover);
       background-color: var(--color-field-background-hover);
 
       &:checked::before {
