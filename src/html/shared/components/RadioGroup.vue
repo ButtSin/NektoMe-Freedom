@@ -46,7 +46,7 @@ const radiosLength = computed(() => radios.length || 1);
         v-for="radio in radios"
         :key="radio.value"
         :value="radio.value"
-        :checked="selected === radio.value"
+        :checked="radio.value === selected"
         :name
         :mainDescription="radio.mainDescription"
         :secondary-description="radio.secondaryDescription"
