@@ -116,3 +116,13 @@
     display: none !important;
   }
 }
+
+.disable-animation {
+  transition: none !important;
+
+  *,
+  ::before,
+  ::after {
+    transition: none !important;
+  }
+}
