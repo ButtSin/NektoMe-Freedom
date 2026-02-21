@@ -15,6 +15,9 @@ body {
   letter-spacing: var(--letter-spacing-sm);
 
   background-color: var(--color-background);
+
+  transition-property: background-color;
+  transition-duration: var(--transition-duration);
 }
 
 main {

@@ -15,11 +15,20 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
   secondaryDescription: String,
   checked: Boolean,
 });
+
+const emit = defineEmits(['update:checked']);
 </script>
 
 <template>
   <label class="radio">
-    <input class="radio__control" type="radio" :value :name :checked />
+    <input
+      class="radio__control"
+      type="radio"
+      :value
+      :name
+      :checked
+      @change="emit('update:checked', value)"
+    />
     <div class="radio__descriptions">
       <span class="radio__main-description">{{ mainDescription }}</span>
       <span v-if="secondaryDescription" class="radio__secondary-description">
@@ -31,6 +40,8 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
 
 <style scoped lang="scss">
 .radio {
+  --controlSize: #{rem(16)};
+
   display: flex;
   gap: rem(12);
 
@@ -38,44 +49,47 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
 
   @include ensure-click-area(null);
 
+  transition: initial;
+
   &__control {
     position: relative;
 
     display: flex;
     margin-top: rem(2);
-    @include square(rem(16));
+    @include square(var(--controlSize));
 
-    border: var(--border-field);
+    outline: var(--border-field);
+    outline-offset: calc(var(--border-width) * -1);
     box-shadow:
       0 0 rem(1) 0 var(--color-field-shadow-alt),
       0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
       0 rem(2) rem(4) 0 var(--color-field-shadow),
-      inset 0 0 0 0 rgba(255, 255, 255, 0.1);
+      inset 0 0 0 0 var(--color-accent);
     background: var(--color-field-background);
     border-radius: 50%;
 
     appearance: none;
+    cursor: pointer;
 
-    transition-property: background-color, border, box-shadow;
+    transition-property: background-color, outline-color, outline-offset, box-shadow;
     transition-duration: var(--transition-duration);
 
-    &::before {
+    &::before,
+    &::after {
       @include abs-center;
 
       content: '';
-      @include square(100%);
+      @include square(var(--controlSize));
+    }
 
+    &::before {
       border-radius: 50%;
-      border: 0 solid transparent;
 
       transition-duration: var(--transition-duration);
     }
 
     &::after {
-      @include abs-center;
-
-      content: '';
-      @include square(rem(0));
+      scale: 0;
 
       border-radius: 50%;
       box-shadow: 0 rem(1) rem(1) 0 rgba(0, 0, 0, 0.05);
@@ -84,8 +98,8 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
       transition-duration: var(--transition-duration);
     }
 
-    @include hover(innerElements) {
-      border: var(--border-field-hover);
+    @include hover {
+      outline-color: var(--border-field-hover);
       background-color: var(--color-field-background-hover);
 
       &:checked::before {
@@ -93,40 +107,44 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
       }
     }
 
+    &:checked,
+    &:active {
+      outline-color: transparent;
+      box-shadow:
+        0 0 rem(1) 0 var(--color-field-shadow-alt),
+        0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
+        0 rem(2) rem(4) 0 var(--color-field-shadow),
+        inset 0 0 0 rem(2) var(--color-accent);
+    }
+
+    &:checked {
+      background-color: transparent;
+      box-shadow:
+        0 0 rem(1) 0 var(--color-field-shadow-alt),
+        0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
+        0 rem(2) rem(4) 0 var(--color-field-shadow),
+        inset 0 0 0 rem(2) var(--color-accent-hover);
+
+      &::before {
+        z-index: -1;
+
+        @include square(rem(16));
+        background-color: var(--color-accent);
+      }
+
+      &::after {
+        @include scale-to-size(var(--controlSize), rem(6));
+      }
+    }
+
+    &:checked:active::after {
+      @include scale-to-size(var(--controlSize), rem(8));
+    }
+
     &:focus-visible {
       outline: var(--outline);
       outline-offset: rem(2);
       box-shadow: none;
-
-      transition-property: background-color, border-color;
-    }
-
-    &:checked,
-    &:active {
-      border-width: rem(2);
-      border-color: var(--color-accent);
-      box-shadow: 0 rem(1) rem(2) 0 rgba(0, 0, 0, 0.05);
-    }
-
-    &:checked {
-      border: rem(1) solid var(--color-accent-hover);
-      background-color: transparent;
-    }
-
-    &:checked::before {
-      z-index: -1;
-
-      @include square(rem(16));
-
-      background-color: var(--color-accent);
-    }
-
-    &:checked::after {
-      @include square(rem(6));
-    }
-
-    &:checked:active::after {
-      @include square(rem(8));
     }
   }
 
@@ -142,6 +160,8 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
     font-size: rem(12);
     color: var(--color-muted);
     line-height: var(--line-height-lg-alt);
+
+    transition-duration: var(--transition-duration);
   }
 
   &__main-description {
@@ -149,6 +169,8 @@ const { value, name, mainDescription, secondaryDescription, checked } = definePr
     font-size: rem(14);
     color: var(--color-default-foreground);
     line-height: var(--line-height-xl-alt);
+
+    transition-duration: var(--transition-duration);
   }
 }
 </style>

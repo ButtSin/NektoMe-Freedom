@@ -2,7 +2,7 @@
 import { computed, useId } from 'vue';
 import RadioBase from './RadioBase.vue';
 
-const { mainDescription, radios, name, secondaryDescription } = defineProps({
+const { mainDescription, radios, name, selected, secondaryDescription } = defineProps({
   mainDescription: {
     type: String,
     required: true,
@@ -15,12 +15,14 @@ const { mainDescription, radios, name, secondaryDescription } = defineProps({
     type: String,
     required: true,
   },
+  selected: {
+    type: String,
+    required: true,
+  },
   secondaryDescription: String,
 });
-
+const emit = defineEmits(['update:checked']);
 const ariaDescriptionId = useId();
-
-//Зачем computed, если значение не меняется?
 const radiosLength = computed(() => radios.length || 1);
 </script>
 
@@ -44,10 +46,11 @@ const radiosLength = computed(() => radios.length || 1);
         v-for="radio in radios"
         :key="radio.value"
         :value="radio.value"
+        :checked="selected === radio.value"
         :name
         :mainDescription="radio.mainDescription"
         :secondary-description="radio.secondaryDescription"
-        :checked="radio.checked"
+        @update:checked="emit('update:checked', $event)"
       >
       </RadioBase>
     </div>

@@ -9,9 +9,9 @@ class SettingsManager {
     copyUnlocked: true,
   });
 
-  _theme = ref(this._defaultSettings.theme);
-  _sexFieldUnlocked = ref(this._defaultSettings.sexFieldUnlocked);
-  _copyUnlocked = ref(this._defaultSettings.copyUnlocked);
+  _theme = ref(null);
+  _sexFieldUnlocked = ref(null);
+  _copyUnlocked = ref(null);
 
   _keys = Object.freeze({
     ui: {
@@ -131,4 +131,4 @@ class SettingsManager {
   }
 }
 
-export default SettingsManager;
+export default new SettingsManager();

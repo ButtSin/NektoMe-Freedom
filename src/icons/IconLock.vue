@@ -17,4 +17,8 @@ const { size = 24 } = defineProps({ size: Number });
   </svg>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+svg {
+  transition-duration: var(--transition-duration);
+}
+</style>

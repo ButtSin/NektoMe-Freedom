@@ -1,30 +1,42 @@
 <script setup>
 import IconLock from '@/icons/IconLock.vue';
-import { onMounted, ref, watch } from 'vue';
+import { onBeforeMount, watch } from 'vue';
 import TheSettings from './components/TheSettings.vue';
 import settingsManager from '@/js/SettingsManager';
+import afterVisualUpdate from '@/js/utils/afterVisualUpdate';
 
-onMounted(async () => {
+onBeforeMount(async () => {
   await settingsManager.loadAllSettings();
 });
 
-watch(
-  () => settingsManager.theme.value,
-  (newTheme) => {
-    const html = document.documentElement;
-    html.classList.remove('is-light', 'is-dark');
+watch(() => settingsManager.getTheme().value, applyTheme);
 
-    if (newTheme === 'light') {
-      html.classList.add('is-light');
-    } else if (newTheme === 'dark') {
-      html.classList.add('is-dark');
-    } else if (newTheme === 'system') {
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      html.classList.add(systemDark ? 'is-dark' : 'is-light');
+afterVisualUpdate(() => document.documentElement.classList.remove('disable-animation'), true);
+
+function applyTheme(theme) {
+  const htmlElement = document.documentElement;
+
+  htmlElement.classList.remove('is-light', 'is-dark');
+
+  switch (theme) {
+    case 'light': {
+      htmlElement.classList.add('is-light');
+
+      break;
     }
-  },
-  { immediate: true },
-);
+    case 'dark': {
+      htmlElement.classList.add('is-dark');
+
+      break;
+    }
+    case 'system': {
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      htmlElement.classList.add(systemDark ? 'is-dark' : 'is-light');
+
+      break;
+    }
+  }
+}
 </script>
 
 <template>
