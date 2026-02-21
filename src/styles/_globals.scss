@@ -24,6 +24,11 @@ main {
   flex-grow: 1;
 }
 
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-default);
+}
+
 :where(a, button, label, input, textarea, select, svg *) {
   outline-color: var(--outline-color);
   outline-offset: 0;
