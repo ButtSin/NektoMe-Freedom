@@ -177,3 +177,7 @@
     }
   }
 }
+
+@mixin scale-to-size($base, $target) {
+  scale: calc(#{$target} / #{$base});
+}
