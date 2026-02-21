@@ -38,7 +38,8 @@
     color-mix(in srgb, var(--color-white) 4%, transparent)
   );
 
-  --border-field: #{rem(1)} solid var(--color-border);
+  --border-width: #{rem(1)};
+  --border-field: var(--border-width) solid var(--color-border);
   --border-field-hover: #{rem(1)} solid var(--color-border-hover);
   --border-field-focus: #{rem(1)} solid var(--color-field-background);
 
@@ -48,7 +49,7 @@
   --container-padding-x: #{rem(16)};
   --container-padding-y: #{rem(16)};
 
-  --transition-duration: 0.2s;
+  --transition-duration: 0.25s;
 
   // --line-height-xs: 0.85;
   // --line-height: 1;
