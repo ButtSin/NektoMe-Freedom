@@ -1,17 +1,21 @@
 <script setup>
-import IconLock from '@/icons/IconLock.vue';
 import { onBeforeMount, watch } from 'vue';
-import TheSettings from './components/TheSettings.vue';
-import settingsManager from '@/js/SettingsManager';
-import afterVisualUpdate from '@/js/utils/afterVisualUpdate';
+
+import IconLock from '@/icons/IconLock.vue';
+
+import settingsManager from '@/js/settingsManager';
+import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
+
+import MainTabs from '@/html/popup/components/MainTabs.vue';
+
+const { isFirstUpdate, enableAnimations } = useInitialTransition(document.documentElement);
 
 onBeforeMount(async () => {
-  await settingsManager.loadAllSettings();
+  await settingsManager.loadAllLocalSettings();
+  await settingsManager.initSessionTabsState();
 });
 
 watch(() => settingsManager.getTheme().value, applyTheme);
-
-afterVisualUpdate(() => document.documentElement.classList.remove('disable-animation'), true);
 
 function applyTheme(theme) {
   const htmlElement = document.documentElement;
@@ -36,11 +40,13 @@ function applyTheme(theme) {
       break;
     }
   }
+
+  if (isFirstUpdate.value) enableAnimations();
 }
 </script>
 
 <template>
-  <header class="main__header header">
+  <header class="popup__header header">
     <h1 class="header__title">
       <span class="header__title-text">NektoMe Freedom — говорите вне лимитов</span>
       &nbsp;
@@ -49,12 +55,16 @@ function applyTheme(theme) {
       </span>
     </h1>
   </header>
-  <main class="main">
-    <TheSettings />
+  <main class="popup__main main">
+    <MainTabs />
   </main>
 </template>
 
 <style scoped lang="scss">
+.popup__header {
+  margin-bottom: var(--spacing-xs);
+}
+
 .header {
   &__title {
     position: relative;

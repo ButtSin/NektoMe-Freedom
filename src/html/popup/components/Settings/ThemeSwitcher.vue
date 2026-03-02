@@ -1,6 +1,6 @@
 <script setup>
 import RadioGroup from '@/html/shared/components/RadioGroup.vue';
-import settingsManager from '@/js/SettingsManager';
+import settingsManager from '@/js/settingsManager';
 import { ref, watch } from 'vue';
 
 const data = {

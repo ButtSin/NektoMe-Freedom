@@ -5,24 +5,34 @@ import { ref } from 'vue';
 class SettingsManager {
   _defaultSettings = Object.freeze({
     theme: 'system',
+    tabsState: {
+      popupMainTabs: 'settings',
+    },
     sexFieldUnlocked: true,
     copyUnlocked: true,
   });
 
-  _theme = ref(null);
-  _sexFieldUnlocked = ref(null);
-  _copyUnlocked = ref(null);
-
   _keys = Object.freeze({
     ui: {
       theme: 'theme',
+      tabsState: 'tabsState',
     },
 
     content: {
-      copyUnlocked: 'copyUnlocked',
       sexFieldUnlocked: 'sexFieldUnlocked',
+      copyUnlocked: 'copyUnlocked',
     },
   });
+
+  _appReady = ref(false);
+  _theme = ref(null);
+  _tabsState = ref(null);
+  _sexFieldUnlocked = ref(null);
+  _copyUnlocked = ref(null);
+
+  getAppReady() {
+    return this._appReady;
+  }
 
   getTheme() {
     return this._theme;
@@ -34,6 +44,14 @@ class SettingsManager {
 
   getCopyUnlocked() {
     return this._copyUnlocked;
+  }
+
+  setAppReady(value) {
+    this._appReady.value = value;
+  }
+
+  getTabsState() {
+    return this._tabsState;
   }
 
   _setSetting(storageType, key, value) {
@@ -68,14 +86,44 @@ class SettingsManager {
   }
 
   async getLocalTheme() {
-    return this._getSetting('local', this._keys.ui.theme);
+    return await this._getSetting('local', this._keys.ui.theme);
+  }
+
+  async initSessionTabsState() {
+    const savedTabsSession = await this._getSetting('session', this._keys.ui.tabsState);
+
+    if (savedTabsSession) {
+      this._tabsState.value = {
+        ...this._defaultSettings.tabsState,
+        ...savedTabsSession,
+      };
+
+      return;
+    }
+
+    this._tabsState.value = { ...this._defaultSettings.tabsState };
+    await this._setSetting('session', this._keys.ui.tabsState, this._tabsState.value);
+  }
+
+  async setSessionTabsState(currentTabs, tabStateValue) {
+    this._tabsState.value = {
+      ...this._tabsState.value,
+      [currentTabs]: tabStateValue,
+    };
+
+    await this._setSetting('session', this._keys.ui.tabsState, this._tabsState.value);
+  }
+
+  async getSessionTabsState(currentTabs) {
+    const currentState = await this._getSetting('session', this._keys.ui.tabsState);
+    return currentState[currentTabs];
   }
 
   getDefaultSettings() {
     return this._defaultSettings;
   }
 
-  async loadAllSettings() {
+  async loadAllLocalSettings() {
     const defaultSettings = this.getDefaultSettings();
 
     const [themeRes, sexRes, copyRes] = await Promise.allSettled([
@@ -104,14 +152,6 @@ class SettingsManager {
       console.warn('Failed to load copyUnlocked, using default:', copyRes.reason);
       this._copyUnlocked.value = defaultSettings.copyUnlocked;
     }
-  }
-
-  setSessionTabState(tabStateValue, currentTab) {
-    return this._setSetting('session', currentTab, tabStateValue);
-  }
-
-  getSessionTabState(currentTab) {
-    return this._getSetting('session', currentTab);
   }
 
   setLocalCopyUnlocked(copyUnlockedValue) {

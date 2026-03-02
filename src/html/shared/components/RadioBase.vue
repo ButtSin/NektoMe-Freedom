@@ -71,7 +71,7 @@ const emit = defineEmits(['update:checked']);
     appearance: none;
     cursor: pointer;
 
-    transition-property: background-color, outline-color, outline-offset, box-shadow;
+    transition-property: background-color, outline-color, box-shadow;
     transition-duration: var(--transition-duration);
 
     &::before,
@@ -145,6 +145,8 @@ const emit = defineEmits(['update:checked']);
       outline: var(--outline);
       outline-offset: rem(2);
       box-shadow: none;
+
+      transition: none;
     }
   }
 

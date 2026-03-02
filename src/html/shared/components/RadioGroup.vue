@@ -85,7 +85,7 @@ const radiosLength = computed(() => radios.length || 1);
     display: grid;
     column-gap: var(--container-padding-x);
     grid-template-columns: repeat(var(--gridColumns), 1fr);
-    padding-top: var(--container-padding-y);
+    padding-top: var(--spacing);
   }
 }
 </style>
