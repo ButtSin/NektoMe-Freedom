@@ -1,9 +1,9 @@
 <script setup>
 import { ref, watch } from 'vue';
 
-import IconSettings from '@/icons/iconSettings.vue';
+import IconGear from '@/icons/IconGear.vue';
 import IconInfo from '@/icons/iconInfo.vue';
-import IconHeart from '@/icons/iconHeart.vue';
+import IconHeart from '@/icons/IconHeart.vue';
 
 import settingsManager from '@/js/settingsManager';
 
@@ -12,10 +12,14 @@ import TheSettings from '@/html/popup/components/Settings/TheSettings.vue';
 import TheAbout from '@/html/popup/components/About/TheAbout.vue';
 import TheHelp from '@/html/popup/components/Help/TheHelp.vue';
 
+/*
+TODO: Если содержмиое таба не вызывает появление вертикального скроллбара, то цвет текста контента 
+искажается из-за will-change: width, left; в BaseTabs.vue. Критично? 
+*/
 const tabs = [
   {
     id: 'settings',
-    icon: IconSettings,
+    icon: IconGear,
     description: 'Настройки',
     panel: TheSettings,
   },

@@ -8,7 +8,7 @@ class Animation {
     this.animationId = null;
   }
 
-  animate() {
+  animate = () => {
     let start = performance.now();
 
     const animateStep = (time) => {
@@ -28,14 +28,14 @@ class Animation {
     };
 
     this.animationId = requestAnimationFrame(animateStep);
-  }
+  };
 
-  stopAnimation() {
+  stopAnimation = () => {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
     }
-  }
+  };
 }
 
 export default Animation;

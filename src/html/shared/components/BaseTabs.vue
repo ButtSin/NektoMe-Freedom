@@ -1,5 +1,7 @@
 <script setup>
 import ButtonTabs from '@/html/shared/components/ButtonTabs.vue';
+import BaseScrollShadow from '@/html/shared/components/BaseScrollShadow.vue';
+
 import { nextTick, ref, useTemplateRef, watch } from 'vue';
 import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
 
@@ -114,7 +116,7 @@ watch(() => selected, updateStatus);
         v-for="tab in tabs"
         :key="tab.id"
         :id="`tabpanel-${tab.id}`"
-        class="tabs__content"
+        class="tabs__content surface disable-scrollbar"
         role="tabpanel"
         :aria-labelledby="tab.id"
         tabindex="0"
@@ -123,10 +125,13 @@ watch(() => selected, updateStatus);
         <!--  
           В связи с тем, что остальные вкладки будут использовать гораздо реже, я принял решение
           не рендерить их, использовав v-if вместо v-show
+
+          TODO: Заменить template на keep-alive?
         -->
-        <keep-alive>
-          <component v-if="selected === tab.id" :is="tab.panel" />
-        </keep-alive>
+        <template v-if="selected === tab.id">
+          <component :is="tab.panel" />
+          <BaseScrollShadow parentBackground="var(--color-field-background)" />
+        </template>
       </div>
     </div>
   </section>
@@ -135,7 +140,7 @@ watch(() => selected, updateStatus);
 <style scoped lang="scss">
 .tabs {
   &__header {
-    margin-bottom: var(--container-padding-y);
+    margin-bottom: var(--spacing);
   }
 
   &__buttons {
@@ -157,6 +162,7 @@ watch(() => selected, updateStatus);
       .tabs__buttons-status {
         outline: var(--outline);
         outline-offset: rem(2);
+
         box-shadow: none;
       }
     }
@@ -189,17 +195,22 @@ watch(() => selected, updateStatus);
   }
 
   &__body {
-    padding-inline: rem(4);
+    padding-inline: rem(3);
   }
 
   &__content {
+    --baseTabsHeight: #{rem(276)};
+
     position: relative;
     z-index: 0;
 
     padding: rem(12);
+    height: var(--baseTabsHeight);
+    max-height: var(--baseTabsHeight);
 
     border-radius: var(--border-radius-xl);
-    background-color: var(--color-field-background);
+
+    overflow: auto;
 
     transition-property: background-color;
     transition-duration: var(--transition-duration);
@@ -207,6 +218,8 @@ watch(() => selected, updateStatus);
     &:focus-visible {
       outline-offset: rem(2);
       outline: var(--outline);
+
+      box-shadow: none;
     }
   }
 }

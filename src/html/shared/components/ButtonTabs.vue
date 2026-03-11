@@ -1,6 +1,8 @@
 <script setup>
 import { computed, useTemplateRef } from 'vue';
 
+import IconCircleDashed from '@/icons/IconCircleDashed.vue';
+
 const { id, selected, description, icon } = defineProps({
   id: {
     type: Number,
@@ -38,7 +40,9 @@ defineExpose({ buttonElement, isActive, id });
     :aria-selected="isActive"
     role="tab"
   >
-    <component :is="icon" class="button__icon"></component>
+    <span class="button__icon" aria-hidden="true">
+      <component :is="icon ? icon : IconCircleDashed"></component>
+    </span>
 
     <p class="button__description">
       {{ description }}
@@ -76,6 +80,11 @@ defineExpose({ buttonElement, isActive, id });
     @include hover {
       opacity: 1;
     }
+  }
+
+  &__icon {
+    display: flex;
+    place-items: center;
   }
 
   &__description {

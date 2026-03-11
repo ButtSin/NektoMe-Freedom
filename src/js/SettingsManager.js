@@ -24,15 +24,10 @@ class SettingsManager {
     },
   });
 
-  _appReady = ref(false);
   _theme = ref(null);
   _tabsState = ref(null);
   _sexFieldUnlocked = ref(null);
   _copyUnlocked = ref(null);
-
-  getAppReady() {
-    return this._appReady;
-  }
 
   getTheme() {
     return this._theme;
@@ -44,10 +39,6 @@ class SettingsManager {
 
   getCopyUnlocked() {
     return this._copyUnlocked;
-  }
-
-  setAppReady(value) {
-    this._appReady.value = value;
   }
 
   getTabsState() {

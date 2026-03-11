@@ -1,6 +1,6 @@
-function getCurrentDuration(customPropertyDuration) {
-  const documentStyles = getComputedStyle(document.documentElement);
-  const durationVar = documentStyles.getPropertyValue(customPropertyDuration);
+export function getCurrentDuration(targetElement) {
+  const documentStyles = getComputedStyle(targetElement);
+  const durationVar = documentStyles.transitionDuration;
   const unit = durationVar.split('').at(-2) === 'm' ? 'ms' : 's';
 
   let numberDecimalPlaces =
@@ -16,5 +16,3 @@ function getCurrentDuration(customPropertyDuration) {
 
   return duration;
 }
-
-export default getCurrentDuration;

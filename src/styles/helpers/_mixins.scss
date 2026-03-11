@@ -2,6 +2,14 @@
 @use './functions' as *;
 @use './media' as *;
 
+@mixin reset-accordion-summary {
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
 @mixin reset-link {
   color: inherit;
 
@@ -100,30 +108,37 @@
   height: $size;
 }
 
-@mixin full-vw-line(
-  $size: 1px,
-  $bg_color: #000,
-  $property: top,
-  $left: 50%,
-  $right: auto,
-  $translate: -50%
+@mixin separator-line(
+  $size: rem(1),
+  $color: var(--color-separator-secondary),
+  $side: bottom,
+  $full-width: false,
+  $border-radius: calc($size / 2)
 ) {
   position: relative;
 
   &::after {
     position: absolute;
-    left: $left;
-    right: $right;
-    #{$property}: 0;
-    translate: $translate;
-    z-index: -1;
+    left: 50%;
+    #{$side}: 0;
+    transform: translateX(-50%);
 
     content: '';
-    display: inline;
-    width: 100vw;
+
+    @if $full-width {
+      width: 100vw;
+    } @else {
+      width: 100%;
+    }
     height: $size;
 
-    background-color: $bg_color;
+    background-color: $color;
+    border-radius: $border-radius;
+
+    pointer-events: none;
+
+    transition-property: background-color;
+    transition-duration: var(--transition-duration);
   }
 }
 

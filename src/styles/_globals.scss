@@ -41,11 +41,78 @@ main {
 }
 
 a {
-  color: inherit;
+  --aOffsetX: #{rem(2)};
+  --aOffsetY: 0.19em;
+  --backgroundUrl: url('@/icons/squareArrow.svg');
 
-  &[class] {
-    text-decoration: none;
+  position: relative;
+
+  padding-left: var(--aOffsetX);
+  padding-right: rem(13);
+
+  color: inherit;
+  line-height: var(--line-height-lg);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: rem(3);
+  text-decoration-color: var(--color-separator-tertiary);
+
+  border-radius: rem(12);
+
+  transition-property: text-decoration-color, opacity;
+  transition-duration: var(--transition-duration);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    translate: calc(-100% - var(--aOffsetX)) var(--aOffsetY);
+
+    content: '';
+    @include square(rem(9));
+
+    mask: var(--backgroundUrl) no-repeat center / contain;
+    background-color: var(--color-default-foreground);
+
+    will-change: translate;
+
+    transition-property: background-color, translate;
+    transition-duration: var(--transition-duration);
   }
+
+  @include hover(itself, after) {
+    opacity: 0.8;
+  }
+
+  &:active {
+    &::after {
+      --aOffsetX: 0px;
+      --aOffsetY: 0.09em;
+    }
+  }
+
+  &:focus-visible {
+    outline-offset: rem(2);
+    outline: var(--outline);
+  }
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+  padding-left: calc(var(--spacing) + rem(1));
+  margin: 0;
+
+  list-style: circle;
+}
+
+p {
+  --paragraphMarginBottom: var(--spacing-xs);
+}
+
+address {
+  font-style: normal;
 }
 
 h1,

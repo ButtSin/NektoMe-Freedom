@@ -1,6 +1,6 @@
 <script setup>
 import { computed, useId } from 'vue';
-import RadioBase from './RadioBase.vue';
+import BaseRadio from './BaseRadio.vue';
 
 const { mainDescription, radios, name, selected, secondaryDescription } = defineProps({
   mainDescription: {
@@ -42,7 +42,7 @@ const radiosLength = computed(() => radios.length || 1);
       {{ secondaryDescription }}
     </p>
     <div class="radio-group__radios" :style="{ '--gridColumns': radiosLength }">
-      <RadioBase
+      <BaseRadio
         v-for="radio in radios"
         :key="radio.value"
         :value="radio.value"
@@ -52,7 +52,7 @@ const radiosLength = computed(() => radios.length || 1);
         :secondary-description="radio.secondaryDescription"
         @update:checked="emit('update:checked', $event)"
       >
-      </RadioBase>
+      </BaseRadio>
     </div>
   </fieldset>
 </template>

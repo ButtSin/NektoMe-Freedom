@@ -1,5 +1,9 @@
 @use 'helpers/index' as *;
 
+:where(.reset-accordion-summary) {
+  @include reset-accordion-summary;
+}
+
 :where(.reset-link) {
   @include reset-link;
 }
@@ -22,6 +26,19 @@
 
 .container {
   @include container;
+}
+
+.surface {
+  background-color: var(--color-field-background);
+  box-shadow: 0 rem(2) rem(8) 0 var(--color-field-shadow-alt);
+}
+
+.disable-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
 }
 
 .visually-hidden {
@@ -121,8 +138,8 @@
   transition: none !important;
 
   *,
-  ::before,
-  ::after {
+  *::before,
+  *::after {
     transition: none !important;
   }
 }
