@@ -121,8 +121,6 @@ const ariaDetailsId = useId();
     }
 
     &:focus-visible {
-      z-index: 1;
-
       outline: var(--outline);
       outline-offset: var(--outline-offset);
     }
