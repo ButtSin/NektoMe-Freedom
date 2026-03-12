@@ -1,60 +1,84 @@
 <script setup>
 /*
-TODO: При isDynamicParent=false и изменении масштаба контейнера, когда он был изначально без прокрутки,
-а потом она появилась, тень не появляется сама по себе, пока не вызовется событие scroll. Исправить.
+TODO: На основе isDynamicParent и shouldRender реализовать возможность добавлении тени так, чтобы
+она могла быть удалена навсегда, если её контейнер не будет иметь скролла и не подразумевает либо
+динамическое изменение контента.
 
-TODO: При isDynamicParent=true и изменении масштаба контейнера, когда он был изначально без прокрутки,
-а потом она пропала, тень больше никогда не создаётся. Исправить.
-TODO: При isDynamicParent=true и изменении масштаба контейнера, когда он был изначально с прокруткой,
-а потом она пропала, тень не уничтожается. Исправить.
+TODO: События, навешанные на родительский контейнер тени и ответственные за проверку того, появился
+ли у него скролл, не являются конечными и не отражают другие способы его добавления. Исправить
+при появлении соответствующей потребности.
 
-TODO: При переходе с компонента, у которого не было тени, туда, где она нужна, тень появляется с
-проигрывающейся анимацией смены цвета.
+TODO: Тень хорошо интегрируется в контейнер с v-show. Нужно протестировать и адаптировать её и под
+контейнер с v-if.
 
-TODO: При переходе со вкладки, отличной от настроек, обратно в них и последующей смене темы
-редко бывает так, что тень начинает мерцать во время этого процесса. Или не тень, а вкладки?
- */
+События, навешанные на родительский контейнер тени, отличные от scroll, вызывали множественный вызов
+функции updateShadowsOpacity, что приводило к тому, что контейнер во время смены темы, согласно
+devTools, получал корректный background, а фактически мог иметь либо переходное состояние между
+тёмной и светлой темой, либо же вообще цвет противоположный от указанной темы. Почему так? Возможно,
+большое количество вызовов updateShadowsOpacity приводило к пересчётом стилей/разметки, и это мешало
+CSS-переходам. Точнее не скажу. Важнее то, что во время смены темы тень не реагирует на размеры
+контейнера, а потом просто мгновенно подстраивается под них. По большей степени за те максимум
+300 миллисекунд пользователь вряд ли сможет сильно далеко проскроллить контейнер после нажатия по
+кнопке смены темы, либо ещё как-то спровоцировать её изменение, но всё же факт есть факт: пересчёт
+opacity тени происходит мгновенно без плавных переходов. Пока это не проблема. Компромиссно можно
+динамически вешать класс .hide во время перехода, а потом снимать его по завершению.
 
-import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
+*/
+
+import { inject, nextTick, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 
 import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
 
+import { isThemeChangingProvide } from '@/js/constants.js';
 import { toUnit } from '@/js/utils/toUnit';
 import { getCurrentDuration } from '@/js/utils/getCurrentDuration.js';
 import TimingFunction from '@/js/utils/TimingFunction';
 import Animation from '@/js/utils/Animation';
+import afterVisualUpdate from '@/js/utils/afterVisualUpdate';
 
 const {
   shadowHeight = 60,
+  isShow = true,
   isDynamicParent = true,
   parentBackground,
 } = defineProps({
   shadowHeight: Number,
   isDynamicParent: Boolean,
+  isShow: Boolean,
   parentBackground: String,
 });
+const isThemeChanging = inject(isThemeChangingProvide, ref(false));
 
 const shadowElement = useTemplateRef('shadowElement');
 const parentElement = ref(null);
 const parentElementVarsStyles = ref(null);
-const parentEvents = ['scroll', 'click', 'keydown', 'keyup'];
+const parentEvents = ['scroll', 'click', 'dblclick', 'keydown', 'keyup'];
+let parentEventsHandler = null;
 let shadowAnimation = null;
 
 const shouldRender = ref(true);
 
-const updateShadowsOpacity = () => {
-  const {
-    scrollTop: parentElementScrollTop,
-    scrollHeight: parentElementScrollHeight,
-    clientHeight: parentElementClientHeight,
-  } = parentElement.value;
-
+const updateShadowsOpacity = async () => {
   // if (parentElementScrollHeight === parentElementClientHeight && isDynamicParent) {
   //   shouldRender.value = false;
 
   //   parentElement.value.removeEventListener('scroll', updateShadowsOpacity);
   //   return;
   // }
+
+  if (isFirstUpdate.value) {
+    await afterVisualUpdate();
+  } else {
+    await nextTick();
+
+    if (isThemeChanging.value) return;
+  }
+
+  const {
+    scrollTop: parentElementScrollTop,
+    scrollHeight: parentElementScrollHeight,
+    clientHeight: parentElementClientHeight,
+  } = parentElement.value;
 
   const shadowTopOpacity = Math.min(parentElementScrollTop / shadowHeight, 1);
   const shadowBottomOpacity = Math.min(
@@ -75,16 +99,22 @@ const initParentEvents = () => {
     draw: updateShadowsOpacity,
   });
 
-  for (let event of parentEvents) {
-    if (event === 'scroll') {
-      parentElement.value.addEventListener(event, updateShadowsOpacity);
-      continue;
+  parentEventsHandler = (event) => {
+    if (isThemeChanging.value) {
+      return;
     }
 
-    parentElement.value.addEventListener(event, shadowAnimation.animate);
-  }
+    if (event.type === 'scroll') {
+      updateShadowsOpacity();
+    } else {
+      shadowAnimation.cancel();
+      shadowAnimation.animate();
+    }
+  };
 
-  updateShadowsOpacity();
+  for (let event of parentEvents) {
+    parentElement.value.addEventListener(event, parentEventsHandler, { passive: true });
+  }
 };
 
 const initParentStyles = () => {
@@ -105,14 +135,9 @@ const initParentStyles = () => {
 };
 
 const removeParentEvents = () => {
-  for (let event of parentEvents) {
-    if (event === 'scroll') {
-      parentElement.value.removeEventListener(event, updateShadowsOpacity);
-      continue;
-    }
-
-    parentElement.value.removeEventListener(event, shadowAnimation?.animate);
-  }
+  parentEvents.forEach((event) => {
+    parentElement.value?.removeEventListener(event, parentEventsHandler);
+  });
 };
 
 const { isFirstUpdate, transitionClass, enableAnimations } = useInitialTransition({
@@ -124,11 +149,31 @@ onMounted(() => {
 
   initParentStyles();
 
-  if (isFirstUpdate.value) enableAnimations(shadowElement.value);
+  if (isFirstUpdate.value) {
+    enableAnimations(shadowElement.value);
+  }
 });
 
 onUnmounted(() => {
   removeParentEvents();
+  shadowAnimation?.stopAnimation();
+});
+
+watch(
+  () => isShow,
+  () => {
+    if (isShow) updateShadowsOpacity();
+  },
+);
+
+watch(isThemeChanging, (newVal) => {
+  if (newVal === true) {
+    shadowAnimation?.cancel();
+  } else {
+    afterVisualUpdate(() => {
+      updateShadowsOpacity();
+    });
+  }
 });
 </script>
 

@@ -137,9 +137,19 @@
 .disable-animation {
   transition: none !important;
 
+  &::before,
+  &::after,
   *,
   *::before,
   *::after {
     transition: none !important;
   }
+}
+
+.hide {
+  @include hide;
+}
+
+.show {
+  @include show;
 }

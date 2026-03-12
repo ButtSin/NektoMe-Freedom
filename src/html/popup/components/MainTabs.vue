@@ -12,10 +12,6 @@ import TheSettings from '@/html/popup/components/Settings/TheSettings.vue';
 import TheAbout from '@/html/popup/components/About/TheAbout.vue';
 import TheHelp from '@/html/popup/components/Help/TheHelp.vue';
 
-/*
-TODO: Если содержмиое таба не вызывает появление вертикального скроллбара, то цвет текста контента 
-искажается из-за will-change: width, left; в BaseTabs.vue. Критично? 
-*/
 const tabs = [
   {
     id: 'settings',

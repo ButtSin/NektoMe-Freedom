@@ -59,7 +59,7 @@ const ariaDetailsId = useId();
   &::details-content {
     block-size: 0;
 
-    overflow: clip;
+    overflow: hidden;
     interpolate-size: allow-keywords;
     opacity: 0;
 
@@ -73,8 +73,6 @@ const ariaDetailsId = useId();
       block-size: auto;
 
       opacity: 1;
-
-      overflow: visible;
     }
 
     .accordion__summary {
@@ -138,6 +136,9 @@ const ariaDetailsId = useId();
       font-weight: 500;
       line-height: var(--line-height-xl-alt);
       color: var(--color-default-foreground);
+
+      transition-property: color;
+      transition-duration: var(--transition-duration);
     }
   }
 

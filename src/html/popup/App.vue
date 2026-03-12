@@ -1,34 +1,41 @@
 <script setup>
-import { onBeforeMount, watch } from 'vue';
+import { provide, ref, watch } from 'vue';
 
 import IconLock from '@/icons/IconLock.vue';
 
+import { isThemeChangingProvide } from '@/js/constants.js';
+import { getCurrentDuration } from '@/js/utils/getCurrentDuration';
 import settingsManager from '@/js/settingsManager';
 import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
 import { extensionVersion } from '@/js/constants';
 
 import MainTabs from '@/html/popup/components/MainTabs.vue';
 
+const isThemeChanging = ref(false);
 const { isFirstUpdate, enableAnimations } = useInitialTransition({
   targetElement: document.documentElement,
+  onDomReady: () => (isThemeChanging.value = false),
 });
+let timerThemeChanging = null;
+
+provide(isThemeChangingProvide, isThemeChanging);
+
+settingsManager.loadAllLocalSettings();
+settingsManager.initSessionTabsState();
 
 /*
-TODO: Действительно ли нужен onBeforeMount для загрузки настроек? Скорее всего, нет.
-
-TODO: Нужно ли добавить скроллбар при размере окна, вызывающем его появление? Такое возможно, 
-как минимум если REM'ы в стилях будут больше, чем сейчас, например, при значении "очень крупный" в 
+TODO: Нужно ли добавить скроллбар при размере окна, вызывающем его появление? Такое возможно,
+как минимум если REM'ы в стилях будут больше, чем сейчас, например, при значении "очень крупный" в
 chrome.
  */
-onBeforeMount(async () => {
-  await settingsManager.loadAllLocalSettings();
-  await settingsManager.initSessionTabsState();
-});
 
-watch(() => settingsManager.getTheme().value, applyTheme);
+const applyTheme = (theme) => {
+  if (timerThemeChanging) clearTimeout(timerThemeChanging);
 
-function applyTheme(theme) {
+  isThemeChanging.value = true;
+
   const htmlElement = document.documentElement;
+  const currentDuration = getCurrentDuration(document.body);
 
   htmlElement.classList.remove('is-light', 'is-dark');
 
@@ -51,8 +58,16 @@ function applyTheme(theme) {
     }
   }
 
-  if (isFirstUpdate.value) enableAnimations();
-}
+  if (isFirstUpdate.value) {
+    enableAnimations();
+  } else {
+    timerThemeChanging = setTimeout(() => {
+      isThemeChanging.value = false;
+    }, currentDuration);
+  }
+};
+
+watch(() => settingsManager.getTheme().value, applyTheme);
 </script>
 
 <template>

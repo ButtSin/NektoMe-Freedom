@@ -4,14 +4,22 @@ class Animation {
     this.draw = draw;
     this.duration = duration;
     this.onEnd = onEnd;
+    this.cancelled = false;
 
     this.animationId = null;
   }
 
   animate = () => {
+    this.cancelled = false;
+
     let start = performance.now();
 
     const animateStep = (time) => {
+      if (this.cancelled) {
+        this.animationId = null;
+        return;
+      }
+
       let timeFraction = (time - start) / this.duration;
 
       let progress = this.timing(timeFraction);
@@ -35,6 +43,11 @@ class Animation {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
     }
+  };
+
+  cancel = () => {
+    this.cancelled = true;
+    this.stopAnimation();
   };
 }
 

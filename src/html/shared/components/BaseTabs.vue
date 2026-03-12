@@ -29,6 +29,10 @@ const updateStatus = async () => {
   const activeButtonComponent = getActiveButtonComponent();
   const buttonElement = activeButtonComponent.buttonElement;
   const buttonElementStyles = getComputedStyle(buttonElement);
+  /*
+    При более производительной анимации через scaleX не меняется border-radius, так что
+    приходится работать с width.
+  */
   const buttonElementSize = {
     width: buttonElementStyles.width,
     height: buttonElementStyles.height,
@@ -40,7 +44,7 @@ const updateStatus = async () => {
   statusStyle.value = {
     ...statusStyle.value,
     ...buttonElementSize,
-    left: buttonElement.offsetLeft - statusPaddingLeft + 'px',
+    transform: `translateX(${buttonElement.offsetLeft - statusPaddingLeft + 'px'})`,
   };
 
   if (isFirstUpdate.value) enableAnimations();
@@ -120,18 +124,13 @@ watch(() => selected, updateStatus);
         role="tabpanel"
         :aria-labelledby="tab.id"
         tabindex="0"
-        :style="{ display: selected === tab.id ? null : 'none' }"
+        v-show="selected === tab.id"
       >
-        <!--  
-          В связи с тем, что остальные вкладки будут использовать гораздо реже, я принял решение
-          не рендерить их, использовав v-if вместо v-show
-
-          TODO: Заменить template на keep-alive?
-        -->
-        <template v-if="selected === tab.id">
-          <component :is="tab.panel" />
-          <BaseScrollShadow parentBackground="var(--color-field-background)" />
-        </template>
+        <component :is="tab.panel" />
+        <BaseScrollShadow
+          parentBackground="var(--color-field-background)"
+          :isShow="selected === tab.id"
+        />
       </div>
     </div>
   </section>
@@ -182,15 +181,10 @@ watch(() => selected, updateStatus);
       background-color: var(--color-segment);
       box-shadow: 0 rem(2) rem(8) 0 var(--color-field-shadow-alt);
 
-      /*
-        При более производительной анимации через scaleX не меняется border-radius, так что
-        приходится работать с width.
-      */
-      will-change: width, left;
       transform-origin: left;
 
       transition-duration: var(--transition-duration);
-      transition-property: width, left, background-color;
+      transition-property: width, transform, background-color;
     }
   }
 

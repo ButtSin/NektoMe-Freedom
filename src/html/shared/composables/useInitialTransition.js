@@ -5,20 +5,16 @@ export function useInitialTransition({ targetElement, onDomReady } = {}) {
   const isFirstUpdate = ref(true);
   const isDomReady = ref(false);
 
-  const enableAnimations = () => {
-    afterVisualUpdate(() => {
+  const enableAnimations = async () => {
+    await afterVisualUpdate(() => {
       if (targetElement) targetElement.classList.remove('disable-animation');
       isFirstUpdate.value = false;
     });
 
-    afterVisualUpdate(() => {
+    await afterVisualUpdate(() => {
       isDomReady.value = true;
     });
   };
-
-  if (targetElement) {
-    return { isFirstUpdate, enableAnimations };
-  }
 
   const transitionClass = computed(() => ({
     'disable-animation': isFirstUpdate.value,
@@ -36,6 +32,10 @@ export function useInitialTransition({ targetElement, onDomReady } = {}) {
     },
     { once: true },
   );
+
+  if (targetElement) {
+    return { isFirstUpdate, enableAnimations };
+  }
 
   return { isFirstUpdate, enableAnimations, transitionClass };
 }
