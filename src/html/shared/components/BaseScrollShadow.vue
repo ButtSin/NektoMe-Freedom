@@ -48,11 +48,11 @@ const {
   parentBackground: String,
 });
 const isThemeChanging = inject(isThemeChangingProvide, ref(false));
-
 const shadowElement = useTemplateRef('shadowElement');
-const parentElement = ref(null);
 const parentElementVarsStyles = ref(null);
 const parentEvents = ['scroll', 'click', 'dblclick', 'keydown', 'keyup'];
+
+let parentElement = null;
 let parentEventsHandler = null;
 let shadowAnimation = null;
 
@@ -78,7 +78,7 @@ const updateShadowsOpacity = async () => {
     scrollTop: parentElementScrollTop,
     scrollHeight: parentElementScrollHeight,
     clientHeight: parentElementClientHeight,
-  } = parentElement.value;
+  } = parentElement;
 
   const shadowTopOpacity = Math.min(parentElementScrollTop / shadowHeight, 1);
   const shadowBottomOpacity = Math.min(
@@ -91,7 +91,7 @@ const updateShadowsOpacity = async () => {
 };
 
 const initParentEvents = () => {
-  const transitionDuration = getCurrentDuration(parentElement.value);
+  const transitionDuration = getCurrentDuration(parentElement);
   const timingFunctions = new TimingFunction();
   shadowAnimation = new Animation({
     duration: transitionDuration,
@@ -113,12 +113,12 @@ const initParentEvents = () => {
   };
 
   for (let event of parentEvents) {
-    parentElement.value.addEventListener(event, parentEventsHandler, { passive: true });
+    parentElement.addEventListener(event, parentEventsHandler, { passive: true });
   }
 };
 
 const initParentStyles = () => {
-  const parentElementStyles = getComputedStyle(parentElement.value);
+  const parentElementStyles = getComputedStyle(parentElement);
   parentElementVarsStyles.value = {
     '--topOffset': toUnit({ value: parentElementStyles.paddingTop }),
     '--bottomOffset': toUnit({ value: parentElementStyles.paddingBottom }),
@@ -136,7 +136,7 @@ const initParentStyles = () => {
 
 const removeParentEvents = () => {
   parentEvents.forEach((event) => {
-    parentElement.value?.removeEventListener(event, parentEventsHandler);
+    parentElement?.removeEventListener(event, parentEventsHandler);
   });
 };
 
@@ -145,7 +145,7 @@ const { isFirstUpdate, transitionClass, enableAnimations } = useInitialTransitio
 });
 
 onMounted(() => {
-  parentElement.value = shadowElement.value.parentElement;
+  parentElement = shadowElement.value.parentElement;
 
   initParentStyles();
 
