@@ -160,7 +160,7 @@ watch(() => selected, updateStatus);
     &:has(button:focus-visible) {
       .tabs__buttons-status {
         outline: var(--outline);
-        outline-offset: rem(2);
+        outline-offset: var(--outline-offset);
 
         box-shadow: none;
       }
@@ -210,7 +210,7 @@ watch(() => selected, updateStatus);
     transition-duration: var(--transition-duration);
 
     &:focus-visible {
-      outline-offset: rem(2);
+      outline-offset: var(--outline-offset);
       outline: var(--outline);
 
       box-shadow: none;

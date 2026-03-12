@@ -143,7 +143,7 @@ const emit = defineEmits(['update:checked']);
 
     &:focus-visible {
       outline: var(--outline);
-      outline-offset: rem(2);
+      outline-offset: var(--outline-offset);
       box-shadow: none;
 
       transition: none;

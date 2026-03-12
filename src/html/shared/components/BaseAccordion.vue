@@ -59,7 +59,8 @@ const ariaDetailsId = useId();
   &::details-content {
     block-size: 0;
 
-    overflow: hidden;
+    overflow: clip;
+
     interpolate-size: allow-keywords;
     opacity: 0;
 
@@ -73,6 +74,10 @@ const ariaDetailsId = useId();
       block-size: auto;
 
       opacity: 1;
+
+      &:focus-within {
+        overflow-clip-margin: var(--outline-offset);
+      }
     }
 
     .accordion__summary {
@@ -120,7 +125,7 @@ const ariaDetailsId = useId();
       z-index: 1;
 
       outline: var(--outline);
-      outline-offset: rem(2);
+      outline-offset: var(--outline-offset);
     }
 
     &-icon {
@@ -136,9 +141,6 @@ const ariaDetailsId = useId();
       font-weight: 500;
       line-height: var(--line-height-xl-alt);
       color: var(--color-default-foreground);
-
-      transition-property: color;
-      transition-duration: var(--transition-duration);
     }
   }
 

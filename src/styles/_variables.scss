@@ -58,7 +58,7 @@
   --spacing: var(--container-padding-y);
   --spacing-xs: calc(var(--spacing) / 2);
 
-  --transition-duration: 0.25s;
+  --transition-duration: 1.25s;
 
   // --line-height-xs: 0.85;
   // --line-height: 1;
@@ -82,24 +82,20 @@
   --outline-color: var(--color-accent);
   --outline: var(--outline-size) solid var(--outline-color);
   // --outline-big: var(--outline-size-big) solid var(--outline-color);
+  --outline-offset: #{rem(2)};
 
   // --scrollbar-color: var(--color-light-orange) var(--color-grey);
-
   // --button-height: #{rem(56)};
   // --button-height-little: #{rem(51)};
   // --button-width-big: #{rem(194)};
   // --button-width: #{rem(143)};
   // --button-width-little: #{rem(133)};
-
   // --linear-gradient: linear-gradient(180deg, var(--color-blue) 0%, rgba(6, 37, 91, 0) 100%);
   // --linear-gradient-alt: linear-gradient(90deg, var(--color-blue) 0%, rgba(6, 37, 91, 0) 100%);
-
   // --shadow-orange: inset 0 0 rem(100) rem(100) rgba(243, 0, 0, 0.25);
-
   &.is-dark {
     color-scheme: dark;
   }
-
   &.is-light {
     color-scheme: light;
   }
