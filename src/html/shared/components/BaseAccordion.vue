@@ -60,7 +60,6 @@ const ariaDetailsId = useId();
     block-size: 0;
 
     overflow: clip;
-
     interpolate-size: allow-keywords;
     opacity: 0;
 
