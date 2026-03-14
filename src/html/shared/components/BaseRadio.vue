@@ -106,7 +106,7 @@ const emit = defineEmits(['update:checked']);
     &:checked,
     &:active {
       outline-color: transparent;
-      box-shadow: var(--box-shadow);
+      box-shadow: var(--box-shadow-alt);
     }
 
     &:checked {
