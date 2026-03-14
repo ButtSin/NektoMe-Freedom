@@ -75,7 +75,14 @@ const ariaDetailsId = useId();
       opacity: 1;
 
       &:focus-within {
-        overflow-clip-margin: var(--outline-offset);
+        /*
+          TODO: calc(var(--outline-offset) + #{rem(1)}) почему-то не работает. Исправить.
+          
+          Использование просто overflow-clip-margin: rem(2) || var(--outline-offset) при 
+          стандартном размере шрифта не подходит, так как outline всё равно обрезается. Видимо, 
+          из-за округления в меньшую сторону.
+        */
+        overflow-clip-margin: rem(3);
       }
     }
 

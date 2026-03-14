@@ -60,11 +60,7 @@ const emit = defineEmits(['update:checked']);
 
     outline: var(--border-field);
     outline-offset: calc(var(--border-width) * -1);
-    box-shadow:
-      0 0 rem(1) 0 var(--color-field-shadow-alt),
-      0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
-      0 rem(2) rem(4) 0 var(--color-field-shadow),
-      inset 0 0 0 0 var(--color-accent);
+    box-shadow: var(--box-shadow);
     background: var(--color-field-background);
     border-radius: 50%;
 
@@ -110,20 +106,12 @@ const emit = defineEmits(['update:checked']);
     &:checked,
     &:active {
       outline-color: transparent;
-      box-shadow:
-        0 0 rem(1) 0 var(--color-field-shadow-alt),
-        0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
-        0 rem(2) rem(4) 0 var(--color-field-shadow),
-        inset 0 0 0 rem(2) var(--color-accent);
+      box-shadow: var(--box-shadow);
     }
 
     &:checked {
       background-color: transparent;
-      box-shadow:
-        0 0 rem(1) 0 var(--color-field-shadow-alt),
-        0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
-        0 rem(2) rem(4) 0 var(--color-field-shadow),
-        inset 0 0 0 rem(2) var(--color-accent-hover);
+      box-shadow: var(--box-shadow-alt);
 
       &::before {
         z-index: -1;

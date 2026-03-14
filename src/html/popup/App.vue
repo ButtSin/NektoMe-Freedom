@@ -132,7 +132,7 @@ watch(() => settingsManager.getTheme().value, applyTheme);
   }
 
   &__version {
-    color: color-mix(in srgb, var(--color-muted) 80%, transparent);
+    color: colorToOpacity(var(--opacity));
     font-size: rem(12);
   }
 }

@@ -59,7 +59,7 @@ a {
 
   border-radius: rem(12);
 
-  transition-property: text-decoration-color, opacity;
+  transition-property: text-decoration-color, color;
   transition-duration: var(--transition-duration);
 
   &::after {
@@ -81,7 +81,8 @@ a {
   }
 
   @include hover(itself, after) {
-    opacity: 0.8;
+    color: colorToOpacity(var(--opacity));
+    text-decoration-color: colorToOpacity(var(--opacity), var(--color-separator-tertiary));
   }
 
   &:active {

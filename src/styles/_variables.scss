@@ -25,6 +25,11 @@
   --color-border: light-dark(#dedede, #28282c);
   --color-border-hover: light-dark(#c1c1c1, #464646);
 
+  --color-shadow-inner: light-dark(
+    color-mix(in srgb, var(--color-white) 3%, transparent),
+    color-mix(in srgb, #eda2a24 3%, transparent)
+  );
+
   --color-field-background: light-dark(var(--color-white), var(--color-eclipse));
   --color-field-background-hover: light-dark(
     color-mix(in srgb, #f9f9f9 92%, transparent),
@@ -41,6 +46,16 @@
 
   --color-separator-secondary: light-dark(#d7d7d7, #353538);
   --color-separator-tertiary: light-dark(#cdcdce, #3c3c3f);
+
+  --box-shadow:
+    0 0 rem(1) 0 var(--color-field-shadow-alt), 0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
+    0 rem(2) rem(4) 0 var(--color-field-shadow), inset 0 0 0 0 var(--color-accent);
+  --box-shadow-alt:
+    0 0 rem(1) 0 var(--color-field-shadow-alt), 0 rem(1) rem(2) 0 var(--color-field-shadow-alt),
+    0 rem(2) rem(4) 0 var(--color-field-shadow), inset 0 0 0 rem(2) var(--color-accent-hover);
+  --box-shadow-inner:
+    0 0 rem(5) 0 rgba(0, 0, 0, 0.02), 0 rem(2) rem(10) 0 var(--color-field-shadow-alt),
+    0 0 rem(1) 0 var(--color-shadow-inner);
 
   --border-width: #{rem(1)};
   --border-field: var(--border-width) solid var(--color-border);
@@ -83,6 +98,8 @@
   --outline: var(--outline-size) solid var(--outline-color);
   // --outline-big: var(--outline-size-big) solid var(--outline-color);
   --outline-offset: #{rem(2)};
+
+  --opacity: 0.8;
 
   // --scrollbar-color: var(--color-light-orange) var(--color-grey);
   // --button-height: #{rem(56)};

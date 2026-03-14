@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
 
 @function rem($pixel) {
   @if math.is-unitless($pixel) {
@@ -41,4 +43,15 @@
   $slopeVh: $slope * 100;
 
   @return clamp(#{$clampMin}rem, calc(#{$yAxisIntersection}rem + #{$slopeVh}vh), #{$clampMax}rem);
+}
+
+@function colorToOpacity($opacity, $color: currentColor, $var-is-number: true) {
+  @if meta.type-of($opacity) == 'number' and math.is-unitless($opacity) {
+    $opacity: $opacity * 100%;
+  } @else if meta.type-of($opacity) == 'string' and str-index(#{$opacity}, 'var(') {
+    @if $var-is-number {
+      $opacity: calc(#{$opacity} * 100%);
+    }
+  }
+  @return color-mix(in srgb, $color $opacity, transparent);
 }
