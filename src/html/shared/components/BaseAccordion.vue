@@ -23,6 +23,10 @@ const {
 });
 
 const ariaDetailsId = useId();
+
+/*
+TODO: Заменить content на слот?
+*/
 </script>
 
 <template>

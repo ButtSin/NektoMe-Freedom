@@ -4,10 +4,9 @@ import { provide, ref, watch } from 'vue';
 import IconLock from '@/icons/IconLock.vue';
 
 import { isThemeChangingProvide } from '@/js/constants.js';
-import { getCurrentDuration } from '@/js/utils/getCurrentDuration';
 import settingsManager from '@/js/settingsManager';
 import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
-import { extensionVersion } from '@/js/constants';
+import { extensionVersion, THEME_TRANSITION_DURATION } from '@/js/constants';
 
 import MainTabs from '@/html/popup/components/MainTabs.vue';
 
@@ -29,13 +28,12 @@ TODO: Нужно ли добавить скроллбар при размере 
 chrome.
  */
 
-const applyTheme = (theme) => {
+const applyTheme = async (theme) => {
   if (timerThemeChanging) clearTimeout(timerThemeChanging);
 
   isThemeChanging.value = true;
 
   const htmlElement = document.documentElement;
-  const currentDuration = getCurrentDuration(document.body);
 
   htmlElement.classList.remove('is-light', 'is-dark');
 
@@ -63,7 +61,7 @@ const applyTheme = (theme) => {
   } else {
     timerThemeChanging = setTimeout(() => {
       isThemeChanging.value = false;
-    }, currentDuration);
+    }, THEME_TRANSITION_DURATION);
   }
 };
 
@@ -86,8 +84,8 @@ watch(() => settingsManager.getTheme().value, applyTheme);
   </main>
   <footer class="popup__footer footer">
     <p>
-      Посвящается Мали. Моя ненависть к «nekto» угаснет, если хотя бы каждый десятый собеседник на
-      этом сайте будет таким же чудесным человеком, как ты.
+      С уважением, признательностью и, к сожалению, дружеской любовью посвящается Мали. Спасибо тебе
+      за всё.
     </p>
   </footer>
 </template>

@@ -23,28 +23,27 @@ const { isFirstUpdate, transitionClass, enableAnimations } = useInitialTransitio
 const getActiveButtonComponent = () =>
   buttonComponents.value?.find((component) => component.isActive);
 
+let cachedStatusPaddingLeft = null;
+
 const updateStatus = async () => {
   await nextTick();
 
   const activeButtonComponent = getActiveButtonComponent();
-  const buttonElement = activeButtonComponent.buttonElement;
-  const buttonElementStyles = getComputedStyle(buttonElement);
-  /*
-    При более производительной анимации через scaleX не меняется border-radius, так что
-    приходится работать с width.
-  */
-  const buttonElementSize = {
-    width: buttonElementStyles.width,
-    height: buttonElementStyles.height,
-  };
+  if (!activeButtonComponent?.buttonElement || !statusElement.value) return;
 
-  const statusElementStyles = getComputedStyle(statusElement.value);
-  const statusPaddingLeft = parseFloat(statusElementStyles.paddingLeft);
+  const buttonElement = activeButtonComponent.buttonElement;
+
+  const buttonRect = buttonElement.getBoundingClientRect();
+
+  if (cachedStatusPaddingLeft === null) {
+    const statusStyles = getComputedStyle(statusElement.value);
+    cachedStatusPaddingLeft = parseFloat(statusStyles.paddingLeft);
+  }
 
   statusStyle.value = {
-    ...statusStyle.value,
-    ...buttonElementSize,
-    transform: `translateX(${buttonElement.offsetLeft - statusPaddingLeft + 'px'})`,
+    width: `${buttonRect.width}px`,
+    height: `${buttonRect.height}px`,
+    transform: `translateX(${buttonElement.offsetLeft - cachedStatusPaddingLeft}px)`,
   };
 
   if (isFirstUpdate.value) enableAnimations();
@@ -193,7 +192,7 @@ watch(() => selected, updateStatus);
   }
 
   &__content {
-    --baseTabsHeight: #{rem(276)};
+    --baseTabsHeight: #{rem(308)};
 
     position: relative;
     z-index: 0;

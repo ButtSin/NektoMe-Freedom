@@ -1,6 +1,12 @@
-export const toUnit = ({ value, unit = 'px', defaultValue = 0, isFloat = true } = {}) => {
+export const toUnit = ({
+  value,
+  unit = 'px',
+  currentRem,
+  defaultValue = 0,
+  isFloat = true,
+} = {}) => {
   if (unit === 'rem') {
-    const currentRem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    if (!currentRem) currentRem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
     return value / currentRem + unit;
   }

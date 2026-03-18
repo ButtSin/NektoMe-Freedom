@@ -21,17 +21,22 @@ CSS-переходам. Точнее не скажу. Важнее то, что 
 300 миллисекунд пользователь вряд ли сможет сильно далеко проскроллить контейнер после нажатия по
 кнопке смены темы, либо ещё как-то спровоцировать её изменение, но всё же факт есть факт: пересчёт
 opacity тени происходит мгновенно без плавных переходов. Пока это не проблема. Компромиссно можно
-динамически вешать класс .hide во время перехода, а потом снимать его по завершению.
-
+динамически вешать класс .hide во время перехода, а потом снимать его по завершению. Ещё проблема в
+том, что очень редко, но всё равно встречается такое багованое поведение. Не знаю, как его 
+исправить.
+UPD: Хотя нет, даже без компонента тени происходит баг. И багуется не только фон, но и другие 
+свойства. Самое лучшее решение - просто отключить анимации на время смены темы во всё приложении, 
+а потом включить заново. Но, учитывая то, что он появляется крайне редко, а также тот факт,
+что пользователи нечасто меняют тему, оставлю так. Потом, если что, можно снова потратить часов 20
+на его поиски, начав с applyTheme в App.vue. 
 */
 
 import { inject, nextTick, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 
 import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
 
-import { isThemeChangingProvide } from '@/js/constants.js';
+import { isThemeChangingProvide, THEME_TRANSITION_DURATION } from '@/js/constants.js';
 import { toUnit } from '@/js/utils/toUnit';
-import { getCurrentDuration } from '@/js/utils/getCurrentDuration.js';
 import TimingFunction from '@/js/utils/TimingFunction';
 import Animation from '@/js/utils/Animation';
 import afterVisualUpdate from '@/js/utils/afterVisualUpdate';
@@ -66,13 +71,15 @@ const updateShadowsOpacity = async () => {
   //   return;
   // }
 
+  if (isThemeChanging.value) return;
+
   if (isFirstUpdate.value) {
     await afterVisualUpdate();
   } else {
     await nextTick();
-
-    if (isThemeChanging.value) return;
   }
+
+  if (isThemeChanging.value) return;
 
   const {
     scrollTop: parentElementScrollTop,
@@ -91,10 +98,9 @@ const updateShadowsOpacity = async () => {
 };
 
 const initParentEvents = () => {
-  const transitionDuration = getCurrentDuration(parentElement);
   const timingFunctions = new TimingFunction();
   shadowAnimation = new Animation({
-    duration: transitionDuration,
+    duration: THEME_TRANSITION_DURATION,
     timing: timingFunctions.linear,
     draw: updateShadowsOpacity,
   });
@@ -107,7 +113,7 @@ const initParentEvents = () => {
     if (event.type === 'scroll') {
       updateShadowsOpacity();
     } else {
-      shadowAnimation.cancel();
+      shadowAnimation.stopAnimation();
       shadowAnimation.animate();
     }
   };
@@ -166,13 +172,12 @@ watch(
   },
 );
 
-watch(isThemeChanging, (newVal) => {
-  if (newVal === true) {
+watch(isThemeChanging, (isChanging) => {
+  if (isChanging) {
     shadowAnimation?.cancel();
   } else {
-    afterVisualUpdate(() => {
-      updateShadowsOpacity();
-    });
+    shadowAnimation.enable();
+    shadowAnimation.animate();
   }
 });
 </script>
@@ -193,7 +198,6 @@ watch(isThemeChanging, (newVal) => {
   inherits: true;
   initial-value: transparent;
 }
-
 .shadow {
   position: sticky;
   top: 0;

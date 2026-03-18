@@ -1,23 +1,69 @@
 <script setup>
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
-const { description, icon = null } = defineProps({
-  description: {
+const {
+  mainDescription,
+  isActive,
+  secondaryDescription,
+  icons = null,
+  requiredContent,
+  conditionalContent,
+} = defineProps({
+  mainDescription: {
     type: String,
     required: true,
   },
-  icon: Object,
+  isActive: {
+    type: Boolean,
+    required: true,
+  },
+  secondaryDescription: String,
+  icons: Array,
+  requiredContent: [String, Object],
+  conditionalContent: [String, Object],
 });
+
+/*
+TODO: Заменить  requiredContent и conditionalContent на слоты?
+TODO: Добавить валидацию на проверку количества icons.
+*/
 </script>
 
 <template>
-  <label class="switch">
-    <div class="switch__controller">
-      <span v-if="icon" class="switch__controller-icon" aria-hidden="true">{{ icon }}</span>
-      <input class="switch__controller-input" type="checkbox" role="switch" />
+  <div class="switch">
+    <label class="switch__controller">
+      <div class="switch__controller-inner">
+        <span v-if="icons" class="switch__icon" aria-hidden="true">
+          <template v-if="isActive">
+            {{ icons[0] }}
+          </template>
+          <template v-else>
+            {{ icons[1] }}
+          </template>
+        </span>
+        <input
+          class="switch__input"
+          type="checkbox"
+          role="switch"
+          :checked="isActive"
+          :aria-checked="isActive"
+        />
+
+        <span class="switch__main-description">{{ mainDescription }}</span>
+        <span v-if="secondaryDescription" class="switch__secondary-description">
+          {{ secondaryDescription }}
+        </span>
+      </div>
+    </label>
+    <div v-if="requiredContent || conditionalContent" class="switch__content">
+      <div v-html="requiredContent" class="switch__required-content"></div>
+      <div
+        v-if="conditionalContent"
+        v-html="conditionalContent"
+        class="switch__conditional-content"
+      ></div>
     </div>
-    <span class="switch__description"> {{ description }}</span>
-  </label>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -29,113 +75,154 @@ const { description, icon = null } = defineProps({
   --switchInputIconOffset: calc(var(--switchInputThumbOffset) + #{rem(4)});
 
   display: flex;
-  width: fit-content;
-  align-items: center;
-  column-gap: var(--spacing);
-
-  cursor: pointer;
+  flex-direction: column;
+  gap: var(--spacing-xs);
 
   &__controller {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    &-icon {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      translate: var(--switchInputIconOffset) -50%;
-      z-index: 1;
-
-      display: flex;
-      place-items: center;
-      @include square(rem(8));
-
-      transition-property: translate;
-      transition-duration: var(--transition-duration);
-
-      &:has(+ .switch__controller-input:checked) {
-        translate: calc(var(--switchControllerWidth) - var(--switchInputIconOffset) - 100%) -50%;
-      }
-    }
-
-    &-input {
-      position: relative;
-
-      width: var(--switchControllerWidth);
-      height: var(--switchControllerHeight);
-
-      border-radius: var(--border-radius-4xl);
-      background-color: var(--color-default);
-
-      appearance: none;
-      cursor: pointer;
-
-      transition-property: background-color, opacity;
-      transition-duration: var(--transition-duration);
-
-      &::before {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        translate: var(--switchInputThumbOffset) -50%;
-
-        content: '';
-        width: rem(16);
-        height: rem(12);
-
-        border-radius: var(--border-radius-4xl);
-        background-color: var(--color-snow);
-        box-shadow: var(--box-shadow);
-
-        transition-property: translate, box-shadow, opacity;
-        transition-duration: var(--transition-duration);
-      }
-
-      @include hover(itself, after) {
+    @include hover(itself, after) {
+      .switch__input {
         background-color: var(--color-default-hover);
 
         &:checked {
           background-color: var(--color-accent-hover);
         }
       }
+    }
 
-      &:checked {
-        background-color: var(--color-accent);
-
-        &:active {
-          background-color: colorToOpacity(var(--opacity), var(--color-accent));
-        }
-
-        &::before {
-          translate: calc(var(--switchControllerWidth) - var(--switchInputThumbOffset) - 100%) -50%;
-
-          box-shadow: var(--box-shadow-inner);
-        }
-      }
-
-      &:active {
+    &:active {
+      .switch__input {
         background-color: colorToOpacity(var(--opacity), var(--color-default-hover));
       }
+      .switch__input:checked {
+        background-color: colorToOpacity(var(--opacity), var(--color-accent));
+      }
+    }
 
-      &:focus-visible {
-        outline: var(--outline);
-        outline-offset: var(--outline-offset);
+    &-inner {
+      position: relative;
+
+      display: grid;
+      grid-template-columns: var(--switchControllerWidth) 1fr;
+      grid-template-rows: repeat(2, auto);
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: var(--spacing);
+      grid-template-areas:
+        'input main-description'
+        '. secondary-description';
+
+      cursor: pointer;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    translate: var(--switchInputIconOffset) -50%;
+    z-index: 1;
+
+    display: flex;
+    place-items: center;
+    @include square(rem(8));
+
+    transition-property: translate;
+    transition-duration: var(--transition-duration);
+
+    &:has(+ .switch__input:checked) {
+      translate: calc(var(--switchControllerWidth) - var(--switchInputIconOffset) - 100%) -50%;
+    }
+  }
+
+  &__input {
+    position: relative;
+
+    width: var(--switchControllerWidth);
+    height: var(--switchControllerHeight);
+    grid-area: input;
+
+    border-radius: var(--border-radius-4xl);
+    background-color: var(--color-default);
+
+    appearance: none;
+    cursor: pointer;
+
+    transition-property: background-color, opacity;
+    transition-duration: var(--transition-duration);
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      translate: var(--switchInputThumbOffset) -50%;
+
+      content: '';
+      width: rem(16);
+      height: rem(12);
+
+      border-radius: var(--border-radius-4xl);
+      background-color: var(--color-snow);
+      box-shadow: var(--box-shadow);
+
+      transition-property: translate, box-shadow, opacity;
+      transition-duration: var(--transition-duration);
+    }
+
+    &:checked {
+      background-color: var(--color-accent);
+
+      &::before {
+        translate: calc(var(--switchControllerWidth) - var(--switchInputThumbOffset) - 100%) -50%;
+
+        box-shadow: var(--box-shadow-inner);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--outline);
+      outline-offset: var(--outline-offset);
+    }
+
+    &:active {
+      background-color: colorToOpacity(var(--opacity), var(--color-default-hover));
+
+      &:checked {
+        background-color: colorToOpacity(var(--opacity), var(--color-accent));
       }
     }
   }
 
-  &__description {
+  &__main-description,
+  &__secondary-description {
+    user-select: none;
+  }
+
+  &__main-description {
+    grid-area: main-description;
+
     font-weight: 500;
     font-size: rem(14);
     color: var(--color-default-foreground);
     line-height: var(--line-height-xl-alt);
 
-    user-select: none;
+    transition-property: color;
+    transition-duration: var(--transition-duration);
+  }
+
+  &__secondary-description {
+    grid-area: secondary-description;
+
+    font-weight: 400;
+    font-size: rem(12);
+    color: var(--color-muted);
+    line-height: var(--line-height-lg-alt);
 
     transition-property: color;
     transition-duration: var(--transition-duration);
+  }
+
+  &__content {
+    margin-left: calc(var(--switchControllerWidth) + var(--spacing));
   }
 }
 </style>

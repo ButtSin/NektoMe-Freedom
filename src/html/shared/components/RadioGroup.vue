@@ -1,6 +1,6 @@
 <script setup>
 import { computed, useId } from 'vue';
-import BaseRadio from './BaseRadio.vue';
+import BaseRadio from '@/html/shared/components/BaseRadio.vue';
 
 const { mainDescription, radios, name, selected, secondaryDescription } = defineProps({
   mainDescription: {
@@ -23,7 +23,7 @@ const { mainDescription, radios, name, selected, secondaryDescription } = define
 });
 const emit = defineEmits(['update:checked']);
 const ariaDescriptionId = useId();
-const radiosLength = computed(() => radios.length || 1);
+const radiosLength = computed(() => radios?.length || 1);
 </script>
 
 <template>

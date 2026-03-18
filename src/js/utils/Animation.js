@@ -10,13 +10,12 @@ class Animation {
   }
 
   animate = () => {
-    this.cancelled = false;
-
     let start = performance.now();
 
     const animateStep = (time) => {
       if (this.cancelled) {
         this.animationId = null;
+
         return;
       }
 
@@ -39,15 +38,17 @@ class Animation {
   };
 
   stopAnimation = () => {
-    if (this.animationId) {
-      cancelAnimationFrame(this.animationId);
-      this.animationId = null;
-    }
+    cancelAnimationFrame(this.animationId);
+    this.animationId = null;
   };
 
   cancel = () => {
-    this.cancelled = true;
     this.stopAnimation();
+    this.cancelled = true;
+  };
+
+  enable = () => {
+    this.cancelled = false;
   };
 }
 

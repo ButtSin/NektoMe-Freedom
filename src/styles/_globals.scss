@@ -29,17 +29,6 @@ main {
   color: var(--color-default);
 }
 
-:where(a, button, label, input, textarea, select, svg *) {
-  outline-color: var(--outline-color);
-  outline-offset: 0;
-
-  transition-duration: var(--transition-duration);
-}
-
-:is(a, ul, button, input, textarea, summary, svg *):focus-visible {
-  outline: var(--outline);
-}
-
 a {
   --aOffsetX: #{rem(2)};
   --aOffsetY: 0.19em;

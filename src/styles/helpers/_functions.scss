@@ -48,7 +48,7 @@
 @function colorToOpacity($opacity, $color: currentColor, $var-is-number: true) {
   @if meta.type-of($opacity) == 'number' and math.is-unitless($opacity) {
     $opacity: $opacity * 100%;
-  } @else if meta.type-of($opacity) == 'string' and str-index(#{$opacity}, 'var(') {
+  } @else if meta.type-of($opacity) == 'string' and string.index(#{$opacity}, 'var(') {
     @if $var-is-number {
       $opacity: calc(#{$opacity} * 100%);
     }
