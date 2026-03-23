@@ -56,7 +56,7 @@ TODO: Добавить валидацию на проверку количест
       </div>
     </label>
     <div v-if="requiredContent || conditionalContent" class="switch__content">
-      <div v-html="requiredContent" class="switch__required-content"></div>
+      <div v-if="requiredContent" v-html="requiredContent" class="switch__required-content"></div>
       <div
         v-if="conditionalContent"
         v-html="conditionalContent"
@@ -223,6 +223,11 @@ TODO: Добавить валидацию на проверку количест
 
   &__content {
     margin-left: calc(var(--switchControllerWidth) + var(--spacing));
+  }
+
+  &__required-content {
+    transition-property: color;
+    transition-duration: var(--transition-duration);
   }
 }
 </style>

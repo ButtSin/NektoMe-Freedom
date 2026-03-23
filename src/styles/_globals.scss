@@ -39,7 +39,12 @@ a {
   padding-left: var(--aOffsetX);
   padding-right: rem(13);
 
-  color: inherit;
+  /*
+    Не используем color: inherit, чтобы избежать двойной анимации при смене темы. Если задать
+    inherit, transition сработает и на контейнере, и на ссылке, то есть анимации наложатся, и цвет
+    ссылки будет меняться визуально дольше остального текста.
+  */
+  color: var(--color-muted);
   line-height: var(--line-height-lg);
   text-decoration: underline;
   text-decoration-skip-ink: none;

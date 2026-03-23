@@ -23,10 +23,6 @@ const {
 });
 
 const ariaDetailsId = useId();
-
-/*
-TODO: Заменить content на слот?
-*/
 </script>
 
 <template>
@@ -40,11 +36,7 @@ TODO: Заменить content на слот?
       </h3>
     </summary>
     <div class="accordion__content" :id="ariaDetailsId" role="definition">
-      <div
-        v-if="typeof content === 'string'"
-        v-html="content"
-        class="accordion__content-inner"
-      ></div>
+      <div v-if="typeof content === 'string'" v-html="content"></div>
       <component v-else :is="content" />
     </div>
   </details>
@@ -79,14 +71,7 @@ TODO: Заменить content на слот?
       opacity: 1;
 
       &:focus-within {
-        /*
-          TODO: calc(var(--outline-offset) + #{rem(1)}) почему-то не работает. Исправить.
-          
-          Использование просто overflow-clip-margin: rem(2) || var(--outline-offset) при 
-          стандартном размере шрифта не подходит, так как outline всё равно обрезается. Видимо, 
-          из-за округления в меньшую сторону.
-        */
-        overflow-clip-margin: rem(3);
+        overflow-clip-margin: var(--outline-offset-extra);
       }
     }
 

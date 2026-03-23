@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "watch": "vite build --watch",
+    "build": "npm run build:pages && npm run build:background && npm run build:content",
+    "build:pages": "vite build --config vite.config.pages.js",
+    "build:background": "vite build --config vite.config.background.js",
+    "build:content": "vite build --config vite.config.content.js",
+    "watch": "node watch.js",
     "preview": "vite preview",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",

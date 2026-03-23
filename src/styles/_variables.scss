@@ -77,7 +77,7 @@
   --spacing: var(--container-padding-y);
   --spacing-xs: calc(var(--spacing) / 2);
 
-  --transition-duration: 0.25s;
+  --transition-duration: 3.25s;
 
   // --line-height-xs: 0.85;
   // --line-height: 1;
@@ -102,6 +102,7 @@
   --outline: var(--outline-size) solid var(--outline-color);
   // --outline-big: var(--outline-size-big) solid var(--outline-color);
   --outline-offset: #{rem(2)};
+  --outline-offset-extra: #{rem(3)};
 
   --opacity: 0.8;
 

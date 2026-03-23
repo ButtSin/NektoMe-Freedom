@@ -1,12 +1,11 @@
-import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig({
-  plugins: [vue()],
+const base = {
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -16,30 +15,52 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `
-          @use "@/styles/helpers/_index.scss" as *;
-        `,
+        additionalData: `@use "@/styles/helpers/_index.scss" as *;`,
       },
     },
   },
-
   build: {
-    rollupOptions: {
-      input: {
-        popup: path.resolve(__dirname, './src/html/popup/index.html'),
-        advices: path.resolve(__dirname, './src/html/advices/index.html'),
-        background: path.resolve(__dirname, './src/js/background/background.js'),
-        content: path.resolve(__dirname, './src/js/content/content.js'),
-      },
-      output: {
-        entryFileNames: (chunkInfo) => {
-          if (chunkInfo.name === 'background' || chunkInfo.name === 'content') {
-            return 'src/[name].js';
-          }
+    outDir: 'dist',
+  },
+};
 
-          return 'assets/[name]-[hash].js';
+export default defineConfig([
+  // Конфиг для страниц (popup, advices) – с Vue
+  {
+    ...base,
+    plugins: [vue()],
+    build: {
+      ...base.build,
+      emptyOutDir: true,
+      rollupOptions: {
+        input: {
+          popup: path.resolve(__dirname, './src/html/popup/index.html'),
+          advices: path.resolve(__dirname, './src/html/advices/index.html'),
+        },
+        output: {
+          entryFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash][extname]',
         },
       },
     },
   },
-});
+  // Конфиг для background и content – IIFE
+  {
+    ...base,
+    build: {
+      ...base.build,
+      emptyOutDir: false,
+      rollupOptions: {
+        input: {
+          background: path.resolve(__dirname, './src/js/background/background.js'),
+          content: path.resolve(__dirname, './src/js/content/content.js'),
+        },
+        output: {
+          format: 'iife',
+          entryFileNames: 'src/[name].js',
+          assetFileNames: 'assets/[name]-[hash][extname]',
+        },
+      },
+    },
+  },
+]);

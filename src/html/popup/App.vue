@@ -129,6 +129,8 @@ watch(() => settingsManager.getTheme().value, applyTheme);
   }
 
   &__version {
+    margin-bottom: rem(2);
+
     color: colorToOpacity(var(--opacity));
     font-size: rem(12);
   }

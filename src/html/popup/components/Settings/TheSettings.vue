@@ -8,7 +8,7 @@ const adviceUrl = computed(() => chrome.runtime.getURL('src/html/advices/index.h
 const switches = [
   {
     mainDescription: 'Отключить ограничения выбора собеседников',
-    secondaryDescription: 'Выбирайте собеседника любого пола во флирте и ролке',
+    secondaryDescription: 'Выбирайте любого собеседника во флирте и ролке',
     isActive: true,
   },
   {
@@ -21,11 +21,12 @@ const switches = [
     secondaryDescription: `Читайте cоветы на экране поиска диалога о том, как не попасть в 
                           неприятную ситуацию и что делать, если вы уже в ней оказались`,
     isActive: true,
-    requiredContent: `Также с ними можно ознакомиться на этой 
+    requiredContent: `
+    <p>Также с ними можно ознакомиться на этой 
       <a href="${adviceUrl.value}" target="_blank"> \
         странице
       </a>
-      `,
+    </p>`,
   },
 ];
 </script>
