@@ -20,33 +20,40 @@ const buttonComponents = useTemplateRef('buttons');
 const statusElement = useTemplateRef('statusElement');
 const statusStyle = ref(null);
 const { isFirstUpdate, transitionClass, enableAnimations } = useInitialTransition();
+
 const getActiveButtonComponent = () =>
   buttonComponents.value?.find((component) => component.isActive);
 
+let rafId = null;
 let cachedStatusPaddingLeft = null;
 
-const updateStatus = async () => {
-  await nextTick();
+const updateStatus = () => {
+  if (rafId) return;
+  rafId = requestAnimationFrame(async () => {
+    await nextTick();
 
-  const activeButtonComponent = getActiveButtonComponent();
-  if (!activeButtonComponent?.buttonElement || !statusElement.value) return;
+    const activeButtonComponent = getActiveButtonComponent();
+    if (!activeButtonComponent?.buttonElement || !statusElement.value) return;
 
-  const buttonElement = activeButtonComponent.buttonElement;
+    const buttonElement = activeButtonComponent.buttonElement;
 
-  const buttonRect = buttonElement.getBoundingClientRect();
+    const buttonRect = buttonElement.getBoundingClientRect();
 
-  if (cachedStatusPaddingLeft === null) {
-    const statusStyles = getComputedStyle(statusElement.value);
-    cachedStatusPaddingLeft = parseFloat(statusStyles.paddingLeft);
-  }
+    if (cachedStatusPaddingLeft === null) {
+      const statusStyles = getComputedStyle(statusElement.value);
+      cachedStatusPaddingLeft = parseFloat(statusStyles.paddingLeft);
+    }
 
-  statusStyle.value = {
-    width: `${buttonRect.width}px`,
-    height: `${buttonRect.height}px`,
-    transform: `translateX(${buttonElement.offsetLeft - cachedStatusPaddingLeft}px)`,
-  };
+    statusStyle.value = {
+      width: `${buttonRect.width}px`,
+      height: `${buttonRect.height}px`,
+      transform: `translateX(${buttonElement.offsetLeft - cachedStatusPaddingLeft}px)`,
+    };
 
-  if (isFirstUpdate.value) enableAnimations();
+    if (isFirstUpdate.value) enableAnimations();
+
+    rafId = null;
+  });
 };
 
 const handleKeyDown = (event) => {
