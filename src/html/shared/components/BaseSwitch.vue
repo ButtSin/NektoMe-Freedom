@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps } from 'vue';
+import { defineProps } from 'vue';
 
 const {
   mainDescription,
@@ -18,15 +18,15 @@ const {
     required: true,
   },
   secondaryDescription: String,
-  icons: Array,
+  icons: {
+    type: Array,
+    validator: (value) => {
+      return Array.isArray(value) && value.length === 2;
+    },
+  },
   requiredContent: [String, Object],
   conditionalContent: [String, Object],
 });
-
-/*
-TODO: Заменить  requiredContent и conditionalContent на слоты?
-TODO: Добавить валидацию на проверку количества icons.
-*/
 </script>
 
 <template>
@@ -55,13 +55,37 @@ TODO: Добавить валидацию на проверку количест
         </span>
       </div>
     </label>
-    <div v-if="requiredContent || conditionalContent" class="switch__content">
-      <div v-if="requiredContent" v-html="requiredContent" class="switch__required-content"></div>
+    <div
+      v-if="$slots.required || $slots.conditional || requiredContent || conditionalContent"
+      class="switch__content"
+    >
+      <div v-if="$slots.required" class="switch__required-content">
+        <slot name="required" />
+      </div>
       <div
-        v-if="conditionalContent"
+        v-else-if="typeof requiredContent === 'string'"
+        v-html="requiredContent"
+        class="switch__required-content"
+      ></div>
+      <component
+        v-else-if="typeof requiredContent === 'object'"
+        :is="requiredContent"
+        class="switch__required-content"
+      />
+
+      <div v-if="$slots.conditional" class="switch__conditional-content">
+        <slot name="conditional" />
+      </div>
+      <div
+        v-else-if="typeof conditionalContent === 'string'"
         v-html="conditionalContent"
         class="switch__conditional-content"
       ></div>
+      <component
+        v-else-if="typeof conditionalContent === 'object'"
+        :is="conditionalContent"
+        class="switch__conditional-content"
+      />
     </div>
   </div>
 </template>

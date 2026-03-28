@@ -1,6 +1,4 @@
 <script setup>
-import { useId } from 'vue';
-
 import IconCircleDashed from '@/icons/IconCircleDashed.vue';
 
 const {
@@ -15,14 +13,11 @@ const {
   },
   content: {
     type: [String, Object],
-    required: true,
   },
   name: String,
   icon: Object,
   open: Boolean,
 });
-
-const ariaDetailsId = useId();
 </script>
 
 <template>
@@ -32,12 +27,13 @@ const ariaDetailsId = useId();
         <component :is="icon ? icon : IconCircleDashed" />
       </span>
       <h3 class="accordion__summary-title">
-        <span role="term" :aria-details="ariaDetailsId">{{ title }}</span>
+        <span>{{ title }}</span>
       </h3>
     </summary>
-    <div class="accordion__content" :id="ariaDetailsId" role="definition">
-      <div v-if="typeof content === 'string'" v-html="content"></div>
-      <component v-else :is="content" />
+    <div class="accordion__content">
+      <slot v-if="$slots.default" />
+      <div v-else-if="typeof content === 'string'" v-html="content"></div>
+      <component v-else-if="typeof content === 'object'" :is="content" />
     </div>
   </details>
 </template>
