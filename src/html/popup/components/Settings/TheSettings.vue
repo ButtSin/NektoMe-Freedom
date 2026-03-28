@@ -1,6 +1,6 @@
 <script setup>
 import ThemeSwitcher from '@/html/popup/components/Settings/ThemeSwitcher.vue';
-import SwitchGroup from '@/html/shared/components/SwitchGroup.vue';
+import BaseSwitch from '@/html/shared/components/BaseSwitch.vue';
 import { computed } from 'vue';
 
 const adviceUrl = computed(() => chrome.runtime.getURL('src/html/advices/index.html'));
@@ -33,7 +33,15 @@ const switches = [
 
 <template>
   <div class="settings">
-    <SwitchGroup :switches />
+    <BaseSwitch
+      v-for="switchItem in switches"
+      :key="switchItem.mainDescription"
+      :mainDescription="switchItem.mainDescription"
+      :secondaryDescription="switchItem.secondaryDescription"
+      :isActive="switchItem.isActive"
+      :requiredContent="switchItem.requiredContent"
+    >
+    </BaseSwitch>
     <ThemeSwitcher />
   </div>
 </template>
