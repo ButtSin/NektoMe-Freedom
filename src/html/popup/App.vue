@@ -97,12 +97,6 @@ watch(() => settingsManager.getTheme().value, applyTheme);
 .popup__footer {
   padding-top: var(--spacing-xs);
   margin-top: var(--spacing-xs);
-
-  font-style: italic;
-  text-align: right;
-  text-wrap: balance;
-
-  @include separator-line($side: top);
 }
 
 .header {
@@ -134,5 +128,16 @@ watch(() => settingsManager.getTheme().value, applyTheme);
     color: colorToOpacity(var(--opacity));
     font-size: rem(12);
   }
+}
+
+.footer {
+  font-style: italic;
+  text-align: right;
+  text-wrap: balance;
+
+  transition-property: color;
+  transition-duration: var(--transition-duration);
+
+  @include separator-line($side: top);
 }
 </style>

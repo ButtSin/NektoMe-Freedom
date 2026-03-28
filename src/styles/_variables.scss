@@ -71,13 +71,13 @@
 
   --container-width: #{rem(468)};
   //TODO: По макету 16. Исправить, если появятся новые функции в настройках
-  --container-padding-x: #{rem(15)}; //
+  --container-padding-x: #{rem(15)};
   --container-padding-y: #{rem(15)};
 
   --spacing: var(--container-padding-y);
   --spacing-xs: calc(var(--spacing) / 2);
 
-  --transition-duration: 3.25s;
+  --transition-duration: 0.25s;
 
   // --line-height-xs: 0.85;
   // --line-height: 1;

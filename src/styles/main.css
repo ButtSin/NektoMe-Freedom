@@ -546,6 +546,10 @@ p:where(:not([class]):not(:last-child)) {
   --color-background-secondary: light-dark(#ebebeb, #0c0c0e);
   --color-border: light-dark(#dedede, #28282c);
   --color-border-hover: light-dark(#c1c1c1, #464646);
+  --color-shadow-inner: light-dark(
+    color-mix(in srgb, var(--color-white) 3%, transparent),
+    color-mix(in srgb, #eda2a24 3%, transparent)
+  );
   --color-field-background: light-dark(var(--color-white), var(--color-eclipse));
   --color-field-background-hover: light-dark(
     color-mix(in srgb, #f9f9f9 92%, transparent),
@@ -561,6 +565,18 @@ p:where(:not([class]):not(:last-child)) {
   );
   --color-separator-secondary: light-dark(#d7d7d7, #353538);
   --color-separator-tertiary: light-dark(#cdcdce, #3c3c3f);
+  --box-shadow:
+    0 0 0.0625rem 0 var(--color-field-shadow-alt),
+    0 0.0625rem 0.125rem 0 var(--color-field-shadow-alt),
+    0 0.125rem 0.25rem 0 var(--color-field-shadow), inset 0 0 0 0 var(--color-accent);
+  --box-shadow-alt:
+    0 0 0.0625rem 0 var(--color-field-shadow-alt),
+    0 0.0625rem 0.125rem 0 var(--color-field-shadow-alt),
+    0 0.125rem 0.25rem 0 var(--color-field-shadow),
+    inset 0 0 0 0.125rem var(--color-accent-hover);
+  --box-shadow-inner:
+    0 0 0.3125rem 0 rgba(0, 0, 0, 0.02), 0 0.125rem 0.625rem 0 var(--color-field-shadow-alt),
+    0 0 0.0625rem 0 var(--color-shadow-inner);
   --border-width: 0.0625rem;
   --border-field: var(--border-width) solid var(--color-border);
   --border-field-hover: 0.0625rem solid var(--color-border-hover);
@@ -569,11 +585,11 @@ p:where(:not([class]):not(:last-child)) {
   --border-radius-xl: 0.75rem;
   --font-family-base: 'Inter', sans-serif;
   --container-width: 29.25rem;
-  --container-padding-x: 1rem;
-  --container-padding-y: 1rem;
+  --container-padding-x: 0.9375rem;
+  --container-padding-y: 0.9375rem;
   --spacing: var(--container-padding-y);
   --spacing-xs: calc(var(--spacing) / 2);
-  --transition-duration: 0.25s;
+  --transition-duration: 3.25s;
   --line-height-lg: 1.29;
   --line-height-lg-alt: 1.34;
   --line-height-xl-alt: 1.43;
@@ -582,6 +598,9 @@ p:where(:not([class]):not(:last-child)) {
   --outline-size: 0.125rem;
   --outline-color: var(--color-accent);
   --outline: var(--outline-size) solid var(--outline-color);
+  --outline-offset: 0.125rem;
+  --outline-offset-extra: 0.1875rem;
+  --opacity: 0.8;
 }
 :root.is-dark {
   color-scheme: dark;
@@ -753,11 +772,14 @@ p:where(:not([class]):not(:last-child)) {
   transition: none !important;
 }
 
-.disable-transitions *,
-.disable-transitions *::before,
-.disable-transitions *::after {
-  transition: none !important;
-  animation: none !important;
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 body {
@@ -791,16 +813,6 @@ main {
   color: var(--color-default);
 }
 
-:where(a, button, label, input, textarea, select, svg *) {
-  outline-color: var(--outline-color);
-  outline-offset: 0;
-  transition-duration: var(--transition-duration);
-}
-
-:is(a, ul, button, input, textarea, summary, svg *):focus-visible {
-  outline: var(--outline);
-}
-
 a {
   --aOffsetX: 0.125rem;
   --aOffsetY: 0.19em;
@@ -808,7 +820,12 @@ a {
   position: relative;
   padding-left: var(--aOffsetX);
   padding-right: 0.8125rem;
-  color: inherit;
+  /*
+    Не используем color: inherit, чтобы избежать двойной анимации при смене темы. Если задать
+    inherit, transition сработает и на контейнере, и на ссылке, то есть анимации наложатся, и цвет
+    ссылки будет меняться визуально дольше остального текста.
+  */
+  color: var(--color-muted);
   line-height: var(--line-height-lg);
   text-decoration: underline;
   -webkit-text-decoration-skip-ink: none;
@@ -816,7 +833,7 @@ a {
   text-underline-offset: 0.1875rem;
   text-decoration-color: var(--color-separator-tertiary);
   border-radius: 0.75rem;
-  transition-property: text-decoration-color, opacity;
+  transition-property: text-decoration-color, color;
   transition-duration: var(--transition-duration);
 }
 a::after {
@@ -836,7 +853,8 @@ a::after {
 }
 @media (any-hover: hover) {
   a:hover {
-    opacity: 0.8;
+    color: color-mix(in srgb, currentColor calc(var(--opacity) * 100%), transparent);
+    text-decoration-color: color-mix(in srgb, var(--color-separator-tertiary) calc(var(--opacity) * 100%), transparent);
   }
 }
 @media (any-hover: none) {
@@ -847,7 +865,8 @@ a::after {
     transition-duration: 0s;
   }
   a:active {
-    opacity: 0.8;
+    color: color-mix(in srgb, currentColor calc(var(--opacity) * 100%), transparent);
+    text-decoration-color: color-mix(in srgb, var(--color-separator-tertiary) calc(var(--opacity) * 100%), transparent);
   }
 }
 a:active::after {
