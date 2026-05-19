@@ -1,0 +1,122 @@
+@use "helpers" as *;
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  padding-inline: var(--container-padding-x);
+  padding-block: var(--container-padding-y);
+
+  font-family: var(--font-family-base);
+  font-size: rem(14);
+  font-weight: 400;
+  line-height: var(--line-height-xl-alt);
+  color: var(--color-muted);
+  letter-spacing: var(--letter-spacing-sm);
+
+  background-color: var(--color-background);
+
+  transition-property: background-color;
+  transition-duration: var(--transition-duration);
+}
+
+main {
+  flex-grow: 1;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-default);
+}
+
+a {
+  --aOffsetX: #{rem(2)};
+  --aOffsetY: 0.19em;
+  --backgroundUrl: url("@/icons/squareArrow.svg");
+
+  position: relative;
+
+  padding-left: var(--aOffsetX);
+  padding-right: rem(13);
+
+  /*
+    Не используем color: inherit, чтобы избежать двойной анимации при смене темы. Если задать
+    inherit, transition сработает и на контейнере, и на ссылке, то есть анимации наложатся, и цвет
+    ссылки будет меняться визуально дольше остального текста.
+  */
+  color: var(--color-muted);
+  line-height: var(--line-height-lg);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: rem(3);
+  text-decoration-color: var(--color-separator-tertiary);
+
+  border-radius: rem(12);
+
+  transition-property: text-decoration-color, color;
+  transition-duration: var(--transition-duration);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    translate: calc(-100% - var(--aOffsetX)) var(--aOffsetY);
+
+    content: "";
+    @include square(rem(9));
+
+    mask: var(--backgroundUrl) no-repeat center / contain;
+    background-color: var(--color-default-foreground);
+
+    will-change: translate;
+
+    transition-property: background-color, translate;
+    transition-duration: var(--transition-duration);
+  }
+
+  @include hover(itself, after) {
+    color: colorToOpacity(var(--opacity));
+    text-decoration-color: colorToOpacity(
+      var(--opacity),
+      var(--color-separator-tertiary)
+    );
+  }
+
+  &:active {
+    &::after {
+      --aOffsetX: 0px;
+      --aOffsetY: 0.09em;
+    }
+  }
+
+  &:focus-visible {
+    outline-offset: rem(2);
+    outline: var(--outline);
+  }
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+  padding-left: calc(var(--spacing) + rem(1));
+  margin: 0;
+
+  list-style: circle;
+}
+
+p {
+  --paragraphMarginBottom: var(--spacing-xs);
+}
+
+address {
+  font-style: normal;
+}
+
+h1,
+.h1 {
+  color: var(--color-default-foreground);
+  font-size: rem(16);
+  line-height: var(--line-height-xxl);
+  font-weight: 600;
+}

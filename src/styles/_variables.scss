@@ -1,0 +1,135 @@
+@use "helpers/index" as *;
+
+:root {
+  color-scheme: dark light;
+
+  --color-eclipse: #18181b;
+  --color-snow: #fcfcfc;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-zinc-500: #71717a;
+  --color-zinc-400: #a1a1aa;
+
+  --color-accent: light-dark(#0485f7, #0485f7);
+  --color-accent-hover: light-dark(#3592f9, #3592f9);
+
+  --color-default: light-dark(#ebebec, #27272a);
+  --color-default-hover: light-dark(#e1e1e2, #2e2e31);
+  --color-default-foreground: light-dark(
+    var(--color-eclipse),
+    var(--color-snow)
+  );
+  --color-muted: light-dark(var(--color-zinc-500), var(--color-zinc-400));
+  --color-segment: light-dark(
+    rgba(255, 255, 255, 1),
+    rgba(230, 235, 255, 0.16)
+  );
+
+  --color-background: light-dark(#f5f5f5, #060607);
+  --color-background-secondary: light-dark(#ebebeb, #0c0c0e);
+
+  --color-border: light-dark(#dedede, #28282c);
+  --color-border-hover: light-dark(#c1c1c1, #464646);
+
+  --color-shadow-inner: light-dark(
+    color-mix(in srgb, var(--color-white) 3%, transparent),
+    color-mix(in srgb, #eda2a24 3%, transparent)
+  );
+
+  --color-field-background: light-dark(
+    var(--color-white),
+    var(--color-eclipse)
+  );
+  --color-field-background-hover: light-dark(
+    color-mix(in srgb, #f9f9f9 92%, transparent),
+    color-mix(in srgb, #1c1c1f 92%, transparent)
+  );
+  --color-field-shadow: light-dark(
+    color-mix(in srgb, var(--color-black) 4%, transparent),
+    color-mix(in srgb, var(--color-white) 4%, transparent)
+  );
+  --color-field-shadow-alt: light-dark(
+    color-mix(in srgb, var(--color-black) 6%, transparent),
+    color-mix(in srgb, var(--color-white) 4%, transparent)
+  );
+
+  --color-separator-secondary: light-dark(#d7d7d7, #353538);
+  --color-separator-tertiary: light-dark(#cdcdce, #3c3c3f);
+
+  --box-shadow:
+    0 0 #{rem(1)} 0 var(--color-field-shadow-alt),
+    0 #{rem(1)} #{rem(2)} 0 var(--color-field-shadow-alt),
+    0 #{rem(2)} #{rem(4)} 0 var(--color-field-shadow),
+    inset 0 0 0 0 var(--color-accent);
+  --box-shadow-alt:
+    0 0 #{rem(1)} 0 var(--color-field-shadow-alt),
+    0 #{rem(1)} #{rem(2)} 0 var(--color-field-shadow-alt),
+    0 #{rem(2)} #{rem(4)} 0 var(--color-field-shadow),
+    inset 0 0 0 #{rem(2)} var(--color-accent-hover);
+  --box-shadow-inner:
+    0 0 #{rem(5)} 0 rgba(0, 0, 0, 0.02),
+    0 #{rem(2)} #{rem(10)} 0 var(--color-field-shadow-alt),
+    0 0 #{rem(1)} 0 var(--color-shadow-inner);
+
+  --border-width: #{rem(1)};
+  --border-field: var(--border-width) solid var(--color-border);
+  --border-field-hover: #{rem(1)} solid var(--color-border-hover);
+  --border-field-focus: #{rem(1)} solid var(--color-field-background);
+  --border-radius-4xl: #{rem(32)};
+  --border-radius-xl: #{rem(12)};
+
+  --font-family-base: "Inter", sans-serif;
+
+  --container-width: #{rem(468)};
+  //TODO: По макету 16. Исправить, если появятся новые функции в настройках
+  --container-padding-x: #{rem(15)};
+  --container-padding-y: #{rem(15)};
+
+  --spacing: var(--container-padding-y);
+  --spacing-xs: calc(var(--spacing) / 2);
+
+  --transition-duration: 0.25s;
+
+  // --line-height-xs: 0.85;
+  // --line-height: 1;
+  // --line-height-sm: 1.1;
+  // --line-height-md: 1.2;
+  --line-height-lg: 1.29;
+  --line-height-lg-alt: 1.34;
+  // --line-height-xl: 1.4;
+  --line-height-xl-alt: 1.43;
+  --line-height-xxl: 1.5;
+
+  // --letter-spacing-xxs: -0.022em;
+  // --letter-spacing-xs: -0.02em;
+  --letter-spacing-sm: -0.01em;
+  // --letter-spacing: 0.01em;
+  // --letter-spacing-md: 0.02em;
+  // --letter-spacing-lg: 0.052em;
+
+  --outline-size: #{rem(2)};
+  // --outline-size-big: #{rem(2)};
+  --outline-color: var(--color-accent);
+  --outline: var(--outline-size) solid var(--outline-color);
+  // --outline-big: var(--outline-size-big) solid var(--outline-color);
+  --outline-offset: #{rem(2)};
+  --outline-offset-extra: #{rem(3)};
+
+  --opacity: 0.8;
+
+  // --scrollbar-color: var(--color-light-orange) var(--color-grey);
+  // --button-height: #{rem(56)};
+  // --button-height-little: #{rem(51)};
+  // --button-width-big: #{rem(194)};
+  // --button-width: #{rem(143)};
+  // --button-width-little: #{rem(133)};
+  // --linear-gradient: linear-gradient(180deg, var(--color-blue) 0%, rgba(6, 37, 91, 0) 100%);
+  // --linear-gradient-alt: linear-gradient(90deg, var(--color-blue) 0%, rgba(6, 37, 91, 0) 100%);
+  // --shadow-orange: inset 0 0 rem(100) rem(100) rgba(243, 0, 0, 0.25);
+  &.is-dark {
+    color-scheme: dark;
+  }
+  &.is-light {
+    color-scheme: light;
+  }
+}
