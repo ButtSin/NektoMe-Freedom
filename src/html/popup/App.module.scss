@@ -1,0 +1,50 @@
+.popup__header {
+  margin-bottom: var(--spacing-xs);
+}
+
+.popup__footer {
+  padding-top: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  &__title {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    width: fit-content;
+
+    &-text {
+      hyphens: auto;
+
+      transition-duration: var(--transition-duration);
+    }
+
+    &-icon {
+      display: flex;
+    }
+  }
+
+  &__version {
+    margin-bottom: rem(2);
+
+    color: colorToOpacity(var(--opacity));
+    font-size: rem(12);
+  }
+}
+
+.footer {
+  font-style: italic;
+  text-align: right;
+  text-wrap: balance;
+
+  transition-property: color;
+  transition-duration: var(--transition-duration);
+
+  @include separator-line($side: top);
+}
