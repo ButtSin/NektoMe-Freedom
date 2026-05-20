@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 // импорт стилей (если нужны только для этого компонента)
 
-function App() {
-  // Здесь будет логика вашего компонента
-
-  return <div className="app">{/* JSX-разметка */}</div>;
-}
+const App = () => {
+  return <div className="app"></div>;
+};
 
 export default App;
