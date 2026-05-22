@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { extensionVersion } from "@/js/constants";
 import IconLock from "@/icons/IconLock.jsx";
 import MainTabs from "@/html/popup/components/MainTabs.jsx";
-import styles from "@/html/popup/App.module.scss";
+
+import styles from "./App.module.scss";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
           v.&nbsp;{extensionVersion}
         </p>
       </header>
-      <main className={`${styles.popup__main} ${styles.main}`}>
+      <main>
         <MainTabs />
       </main>
       <footer className={`${styles.popup__footer} ${styles.footer}`}>

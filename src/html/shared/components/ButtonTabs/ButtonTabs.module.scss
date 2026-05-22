@@ -1,0 +1,42 @@
+.button {
+  display: flex;
+  align-items: center;
+  padding: rem(6) rem(12);
+  gap: rem(6);
+
+  color: var(--color-muted);
+
+  user-select: none;
+  cursor: pointer;
+
+  transition-duration: var(--transition-duration);
+
+  @include hover(itself) {
+    opacity: 0.5;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.is-active {
+    color: var(--color-default-foreground);
+
+    cursor: default;
+
+    @include hover {
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    place-items: center;
+  }
+
+  &__description {
+    font-size: rem(14);
+    font-weight: 500;
+    line-height: var(--line-height-xl-alt);
+  }
+}

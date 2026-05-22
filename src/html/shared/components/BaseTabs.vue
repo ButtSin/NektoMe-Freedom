@@ -1,5 +1,5 @@
 <script setup>
-import ButtonTabs from "@/html/shared/components/ButtonTabs.vue";
+import ButtonTabs from "@/html/shared/components/ButtonTabs/ButtonTabs.vue";
 import BaseScrollShadow from "@/html/shared/components/BaseScrollShadow.vue";
 
 import { nextTick, ref, useTemplateRef, watch } from "vue";

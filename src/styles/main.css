@@ -74,7 +74,7 @@ abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
   -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted; /* 2 */
+          text-decoration: underline dotted; /* 2 */
 }
 
 /**
@@ -173,9 +173,9 @@ select {
  * Correct the inability to style clickable types in iOS and Safari.
  */
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type=button],
+[type=reset],
+[type=submit] {
   -webkit-appearance: button;
 }
 
@@ -183,9 +183,9 @@ button,
  * Remove the inner border and padding in Firefox.
  */
 button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
@@ -233,8 +233,8 @@ textarea {
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
  */
-[type="checkbox"],
-[type="radio"] {
+[type=checkbox],
+[type=radio] {
   box-sizing: border-box; /* 1 */
   padding: 0; /* 2 */
 }
@@ -242,8 +242,8 @@ textarea {
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -251,7 +251,7 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-[type="search"] {
+[type=search] {
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
@@ -259,7 +259,7 @@ textarea {
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
-[type="search"]::-webkit-search-decoration {
+[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -380,7 +380,7 @@ svg * {
   Приводим к единому цвету svg-элементы, за исключением тех, у которых уже 
   указан атрибут fill со значением "none" или начинается с "url"
 */
-:where([fill]:not([fill="none"], [fill^="url"])) {
+:where([fill]:not([fill=none], [fill^=url])) {
   fill: currentColor;
 }
 
@@ -388,7 +388,7 @@ svg * {
   Приводим к единому цвету svg-элементы, за исключением тех, у которых уже 
   указан атрибут stroke со значением "none"
 */
-:where([stroke]:not([stroke="none"], [stroke^="url"])) {
+:where([stroke]:not([stroke=none], [stroke^=url])) {
   stroke: currentColor;
 }
 
@@ -487,60 +487,42 @@ p:where(:not([class]):not(:last-child)) {
 }
 @font-face {
   font-family: "Inter";
-  src:
-    local("Inter Regular"),
-    local("Inter-Regular"),
-    url("@/assets/fonts/Inter-Italic.woff2") format("woff2");
+  src: local("Inter Regular"), local("Inter-Regular"), url("@/assets/fonts/Inter-Italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src:
-    local("Inter Regular"),
-    local("Inter-Regular"),
-    url("@/assets/fonts/Inter-Regular.woff2") format("woff2");
+  src: local("Inter Regular"), local("Inter-Regular"), url("@/assets/fonts/Inter-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src:
-    local("Inter Medium"),
-    local("Inter-Medium"),
-    url("@/assets/fonts/Inter-ExtraBold.woff2") format("woff2");
+  src: local("Inter Medium"), local("Inter-Medium"), url("@/assets/fonts/Inter-ExtraBold.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src:
-    local("Inter SemiBold"),
-    local("Inter-SemiBold"),
-    url("@/assets/fonts/Inter-SemiBold.woff2") format("woff2");
+  src: local("Inter SemiBold"), local("Inter-SemiBold"), url("@/assets/fonts/Inter-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src:
-    local("Inter Bold"),
-    local("Inter-Bold"),
-    url("@/assets/fonts/Inter-Bold.woff2") format("woff2");
+  src: local("Inter Bold"), local("Inter-Bold"), url("@/assets/fonts/Inter-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src:
-    local("Inter ExtraBold"),
-    local("Inter-ExtraBold"),
-    url("@/assets/fonts/Inter-ExtraBold.woff2") format("woff2");
+  src: local("Inter ExtraBold"), local("Inter-ExtraBold"), url("@/assets/fonts/Inter-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -618,7 +600,7 @@ p:where(:not([class]):not(:last-child)) {
   --container-padding-y: 0.9375rem;
   --spacing: var(--container-padding-y);
   --spacing-xs: calc(var(--spacing) / 2);
-  --transition-duration: 3.25s;
+  --transition-duration: 0.25s;
   --line-height-lg: 1.29;
   --line-height-lg-alt: 1.34;
   --line-height-xl-alt: 1.43;
@@ -648,8 +630,7 @@ p:where(:not([class]):not(:last-child)) {
 :where(.reset-link) {
   color: inherit;
 }
-:where(.reset-link),
-:where(.reset-link):hover {
+:where(.reset-link), :where(.reset-link):hover {
   text-decoration: none;
 }
 
@@ -669,15 +650,14 @@ p:where(:not([class]):not(:last-child)) {
 
 :where(.reset-input-range) {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-color: transparent;
 }
 @supports selector(::-webkit-slider-runnable-track) {
-  :where(.reset-input-range)::-webkit-slider-runnable-track,
-  :where(.reset-input-range)::-webkit-slider-thumb {
+  :where(.reset-input-range)::-webkit-slider-runnable-track, :where(.reset-input-range)::-webkit-slider-thumb {
     -webkit-appearance: none;
-    appearance: none;
+            appearance: none;
   }
 }
 
@@ -688,18 +668,17 @@ p:where(:not([class]):not(:last-child)) {
   outline: none;
 }
 @supports selector(::-webkit-inner-spin-button) {
-  :where(.reset-input-number)::-webkit-outer-spin-button,
-  :where(.reset-input-number)::-webkit-inner-spin-button {
+  :where(.reset-input-number)::-webkit-outer-spin-button, :where(.reset-input-number)::-webkit-inner-spin-button {
     margin: 0;
     -webkit-appearance: none;
-    appearance: none;
+            appearance: none;
   }
 }
 @supports not selector(::-webkit-inner-spin-button) {
   :where(.reset-input-number) {
     -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
+       -moz-appearance: textfield;
+            appearance: textfield;
   }
 }
 
@@ -797,8 +776,7 @@ p:where(:not([class]):not(:last-child)) {
 .disable-animation {
   transition: none !important;
 }
-.disable-animation::before,
-.disable-animation::after,
+.disable-animation::before, .disable-animation::after,
 .disable-animation *,
 .disable-animation *::before,
 .disable-animation *::after {
@@ -862,7 +840,7 @@ a {
   line-height: var(--line-height-lg);
   text-decoration: underline;
   -webkit-text-decoration-skip-ink: none;
-  text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
   text-underline-offset: 0.1875rem;
   text-decoration-color: var(--color-separator-tertiary);
   border-radius: 0.75rem;
@@ -878,7 +856,7 @@ a::after {
   width: 0.5625rem;
   height: 0.5625rem;
   -webkit-mask: var(--backgroundUrl) no-repeat center/contain;
-  mask: var(--backgroundUrl) no-repeat center/contain;
+          mask: var(--backgroundUrl) no-repeat center/contain;
   background-color: var(--color-default-foreground);
   will-change: translate;
   transition-property: background-color, translate;
@@ -886,16 +864,8 @@ a::after {
 }
 @media (any-hover: hover) {
   a:hover {
-    color: color-mix(
-      in srgb,
-      currentColor calc(var(--opacity) * 100%),
-      transparent
-    );
-    text-decoration-color: color-mix(
-      in srgb,
-      var(--color-separator-tertiary) calc(var(--opacity) * 100%),
-      transparent
-    );
+    color: color-mix(in srgb, currentColor calc(var(--opacity) * 100%), transparent);
+    text-decoration-color: color-mix(in srgb, var(--color-separator-tertiary) calc(var(--opacity) * 100%), transparent);
   }
 }
 @media (any-hover: none) {
@@ -906,16 +876,8 @@ a::after {
     transition-duration: 0s;
   }
   a:active {
-    color: color-mix(
-      in srgb,
-      currentColor calc(var(--opacity) * 100%),
-      transparent
-    );
-    text-decoration-color: color-mix(
-      in srgb,
-      var(--color-separator-tertiary) calc(var(--opacity) * 100%),
-      transparent
-    );
+    color: color-mix(in srgb, currentColor calc(var(--opacity) * 100%), transparent);
+    text-decoration-color: color-mix(in srgb, var(--color-separator-tertiary) calc(var(--opacity) * 100%), transparent);
   }
 }
 a:active::after {
@@ -950,4 +912,4 @@ h1,
   font-size: 1rem;
   line-height: var(--line-height-xxl);
   font-weight: 600;
-} /*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

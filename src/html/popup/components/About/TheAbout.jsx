@@ -1,9 +1,9 @@
 // import BaseSwitch from "@/html/shared/components/BaseSwitch.jsx";
 
-const TheSettings = (props) => {
+const TheAbout = (props) => {
   // return <BaseSwitch />;
 
-  return <p>Настройки</p>;
+  return <p>О расширении</p>;
 };
 
-export default TheSettings;
+export default TheAbout;

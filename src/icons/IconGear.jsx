@@ -1,4 +1,4 @@
-const IconGear = ({ size = "1.5rem" }) => {
+const IconGear = ({ size = "1rem" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
