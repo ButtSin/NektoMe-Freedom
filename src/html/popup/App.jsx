@@ -3,6 +3,8 @@ import { extensionVersion } from "@/js/constants";
 import IconLock from "@/icons/IconLock.jsx";
 import MainTabs from "@/html/popup/components/MainTabs.jsx";
 
+import settingsManager from "@/js/settingsManager";
+
 import styles from "./App.module.scss";
 
 function App() {

@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 
-import { useState } from "react";
-
 class SettingsManager {
   _defaultSettings = Object.freeze({
     theme: "system",
@@ -55,123 +53,96 @@ class SettingsManager {
     });
   }
 
-  async setLocalTheme(themeValue) {
-    await this._setSetting("local", this._keys.ui.theme, themeValue);
-  }
-
-  async getLocalTheme() {
-    return await this._getSetting("local", this._keys.ui.theme);
-  }
-
-  async initSessionTabsState() {
-    const savedTabsSession = await this._getSetting(
-      "session",
-      this._keys.ui.tabsState,
-    );
-
-    if (savedTabsSession) {
-      this._tabsState.value = {
-        ...this._defaultSettings.tabsState,
-        ...savedTabsSession,
-      };
-
-      return;
-    }
-
-    this._tabsState.value = { ...this._defaultSettings.tabsState };
-    await this._setSetting(
-      "session",
-      this._keys.ui.tabsState,
-      this._tabsState.value,
-    );
-  }
-
-  async setSessionTabsState(currentTabs, tabStateValue) {
-    this._tabsState.value = {
-      ...this._tabsState.value,
-      [currentTabs]: tabStateValue,
-    };
-
-    await this._setSetting(
-      "session",
-      this._keys.ui.tabsState,
-      this._tabsState.value,
-    );
-  }
-
-  async getSessionTabsState(currentTabs) {
-    const currentState = await this._getSetting(
-      "session",
-      this._keys.ui.tabsState,
-    );
-    return currentState[currentTabs];
-  }
-
   getDefaultSettings() {
     return this._defaultSettings;
   }
 
-  async loadAllLocalSettings() {
-    const defaultSettings = this.getDefaultSettings();
-
-    const [themeRes, sexRes, copyRes] = await Promise.allSettled([
-      this.getLocalTheme(),
-      this.getLocalSexFieldUnlocked(),
-      this.getLocalCopyUnlocked(),
-    ]);
-
-    if (themeRes.status === "fulfilled") {
-      this._theme.value = themeRes.value ?? defaultSettings.theme;
-    } else {
-      console.warn("Failed to load theme, using default:", themeRes.reason);
-      this._theme.value = defaultSettings.theme;
-    }
-
-    if (sexRes.status === "fulfilled") {
-      this._sexFieldUnlocked.value =
-        sexRes.value ?? defaultSettings.sexFieldUnlocked;
-    } else {
-      console.warn(
-        "Failed to load sexFieldUnlocked, using default:",
-        sexRes.reason,
-      );
-      this._sexFieldUnlocked.value = defaultSettings.sexFieldUnlocked;
-    }
-
-    if (copyRes.status === "fulfilled") {
-      this._copyUnlocked.value = copyRes.value ?? defaultSettings.copyUnlocked;
-    } else {
-      console.warn(
-        "Failed to load copyUnlocked, using default:",
-        copyRes.reason,
-      );
-      this._copyUnlocked.value = defaultSettings.copyUnlocked;
-    }
+  async getSessionTabsState(currentTabs) {
+    const state = await this._getSetting("session", this._keys.ui.tabsState);
+    return state?.[currentTabs] ?? this._defaultSettings.tabsState[currentTabs];
   }
 
-  setLocalCopyUnlocked(copyUnlockedValue) {
-    return this._setSetting(
-      "local",
-      this._keys.content.copyUnlocked,
-      copyUnlockedValue,
-    );
+  async setSessionTabsState(currentTabs, tabStateValue) {
+    const state =
+      (await this._getSetting("session", this._keys.ui.tabsState)) || {};
+
+    const newState = {
+      ...state,
+      [currentTabs]: tabStateValue,
+    };
+    await this._setSetting("session", this._keys.ui.tabsState, newState);
   }
 
-  getLocalCopyUnlocked() {
-    return this._getSetting("local", this._keys.content.copyUnlocked);
-  }
+  // async setLocalTheme(themeValue) {
+  //   await this._setSetting("local", this._keys.ui.theme, themeValue);
+  //   this._theme.value = themeValue;
+  // }
 
-  setLocalSexFieldUnlocked(sexFieldUnlockedValue) {
-    return this._setSetting(
-      "local",
-      this._keys.content.sexFieldUnlocked,
-      sexFieldUnlockedValue,
-    );
-  }
+  // async getLocalTheme() {
+  //   return await this._getSetting("local", this._keys.ui.theme);
+  // }
 
-  getLocalSexFieldUnlocked() {
-    return this._getSetting("local", this._keys.content.sexFieldUnlocked);
-  }
+  // async loadAllLocalSettings() {
+  //   const defaultSettings = this.getDefaultSettings();
+
+  //   const [themeRes, sexRes, copyRes] = await Promise.allSettled([
+  //     this.getLocalTheme(),
+  //     this.getLocalSexFieldUnlocked(),
+  //     this.getLocalCopyUnlocked(),
+  //   ]);
+
+  //   if (themeRes.status === "fulfilled") {
+  //     this._theme.value = themeRes.value ?? defaultSettings.theme;
+  //   } else {
+  //     console.warn("Failed to load theme, using default:", themeRes.reason);
+  //     this._theme.value = defaultSettings.theme;
+  //   }
+
+  //   if (sexRes.status === "fulfilled") {
+  //     this._sexFieldUnlocked.value =
+  //       sexRes.value ?? defaultSettings.sexFieldUnlocked;
+  //   } else {
+  //     console.warn(
+  //       "Failed to load sexFieldUnlocked, using default:",
+  //       sexRes.reason,
+  //     );
+  //     this._sexFieldUnlocked.value = defaultSettings.sexFieldUnlocked;
+  //   }
+
+  //   if (copyRes.status === "fulfilled") {
+  //     this._copyUnlocked.value = copyRes.value ?? defaultSettings.copyUnlocked;
+  //   } else {
+  //     console.warn(
+  //       "Failed to load copyUnlocked, using default:",
+  //       copyRes.reason,
+  //     );
+  //     this._copyUnlocked.value = defaultSettings.copyUnlocked;
+  //   }
+  // }
+
+  // setLocalCopyUnlocked(copyUnlockedValue) {
+  //   return this._setSetting(
+  //     "local",
+  //     this._keys.content.copyUnlocked,
+  //     copyUnlockedValue,
+  //   );
+  // }
+
+  // getLocalCopyUnlocked() {
+  //   return this._getSetting("local", this._keys.content.copyUnlocked);
+  // }
+
+  // setLocalSexFieldUnlocked(sexFieldUnlockedValue) {
+  //   return this._setSetting(
+  //     "local",
+  //     this._keys.content.sexFieldUnlocked,
+  //     sexFieldUnlockedValue,
+  //   );
+  // }
+
+  // getLocalSexFieldUnlocked() {
+  //   return this._getSetting("local", this._keys.content.sexFieldUnlocked);
+  // }
 }
 
 export default new SettingsManager();

@@ -6,12 +6,13 @@ const ButtonTabs = ({
   selected,
   icon = <IconCircleDashed />,
   description = "Кнопка табов",
+  onSelect,
 }) => {
-  console.log(id, selected);
   return (
     <button
       id={id}
       className={`${styles.button} ${selected ? styles["is-active"] : null} reset-button `}
+      onClick={onSelect}
     >
       <span className={`${styles.button__icon}`} aria-hidden="true">
         {icon}

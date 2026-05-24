@@ -6,31 +6,38 @@ import BaseTabs from "@/html/shared/components/BaseTabs/BaseTabs.jsx";
 import TheSettings from "@/html/popup/components/Settings/TheSettings.jsx";
 import TheAbout from "@/html/popup/components/About/TheAbout.jsx";
 import TheHelp from "@/html/popup/components/Help/TheHelp.jsx";
+import { useState } from "react";
 
 const tabs = [
   {
     id: "settings",
     icon: <IconGear />,
     description: "Настройки",
-    panel: TheSettings,
+    panel: <TheSettings />,
   },
   {
     id: "about",
     icon: <IconInfo />,
     description: "О расширении",
-    panel: TheAbout,
+    panel: <TheAbout />,
   },
   {
     id: "help",
     icon: <IconHeart />,
     description: "Помочь проекту",
-    panel: TheHelp,
+    panel: <TheHelp />,
   },
 ];
 const tabsKey = "popupMainTabs";
 const selectedTab = "settings";
 
 const MainTabs = (props) => {
+  const [selectedTab, setSelectedTab] = useState("settings");
+
+  const handleSelectTab = (id) => {
+    setSelectedTab(id);
+  };
+
   return (
     <>
       <BaseTabs
@@ -38,6 +45,7 @@ const MainTabs = (props) => {
         headingId="main-navigation"
         tabs={tabs}
         selected={selectedTab}
+        onSelect={handleSelectTab}
       />
     </>
   );

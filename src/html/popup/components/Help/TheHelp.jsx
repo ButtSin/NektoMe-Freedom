@@ -1,9 +1,25 @@
-// import BaseSwitch from "@/html/shared/components/BaseSwitch.jsx";
+import styles from "./TheHelp.module.scss";
 
 const TheHelp = (props) => {
-  // return <BaseSwitch />;
-
-  return <p>Помощь</p>;
+  return (
+    <div className={`${styles.help}`}>
+      <p className={`${styles.help__text}`}>
+        Расширение было, есть и останется бесплатным. Однако любой труд, по
+        моему мнению, должен быть оплачен. Для меня валютой послужила бы ваша
+        благодарность, выражаемая отзывами со справедливыми оценками, письмами,
+        в которых вы сообщаете о багах или своих пожеланиях, а также самим
+        использованием данного программного продукта. Сейчас о нём мало кто
+        знает, поэтому, даже просто рассказав об этом проекте кому-то, вы
+        внесёте большой вклад в его развитие, чему я был бы несказанно рад.
+      </p>
+      <address className={`${styles.help__contacts}`}>
+        По любым вопросам — как связанным с приложением, так и не очень — вы
+        можете написать мне на почту:{" "}
+        <a href="mailto:dmitrii.buttsin@gmail.com">dmitrii.buttsin@gmail.com</a>
+        .
+      </address>
+    </div>
+  );
 };
 
 export default TheHelp;
