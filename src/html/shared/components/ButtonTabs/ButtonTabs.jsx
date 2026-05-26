@@ -7,12 +7,15 @@ const ButtonTabs = ({
   icon = <IconCircleDashed />,
   description = "Кнопка табов",
   onSelect,
+  ref,
 }) => {
   return (
     <button
+      ref={ref}
       id={id}
-      className={`${styles.button} ${selected ? styles["is-active"] : null} reset-button `}
+      className={`${styles.button} ${selected ? styles["is-active"] : ""} reset-button `}
       onClick={onSelect}
+      data-selected={selected}
     >
       <span className={`${styles.button__icon}`} aria-hidden="true">
         {icon}

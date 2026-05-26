@@ -1,6 +1,6 @@
 import styles from "./TheHelp.module.scss";
 
-const TheHelp = (props) => {
+const TheHelp = () => {
   return (
     <div className={`${styles.help}`}>
       <p className={`${styles.help__text}`}>

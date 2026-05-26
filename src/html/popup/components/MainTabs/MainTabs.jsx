@@ -6,7 +6,9 @@ import BaseTabs from "@/html/shared/components/BaseTabs/BaseTabs.jsx";
 import TheSettings from "@/html/popup/components/Settings/TheSettings.jsx";
 import TheAbout from "@/html/popup/components/About/TheAbout.jsx";
 import TheHelp from "@/html/popup/components/Help/TheHelp.jsx";
-import { useState } from "react";
+
+import SettingsManager from "@/js/SettingsManager.js";
+import { useEffect, useState } from "react";
 
 const tabs = [
   {
@@ -29,14 +31,22 @@ const tabs = [
   },
 ];
 const tabsKey = "popupMainTabs";
-const selectedTab = "settings";
 
-const MainTabs = (props) => {
-  const [selectedTab, setSelectedTab] = useState("settings");
+const MainTabs = () => {
+  const [selectedTab, setSelectedTab] = useState(null);
 
   const handleSelectTab = (id) => {
     setSelectedTab(id);
+    SettingsManager.setSessionTabsState(tabsKey, id);
   };
+
+  useEffect(() => {
+    SettingsManager.getSessionTabsState(tabsKey).then((savedTab) => {
+      setSelectedTab(savedTab);
+    });
+  }, []);
+
+  if (selectedTab === null) return null; // Можно добавить скелетон, но не обязательно
 
   return (
     <>

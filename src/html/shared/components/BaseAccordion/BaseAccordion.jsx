@@ -3,10 +3,10 @@ import styles from "./BaseAccordion.module.scss";
 
 const BaseAccordion = ({
   title,
-  content,
   name = "",
   open = false,
   icon = <IconCircleDashed />,
+  children,
 }) => {
   return (
     <details className={`${styles.accordion}`} open={open} name={name}>
@@ -21,7 +21,7 @@ const BaseAccordion = ({
           </h3>
         </span>
       </summary>
-      <div className={`${styles.accordion__content}`}>{content}</div>
+      <div className={`${styles.accordion__content}`}>{children}</div>
     </details>
   );
 };

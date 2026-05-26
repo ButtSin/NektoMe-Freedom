@@ -10,7 +10,7 @@ import IconCloudArrowUp from "@/icons/IconCloudArrowUp.jsx";
 const accordions = [
   {
     name: "base-info",
-    content: (
+    children: (
       <p>
         Автор данного расширения не пропагандирует какие-либо социальные,
         политические или идеологические взгляды. Оно — лишь технический
@@ -28,7 +28,7 @@ const accordions = [
   },
   {
     name: "base-info",
-    content: (
+    children: (
       <>
         <p>Версия {extensionVersion} включает в себя следующие изменения:</p>
         <ul>
@@ -50,7 +50,7 @@ const accordions = [
   },
   {
     name: "base-info",
-    content: (
+    children: (
       <p>
         Данное расширение не собирает и, соответственно, не использует никаких
         данных. Вы можете убедиться в этом сами, ознакомившись с его исходным
@@ -66,7 +66,7 @@ const accordions = [
   },
   {
     name: "base-info",
-    content: (
+    children: (
       <p>
         Спасибо{" "}
         <a target="_blank" href="https://github.com/VolrakNik">
@@ -80,7 +80,7 @@ const accordions = [
   },
   {
     name: "base-info",
-    content: (
+    children: (
       <>
         <p>Текущая версия расширения использует следующие материалы:</p>
         <ul>
@@ -110,11 +110,12 @@ const TheAbout = ({ props }) => {
       <BaseAccordion
         key={accordion.title}
         name={accordion.name}
-        content={accordion.content}
         title={accordion.title}
         open={accordion.open}
         icon={accordion.icon}
-      />
+      >
+        {accordion.children}
+      </BaseAccordion>
     );
   });
 };

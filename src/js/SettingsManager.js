@@ -73,14 +73,14 @@ class SettingsManager {
     await this._setSetting("session", this._keys.ui.tabsState, newState);
   }
 
-  // async setLocalTheme(themeValue) {
-  //   await this._setSetting("local", this._keys.ui.theme, themeValue);
-  //   this._theme.value = themeValue;
-  // }
+  async setLocalTheme(themeValue) {
+    await this._setSetting("local", this._keys.ui.theme, themeValue);
+  }
 
-  // async getLocalTheme() {
-  //   return await this._getSetting("local", this._keys.ui.theme);
-  // }
+  async getLocalTheme() {
+    const state = await this._getSetting("local", this._keys.ui.theme);
+    return state ?? this._defaultSettings.theme;
+  }
 
   // async loadAllLocalSettings() {
   //   const defaultSettings = this.getDefaultSettings();

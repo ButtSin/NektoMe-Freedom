@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { extensionVersion } from "@/js/constants";
 import IconLock from "@/icons/IconLock.jsx";
-import MainTabs from "@/html/popup/components/MainTabs.jsx";
+import MainTabs from "@/html/popup/components/MainTabs/MainTabs.jsx";
 
-import settingsManager from "@/js/settingsManager";
+import SettingsManager from "@/js/SettingsManager";
 
 import styles from "./App.module.scss";
 
