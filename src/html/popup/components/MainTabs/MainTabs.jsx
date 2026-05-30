@@ -46,14 +46,12 @@ const MainTabs = () => {
     });
   }, []);
 
-  if (selectedTab === null) return null; // Можно добавить скелетон, но не обязательно
-
   return (
     <>
       <BaseTabs
         heading="Навигация по расширению"
         headingId="main-navigation"
-        tabs={tabs}
+        tabs={tabs.length === 0 ? 3 : tabs}
         selected={selectedTab}
         onSelect={handleSelectTab}
       />
