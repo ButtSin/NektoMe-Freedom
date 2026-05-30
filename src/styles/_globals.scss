@@ -80,9 +80,7 @@ a {
       var(--opacity),
       var(--color-separator-tertiary)
     );
-  }
 
-  &:active {
     &::after {
       --aOffsetX: 0px;
       --aOffsetY: 0.09em;
@@ -92,6 +90,11 @@ a {
   &:focus-visible {
     outline-offset: rem(2);
     outline: var(--outline);
+
+    &::after {
+      --aOffsetX: 0px;
+      --aOffsetY: 0.09em;
+    }
   }
 }
 

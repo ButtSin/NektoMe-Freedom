@@ -867,6 +867,10 @@ a::after {
     color: color-mix(in srgb, currentColor calc(var(--opacity) * 100%), transparent);
     text-decoration-color: color-mix(in srgb, var(--color-separator-tertiary) calc(var(--opacity) * 100%), transparent);
   }
+  a:hover::after {
+    --aOffsetX: 0px;
+    --aOffsetY: 0.09em;
+  }
 }
 @media (any-hover: none) {
   a:active {
@@ -879,14 +883,18 @@ a::after {
     color: color-mix(in srgb, currentColor calc(var(--opacity) * 100%), transparent);
     text-decoration-color: color-mix(in srgb, var(--color-separator-tertiary) calc(var(--opacity) * 100%), transparent);
   }
-}
-a:active::after {
-  --aOffsetX: 0px;
-  --aOffsetY: 0.09em;
+  a:active::after {
+    --aOffsetX: 0px;
+    --aOffsetY: 0.09em;
+  }
 }
 a:focus-visible {
   outline-offset: 0.125rem;
   outline: var(--outline);
+}
+a:focus-visible::after {
+  --aOffsetX: 0px;
+  --aOffsetY: 0.09em;
 }
 
 ul {
