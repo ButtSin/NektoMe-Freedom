@@ -10,6 +10,7 @@ import TheHelp from "@/html/popup/components/Help/TheHelp.jsx";
 import SettingsManager from "@/js/SettingsManager.js";
 import { useEffect, useState } from "react";
 
+const SKELETON_TAB_COUNT = 3;
 const tabs = [
   {
     id: "settings",
@@ -51,7 +52,7 @@ const MainTabs = () => {
       <BaseTabs
         heading="Навигация по расширению"
         headingId="main-navigation"
-        tabs={tabs.length === 0 ? 3 : tabs}
+        tabs={tabs.length === 0 ? SKELETON_TAB_COUNT : tabs}
         selected={selectedTab}
         onSelect={handleSelectTab}
       />
