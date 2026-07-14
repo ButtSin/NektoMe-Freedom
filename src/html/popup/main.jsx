@@ -3,6 +3,7 @@ import "@/styles/main.scss";
 import App from "./App.jsx";
 import ErrorHandlers from "@/js/ErrorHandlers";
 import { StrictMode } from "react";
+import { ThemeProvider } from "@/js/contexts/ThemeContext.jsx";
 
 new ErrorHandlers().promiseGlobalErrorSetup();
 
@@ -10,6 +11,8 @@ const container = document.getElementById("app");
 const root = createRoot(container);
 root.render(
   <StrictMode>
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 );
