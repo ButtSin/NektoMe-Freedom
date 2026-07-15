@@ -12,10 +12,14 @@ node_modules
 dist
 dist-ssr
 *.local
+*.css
+
+# Source maps
+*.map
 
 # WebStorm specific files
 .idea
 
-#VS Code specific files
+# VS Code specific files
 .vs
 .vscode
