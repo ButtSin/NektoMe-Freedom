@@ -1,0 +1,48 @@
+import RadioGroup from "@/shared/ui/molecules/RadioGroup/RadioGroup";
+import SettingsManager from "@/entities/settings/model/SettingsManager";
+import { use } from "react";
+import { ThemeContext } from "@/app/providers/ThemeContext";
+import { applyTheme } from "@/shared/lib/dom/applyTheme";
+
+const data = {
+  mainDescription: "Тема",
+  secondaryDescription: "Выберите тему оформления",
+  name: "theme",
+  radios: [
+    {
+      mainDescription: "Светлая",
+      value: "light",
+    },
+    {
+      mainDescription: "Тёмная",
+      value: "dark",
+    },
+    {
+      mainDescription: "Системная",
+      value: "system",
+    },
+  ],
+};
+
+function ThemeSwitcher() {
+  const { selectedTheme, setSelectedTheme } = use(ThemeContext);
+
+  const handleSelectTheme = (theme) => {
+    setSelectedTheme(theme);
+    SettingsManager.setLocalTheme(theme);
+    applyTheme(theme);
+  };
+
+  return (
+    <RadioGroup
+      mainDescription={data.mainDescription}
+      secondaryDescription={data.secondaryDescription}
+      name={data.name}
+      radios={data.radios}
+      selected={selectedTheme}
+      onChange={handleSelectTheme}
+    />
+  );
+}
+
+export default ThemeSwitcher;
