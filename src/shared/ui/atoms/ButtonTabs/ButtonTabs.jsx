@@ -1,4 +1,4 @@
-import IconCircleDashed from "@/shared/ui/icons/IconCircleDashed.jsx";
+import IconCircleDashed from "../../../ui/icons/IconCircleDashed.jsx";
 import styles from "./ButtonTabs.module.scss";
 
 const ButtonTabs = ({

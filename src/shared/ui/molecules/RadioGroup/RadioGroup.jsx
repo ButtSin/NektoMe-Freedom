@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { Radio } from "@/shared/ui/atoms/Radio";
+import { Radio } from "../../atoms/Radio";
 import styles from "./RadioGroup.module.scss";
 
 function RadioGroup({
