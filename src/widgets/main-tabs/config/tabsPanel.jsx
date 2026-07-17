@@ -4,7 +4,7 @@ import IconHeart from "@/shared/icons/IconHeart.jsx";
 
 import { Settings } from "../ui/settings";
 import { About } from "../ui/about";
-import { Help } from "../ui/Help";
+import { Help } from "../ui/help";
 
 const tabsPanel = [
   {

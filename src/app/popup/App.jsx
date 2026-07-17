@@ -1,43 +1,12 @@
-import { useState, useEffect } from "react";
-import { extensionVersion } from "@/shared/config/constants";
-import IconLock from "@/shared/icons/IconLock.jsx";
-import MainTabs from "@/widgets/main-tabs/ui/MainTabs";
+import { PopupLayout } from "../layouts";
+import { PopupPage } from "@/pages/popup";
 
-import { settingsManager } from "@/entities/settings/";
-
-import styles from "./App.module.scss";
-
-function App() {
+const App = () => {
   return (
-    <>
-      <header className={`${styles.popup__header} ${styles.header}`}>
-        <h1 className={`${styles.header__title}`}>
-          <span className={`${styles["header__title-text"]}`}>
-            NektoMe Freedom — говорите вне лимитов
-          </span>
-          &nbsp;
-          <span
-            className={`${styles["header__title-icon"]}`}
-            aria-hidden="true"
-          >
-            <IconLock />
-          </span>
-        </h1>
-        <p className={`${styles.header__version}`}>
-          v.&nbsp;{extensionVersion}
-        </p>
-      </header>
-      <main>
-        <MainTabs />
-      </main>
-      <footer className={`${styles.popup__footer} ${styles.footer}`}>
-        <p>
-          С уважением и признательностью посвящается моей хорошей подруге Мали.
-          Спасибо тебе за всё.
-        </p>
-      </footer>
-    </>
+    <PopupLayout>
+      <PopupPage />
+    </PopupLayout>
   );
-}
+};
 
-export default App;
+export { App };

@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "@/app/styles/main.scss";
-import App from "./App.jsx";
+import { App } from "./App.jsx";
 import ErrorHandlers from "@/shared/lib/ErrorHandler.js";
 import { StrictMode } from "react";
 import { ThemeProvider } from "@/app/providers/ThemeContext.jsx";

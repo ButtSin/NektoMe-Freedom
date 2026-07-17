@@ -32,4 +32,4 @@ const MainTabs = () => {
   );
 };
 
-export default MainTabs;
+export { MainTabs };
