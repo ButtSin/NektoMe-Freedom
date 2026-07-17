@@ -1,7 +1,7 @@
 import IconCircleDashed from "@/shared/icons/IconCircleDashed.jsx";
-import styles from "./BaseAccordion.module.scss";
+import styles from "./Accordion.module.scss";
 
-const BaseAccordion = ({
+const Accordion = ({
   title,
   name = "",
   open = false,
@@ -26,4 +26,4 @@ const BaseAccordion = ({
   );
 };
 
-export default BaseAccordion;
+export { Accordion };

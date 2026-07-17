@@ -1,4 +1,4 @@
-@use "helpers" as *;
+@use "../../shared/styles/helpers" as *;
 
 body {
   display: flex;
@@ -8,7 +8,7 @@ body {
   padding-block: var(--container-padding-y);
 
   font-family: var(--font-family-base);
-  font-size: rem(14);
+  font-size: toRem(14);
   font-weight: 400;
   line-height: var(--line-height-xl-alt);
   color: var(--color-muted);
@@ -30,14 +30,14 @@ main {
 }
 
 a {
-  --aOffsetX: #{rem(2)};
+  --aOffsetX: #{toRem(2)};
   --aOffsetY: 0.19em;
-  --backgroundUrl: url("@/icons/squareArrow.svg");
+  --backgroundUrl: url("@/shared/assets/icons/squareArrow.svg");
 
   position: relative;
 
   padding-left: var(--aOffsetX);
-  padding-right: rem(13);
+  padding-right: toRem(13);
 
   /*
     Не используем color: inherit, чтобы избежать двойной анимации при смене темы. Если задать
@@ -48,10 +48,10 @@ a {
   line-height: var(--line-height-lg);
   text-decoration: underline;
   text-decoration-skip-ink: none;
-  text-underline-offset: rem(3);
+  text-underline-offset: toRem(3);
   text-decoration-color: var(--color-separator-tertiary);
 
-  border-radius: rem(12);
+  border-radius: toRem(12);
 
   transition-property: text-decoration-color, color;
   transition-duration: var(--transition-duration);
@@ -63,7 +63,7 @@ a {
     translate: calc(-100% - var(--aOffsetX)) var(--aOffsetY);
 
     content: "";
-    @include square(rem(9));
+    @include square(toRem(9));
 
     mask: var(--backgroundUrl) no-repeat center / contain;
     background-color: var(--color-default-foreground);
@@ -88,7 +88,7 @@ a {
   }
 
   &:focus-visible {
-    outline-offset: rem(2);
+    outline-offset: toRem(2);
     outline: var(--outline);
 
     &::after {
@@ -102,7 +102,7 @@ ul {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-xs);
-  padding-left: calc(var(--spacing) + rem(1));
+  padding-left: calc(var(--spacing) + toRem(1));
   margin: 0;
 
   list-style: circle;
@@ -119,7 +119,7 @@ address {
 h1,
 .h1 {
   color: var(--color-default-foreground);
-  font-size: rem(16);
+  font-size: toRem(16);
   line-height: var(--line-height-xxl);
   font-weight: 600;
 }

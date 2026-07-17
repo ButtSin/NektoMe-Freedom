@@ -1,5 +1,5 @@
 import { useId } from "react";
-import BaseRadio from "@/shared/ui/atoms/Radio/Radio.jsx";
+import { Radio } from "@/shared/ui/atoms/Radio";
 import styles from "./RadioGroup.module.scss";
 
 function RadioGroup({
@@ -35,7 +35,7 @@ function RadioGroup({
         style={{ "--gridColumns": radios.length }}
       >
         {radios.map((radio) => (
-          <BaseRadio
+          <Radio
             key={radio.value}
             value={radio.value}
             checked={radio.value === selected}
@@ -50,4 +50,4 @@ function RadioGroup({
   );
 }
 
-export default RadioGroup;
+export { RadioGroup };

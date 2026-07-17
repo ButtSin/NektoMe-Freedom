@@ -11,11 +11,12 @@ export default defineConfig({
       "#": path.resolve(__dirname, "./"),
     },
   },
+
   build: {
     outDir: "dist",
     emptyOutDir: false,
     rollupOptions: {
-      input: path.resolve(__dirname, "./src/js/background/background.js"),
+      input: path.resolve(__dirname, "./src/app/background/background.js"),
       output: {
         format: "iife",
         entryFileNames: "src/background.js",

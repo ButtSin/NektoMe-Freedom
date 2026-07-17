@@ -1,6 +1,6 @@
-import styles from "./BaseSwitch.module.scss";
+import styles from "./Switch.module.scss";
 
-const BaseSwitch = ({
+const Switch = ({
   mainDescription,
   isActive,
   secondaryDescription,
@@ -48,4 +48,4 @@ const BaseSwitch = ({
   );
 };
 
-export default BaseSwitch;
+export { Switch };

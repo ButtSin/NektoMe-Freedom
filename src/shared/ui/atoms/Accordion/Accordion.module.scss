@@ -1,9 +1,9 @@
 .accordion {
-  --accordionMainIconSize: #{rem(16)};
-  --accordionArrowIconOffsetRight: #{rem(16)};
+  --accordionMainIconSize: #{toRem(16)};
+  --accordionArrowIconOffsetRight: #{toRem(16)};
   --accordionPaddingRight: calc(
     var(--accordionMainIconSize) + var(--accordionArrowIconOffsetRight) +
-      #{rem(8)}
+      #{toRem(8)}
   );
 
   @include separator-line($side: bottom);
@@ -65,7 +65,7 @@
       content: "";
       @include square(var(--accordionMainIconSize));
 
-      mask: url("@/icons/arrow.svg") no-repeat center / contain;
+      mask: url("@/shared/assets/icons/arrow.svg") no-repeat center / contain;
       background-color: var(--color-muted);
 
       transition-property: rotate;
@@ -83,10 +83,10 @@
     }
 
     &-title {
-      padding-left: rem(12);
+      padding-left: toRem(12);
       padding-right: var(--accordionPaddingRight);
 
-      font-size: rem(14);
+      font-size: toRem(14);
       font-weight: 500;
       line-height: var(--line-height-xl-alt);
       color: var(--color-default-foreground);
@@ -94,8 +94,8 @@
   }
 
   &__content {
-    padding-left: calc(var(--accordionMainIconSize) + rem(12));
+    padding-left: calc(var(--accordionMainIconSize) + toRem(12));
     padding-right: var(--accordionPaddingRight);
-    padding-bottom: rem(16);
+    padding-bottom: toRem(16);
   }
 }

@@ -1,69 +1,44 @@
+import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const base = {
+// Функция для гарантии прямых слешей (критично для Windows)
+const toPosix = (p) => p.replace(/\\/g, "/");
+
+export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "#": path.resolve(__dirname, "./"),
+      "@": toPosix(path.resolve(__dirname, "./src")),
+      "#": toPosix(path.resolve(__dirname, "./")),
     },
   },
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/helpers/_index.scss" as *;`,
+        loadPaths: [toPosix(path.resolve(__dirname, "src/shared/styles"))],
+        additionalData: `@use "helpers" as *;\n`,
+        api: "modern",
       },
     },
   },
   build: {
     outDir: "dist",
-  },
-};
-
-export default defineConfig([
-  // Конфиг для страниц (popup, advices) – с React
-  {
-    ...base,
-    plugins: [react()],
-    build: {
-      ...base.build,
-      emptyOutDir: true,
-      rollupOptions: {
-        input: {
-          popup: path.resolve(__dirname, "./src/html/popup/index.html"),
-          advices: path.resolve(__dirname, "./src/html/advices/index.html"),
-        },
-        output: {
-          entryFileNames: "assets/[name]-[hash].js",
-          assetFileNames: "assets/[name]-[hash][extname]",
-        },
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        popup: toPosix(path.resolve(__dirname, "./src/app/popup/index.html")),
+        advices: toPosix(
+          path.resolve(__dirname, "./src/app/advices/index.html"),
+        ),
+      },
+      output: {
+        entryFileNames: "assets/[name]-[hash].js",
+        assetFileNames: "assets/[name]-[hash][extname]",
       },
     },
   },
-  // Конфиг для background и content – IIFE
-  {
-    ...base,
-    build: {
-      ...base.build,
-      emptyOutDir: false,
-      rollupOptions: {
-        input: {
-          background: path.resolve(
-            __dirname,
-            "./src/js/background/background.js",
-          ),
-          content: path.resolve(__dirname, "./src/js/content/content.js"),
-        },
-        output: {
-          format: "iife",
-          entryFileNames: "src/[name].js",
-          assetFileNames: "assets/[name]-[hash][extname]",
-        },
-      },
-    },
-  },
-]);
+});

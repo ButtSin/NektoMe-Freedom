@@ -1,6 +1,6 @@
-import settingsManager from "@/entities/settings/model/SettingsManager";
+import { settingsManager } from "@/entities/settings";
 
-export class SexFieldUnlocker {
+class SexFieldUnlocker {
   selectors = {
     sexFieldClass: ".sexRow",
     buttonsClass: ".btn",
@@ -458,3 +458,5 @@ export class SexFieldUnlocker {
     this.sexFieldElement.addEventListener("click", this.boundOnSexFieldClick);
   }
 }
+
+export { SexFieldUnlocker };

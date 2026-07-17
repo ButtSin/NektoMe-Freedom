@@ -1,6 +1,6 @@
-import styles from "./BaseRadio.module.scss";
+import styles from "./Radio.module.scss";
 
-function BaseRadio({
+function Radio({
   value,
   name,
   mainDescription,
@@ -32,4 +32,4 @@ function BaseRadio({
   );
 }
 
-export default BaseRadio;
+export { Radio };

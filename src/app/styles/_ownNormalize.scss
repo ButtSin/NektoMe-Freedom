@@ -1,5 +1,3 @@
-@use "./helpers/index" as *;
-
 /*
   Нормализация блочной модели
 */
@@ -146,7 +144,7 @@ address[class] {
   чтобы избежать взаимодействие с более сложным селектором
  */
 p {
-  --paragraphMarginBottom: #{rem(24)};
+  --paragraphMarginBottom: #{toRem(24)};
 
   margin-block: 0;
 }

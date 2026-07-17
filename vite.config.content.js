@@ -11,11 +11,12 @@ export default defineConfig({
       "#": path.resolve(__dirname, "./"),
     },
   },
+
   build: {
     outDir: "dist",
     emptyOutDir: false,
     rollupOptions: {
-      input: path.resolve(__dirname, "./src/js/content/content.js"),
+      input: path.resolve(__dirname, "./src/app/content/content.js"),
       output: {
         format: "iife",
         entryFileNames: "src/content.js",

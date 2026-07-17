@@ -1,8 +1,8 @@
 .radio {
-  --controlSize: #{rem(16)};
+  --controlSize: #{toRem(16)};
 
   display: flex;
-  gap: rem(12);
+  gap: toRem(12);
 
   cursor: pointer;
 
@@ -14,7 +14,7 @@
     position: relative;
 
     display: flex;
-    margin-top: rem(2);
+    margin-top: toRem(2);
     @include square(var(--controlSize));
 
     outline: var(--border-field);
@@ -47,7 +47,7 @@
       scale: 0;
 
       border-radius: 50%;
-      box-shadow: 0 rem(1) rem(1) 0 rgba(0, 0, 0, 0.05);
+      box-shadow: 0 toRem(1) toRem(1) 0 rgba(0, 0, 0, 0.05);
       background-color: var(--color-snow);
 
       transition-duration: var(--transition-duration);
@@ -75,17 +75,17 @@
       &::before {
         z-index: -1;
 
-        @include square(rem(16));
+        @include square(toRem(16));
         background-color: var(--color-accent);
       }
 
       &::after {
-        @include scale-to-size(var(--controlSize), rem(6));
+        @include scale-to-size(var(--controlSize), toRem(6));
       }
     }
 
     &:checked:active::after {
-      @include scale-to-size(var(--controlSize), rem(8));
+      @include scale-to-size(var(--controlSize), toRem(8));
     }
 
     &:focus-visible {
@@ -106,7 +106,7 @@
 
   &__secondary-description {
     font-weight: 400;
-    font-size: rem(12);
+    font-size: toRem(12);
     color: var(--color-muted);
     line-height: var(--line-height-lg-alt);
 
@@ -115,7 +115,7 @@
 
   &__main-description {
     font-weight: 500;
-    font-size: rem(14);
+    font-size: toRem(14);
     color: var(--color-default-foreground);
     line-height: var(--line-height-xl-alt);
 

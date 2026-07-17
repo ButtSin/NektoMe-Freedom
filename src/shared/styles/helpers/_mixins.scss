@@ -1,6 +1,5 @@
+@use "functions" as *;
 @use "sass:math";
-@use "./functions" as *;
-@use "./media" as *;
 
 @mixin reset-accordion-summary {
   list-style: none;
@@ -109,7 +108,7 @@
 }
 
 @mixin separator-line(
-  $size: rem(1),
+  $size: toRem(1),
   $color: var(--color-separator-secondary),
   $side: bottom,
   $full-width: false,

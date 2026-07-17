@@ -4,29 +4,38 @@ import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const toPosix = (p) => p.replace(/\\/g, "/");
+
+const srcDir = toPosix(path.resolve(__dirname, "./src"));
+const sharedStylesPath = toPosix(path.resolve(__dirname, "src/shared/styles"));
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "#": path.resolve(__dirname, "./"),
+      "@": srcDir,
+      "#": toPosix(path.resolve(__dirname, "./")),
     },
   },
   css: {
+    //TODO: additionalData вставляется только в корневые файлы, которые не импортируются через use?
+    //Пришлось всё импортировать в токены и globals. Либо исправить, либо понять, как всё работает.
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/helpers/_index.scss" as *;`,
+        loadPaths: [sharedStylesPath],
+        additionalData: `@use "helpers" as *;\n`,
       },
     },
   },
   build: {
+    //TODO: Починить минификатор
+    cssMinify: false,
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        popup: path.resolve(__dirname, "./src/html/popup/index.html"),
-        advices: path.resolve(__dirname, "./src/html/advices/index.html"),
+        popup: toPosix(path.resolve(__dirname, "src/app/popup/index.html")),
+        advices: toPosix(path.resolve(__dirname, "src/app/advices/index.html")),
       },
       output: {
         entryFileNames: "assets/[name]-[hash].js",

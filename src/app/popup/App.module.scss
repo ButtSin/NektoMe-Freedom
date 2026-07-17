@@ -31,10 +31,10 @@
   }
 
   &__version {
-    margin-bottom: rem(2);
+    margin-bottom: toRem(2);
 
     color: colorToOpacity(var(--opacity));
-    font-size: rem(12);
+    font-size: toRem(12);
   }
 }
 

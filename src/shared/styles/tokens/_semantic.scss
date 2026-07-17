@@ -1,0 +1,73 @@
+@use "../helpers/index" as *;
+
+:root {
+  // Темы
+  color-scheme: dark light;
+
+  &.is-dark {
+    color-scheme: dark;
+  }
+  &.is-light {
+    color-scheme: light;
+  }
+
+  // Цвета
+  --color-accent: light-dark(#0485f7, #0485f7);
+  --color-accent-hover: light-dark(#3592f9, #3592f9);
+
+  --color-default: light-dark(#ebebec, #27272a);
+  --color-default-hover: light-dark(#e1e1e2, #2e2e31);
+  --color-default-foreground: light-dark(
+    var(--color-eclipse),
+    var(--color-snow)
+  );
+  --color-muted: light-dark(var(--color-zinc-500), var(--color-zinc-400));
+  --color-segment: light-dark(
+    rgba(255, 255, 255, 1),
+    rgba(230, 235, 255, 0.16)
+  );
+
+  --color-background: light-dark(#f5f5f5, #060607);
+  --color-background-secondary: light-dark(#ebebeb, #0c0c0e);
+
+  --color-border: light-dark(#dedede, #28282c);
+  --color-border-hover: light-dark(#c1c1c1, #464646);
+
+  --color-shadow-inner: light-dark(
+    color-mix(in srgb, var(--color-white) 3%, transparent),
+    color-mix(in srgb, #eda2a24 3%, transparent)
+  );
+
+  --color-field-background: light-dark(
+    var(--color-white),
+    var(--color-eclipse)
+  );
+  --color-field-background-hover: light-dark(
+    color-mix(in srgb, #f9f9f9 92%, transparent),
+    color-mix(in srgb, #1c1c1f 92%, transparent)
+  );
+  --color-field-shadow: light-dark(
+    color-mix(in srgb, var(--color-black) 4%, transparent),
+    color-mix(in srgb, var(--color-white) 4%, transparent)
+  );
+  --color-field-shadow-alt: light-dark(
+    color-mix(in srgb, var(--color-black) 6%, transparent),
+    color-mix(in srgb, var(--color-white) 4%, transparent)
+  );
+
+  --color-separator-secondary: light-dark(#d7d7d7, #353538);
+  --color-separator-tertiary: light-dark(#cdcdce, #3c3c3f);
+
+  // Границы
+  --border-field: var(--border-width) solid var(--color-border);
+  --border-field-hover: #{toRem(1)} solid var(--color-border-hover);
+  --border-field-focus: #{toRem(1)} solid var(--color-field-background);
+
+  // Контур
+  --outline-color: var(--color-accent);
+  --outline: var(--outline-size) solid var(--outline-color);
+
+  // Отступы
+  --spacing: var(--container-padding-y);
+  --spacing-xs: calc(var(--spacing) / 2);
+}

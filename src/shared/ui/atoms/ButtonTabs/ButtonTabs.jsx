@@ -25,4 +25,4 @@ const ButtonTabs = ({
   );
 };
 
-export default ButtonTabs;
+export { ButtonTabs };

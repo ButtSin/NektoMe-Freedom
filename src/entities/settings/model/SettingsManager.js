@@ -145,4 +145,4 @@ class SettingsManager {
   // }
 }
 
-export default new SettingsManager();
+export { SettingsManager };

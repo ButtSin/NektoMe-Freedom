@@ -28,6 +28,6 @@
   "action": {
     "default_title": "NektoMe Freedom: отключение ограничений в текстовом чате.",
     "default_icon": "icons/logo-32.png",
-    "default_popup": "src/html/popup/index.html"
+    "default_popup": "src/app/popup/index.html"
   }
 }

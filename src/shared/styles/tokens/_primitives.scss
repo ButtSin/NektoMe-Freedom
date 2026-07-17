@@ -1,0 +1,44 @@
+@use "../helpers/index" as *;
+
+:root {
+  // Цвета
+  --color-eclipse: #18181b;
+  --color-snow: #fcfcfc;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-zinc-500: #71717a;
+  --color-zinc-400: #a1a1aa;
+
+  // Шрифты
+  --font-family-base: "Inter", sans-serif;
+
+  // Строки
+  --line-height-lg: 1.29;
+  --line-height-lg-alt: 1.34;
+  --line-height-xl-alt: 1.43;
+  --line-height-xxl: 1.5;
+
+  --letter-spacing-sm: -0.01em;
+
+  // Контейнеры
+  --container-width: #{toRem(468)};
+  //TODO: По макету 16px, а не 15px. Исправить, если появятся новые функции в настройках
+  --container-padding-x: #{toRem(15)};
+  --container-padding-y: #{toRem(15)};
+
+  // Границы
+  --border-width: #{toRem(1)};
+  --border-radius-4xl: #{toRem(32)};
+  --border-radius-xl: #{toRem(12)};
+
+  // Контур
+  --outline-size: #{toRem(2)};
+  --outline-offset: #{toRem(2)};
+  --outline-offset-extra: #{toRem(3)};
+
+  // Прозрачность
+  --opacity: 0.8;
+
+  // Анимации
+  --transition-duration: 0.25s;
+}

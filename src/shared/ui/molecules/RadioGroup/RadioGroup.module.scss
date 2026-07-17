@@ -9,14 +9,14 @@
 
   &__main-description {
     font-weight: 500;
-    font-size: rem(14);
+    font-size: toRem(14);
     color: var(--color-default-foreground);
     line-height: var(--line-height-xl-alt);
   }
 
   &__secondary-description {
     font-weight: 400;
-    font-size: rem(12);
+    font-size: toRem(12);
     color: var(--color-muted);
     line-height: var(--line-height-lg-alt);
   }

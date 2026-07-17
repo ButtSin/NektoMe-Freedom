@@ -1,8 +1,8 @@
 .button {
   display: flex;
   align-items: center;
-  padding: rem(6) rem(12);
-  gap: rem(6);
+  padding: toRem(6) toRem(12);
+  gap: toRem(6);
 
   color: var(--color-muted);
 
@@ -35,7 +35,7 @@
   }
 
   &__description {
-    font-size: rem(14);
+    font-size: toRem(14);
     font-weight: 500;
     line-height: var(--line-height-xl-alt);
   }

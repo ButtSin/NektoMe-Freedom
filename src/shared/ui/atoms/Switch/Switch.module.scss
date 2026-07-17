@@ -1,9 +1,9 @@
 .switch {
-  --switchControllerWidth: #{rem(32)};
-  --switchControllerHeight: #{rem(16)};
+  --switchControllerWidth: #{toRem(32)};
+  --switchControllerHeight: #{toRem(16)};
 
-  --switchInputThumbOffset: #{rem(2)};
-  --switchInputIconOffset: calc(var(--switchInputThumbOffset) + #{rem(4)});
+  --switchInputThumbOffset: #{toRem(2)};
+  --switchInputIconOffset: calc(var(--switchInputThumbOffset) + #{toRem(4)});
 
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 
     display: flex;
     place-items: center;
-    @include square(rem(8));
+    @include square(toRem(8));
 
     transition-property: translate;
     transition-duration: var(--transition-duration);
@@ -93,8 +93,8 @@
       translate: var(--switchInputThumbOffset) -50%;
 
       content: "";
-      width: rem(16);
-      height: rem(12);
+      width: toRem(16);
+      height: toRem(12);
 
       border-radius: var(--border-radius-4xl);
       background-color: var(--color-snow);
@@ -142,7 +142,7 @@
     grid-area: main-description;
 
     font-weight: 500;
-    font-size: rem(14);
+    font-size: toRem(14);
     color: var(--color-default-foreground);
     line-height: var(--line-height-xl-alt);
 
@@ -154,7 +154,7 @@
     grid-area: secondary-description;
 
     font-weight: 400;
-    font-size: rem(12);
+    font-size: toRem(12);
     color: var(--color-muted);
     line-height: var(--line-height-lg-alt);
 

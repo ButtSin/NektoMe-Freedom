@@ -1,6 +1,6 @@
-import settingsManager from "@/entities/settings/model/SettingsManager";
+import { settingsManager } from "@/entities/settings";
 
-export class CopyUnlocker {
+class CopyUnlocker {
   selectors = {
     sendButtonClass: ".sendMessageBtn",
   };
@@ -68,3 +68,5 @@ export class CopyUnlocker {
     });
   }
 }
+
+export { CopyUnlocker };

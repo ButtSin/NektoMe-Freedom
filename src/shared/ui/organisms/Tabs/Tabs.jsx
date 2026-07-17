@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import styles from "./BaseTabs.module.scss";
-import ButtonTabs from "@/shared/ui/atoms/ButtonTabs/ButtonTabs.jsx";
+import styles from "./Tabs.module.scss";
+import { ButtonTabs } from "@/shared/ui/atoms/ButtonTabs";
 
-const BaseTabs = ({ heading, headingId, selected, tabs, onSelect }) => {
+const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
   const statusRef = useRef(null);
   const buttonsRef = useRef([]);
   const cachedStatusPaddingLeftRef = useRef(null);
@@ -170,4 +170,4 @@ const BaseTabs = ({ heading, headingId, selected, tabs, onSelect }) => {
   );
 };
 
-export default BaseTabs;
+export { Tabs };

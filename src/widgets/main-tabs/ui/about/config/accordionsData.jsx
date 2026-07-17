@@ -1,5 +1,4 @@
 import { extensionVersion } from "@/shared/config/constants.js";
-import BaseAccordion from "@/shared/ui/atoms/Accordion/Accordion.jsx";
 
 import IconExclamationMark from "@/shared/icons/IconExclamationMark.jsx";
 import IconSourceCode from "@/shared/icons/IconSourceCode.jsx";
@@ -7,7 +6,7 @@ import IconThumb from "@/shared/icons/IconThumb.jsx";
 import IconHummer from "@/shared/icons/IconHummer.jsx";
 import IconCloudArrowUp from "@/shared/icons/IconCloudArrowUp.jsx";
 
-const accordions = [
+const accordionsData = [
   {
     name: "base-info",
     children: (
@@ -104,20 +103,4 @@ const accordions = [
   },
 ];
 
-const TheAbout = ({ props }) => {
-  return accordions.map((accordion) => {
-    return (
-      <BaseAccordion
-        key={accordion.title}
-        name={accordion.name}
-        title={accordion.title}
-        open={accordion.open}
-        icon={accordion.icon}
-      >
-        {accordion.children}
-      </BaseAccordion>
-    );
-  });
-};
-
-export default TheAbout;
+export { accordionsData };

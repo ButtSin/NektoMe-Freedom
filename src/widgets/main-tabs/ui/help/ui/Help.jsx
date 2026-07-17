@@ -1,6 +1,6 @@
-import styles from "./TheHelp.module.scss";
+import styles from "./Help.module.scss";
 
-const TheHelp = () => {
+const Help = () => {
   return (
     <div className={`${styles.help}`}>
       <p className={`${styles.help__text}`}>
@@ -22,4 +22,4 @@ const TheHelp = () => {
   );
 };
 
-export default TheHelp;
+export { Help };
