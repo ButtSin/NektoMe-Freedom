@@ -1,10 +1,10 @@
 import { extensionVersion } from "@/shared/config/constants.js";
 
-import IconExclamationMark from "@/shared/icons/IconExclamationMark.jsx";
-import IconSourceCode from "@/shared/icons/IconSourceCode.jsx";
-import IconThumb from "@/shared/icons/IconThumb.jsx";
-import IconHummer from "@/shared/icons/IconHummer.jsx";
-import IconCloudArrowUp from "@/shared/icons/IconCloudArrowUp.jsx";
+import IconExclamationMark from "@/shared/ui/icons/IconExclamationMark.jsx";
+import IconSourceCode from "@/shared/ui/icons/IconSourceCode.jsx";
+import IconThumb from "@/shared/ui/icons/IconThumb.jsx";
+import IconHummer from "@/shared/ui/icons/IconHummer.jsx";
+import IconCloudArrowUp from "@/shared/ui/icons/IconCloudArrowUp.jsx";
 
 const accordionsData = [
   {
