@@ -41,7 +41,7 @@ export default defineConfig({
   build: {
     cssMinify: false,
     outDir: "dist",
-    emptyOutDir: true,
+    emptyOutDir: false,
     rollupOptions: {
       input: {
         popup: toPosix(path.resolve(__dirname, "src/app/popup/index.html")),
