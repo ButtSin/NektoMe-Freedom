@@ -1,72 +1,62 @@
-import { settingsManager } from "@/entities/settings";
+import { settingsManager, STORAGE_KEYS } from "@/entities/settings";
 
 class CopyUnlocker {
-  selectors = {
-    sendButtonClass: ".sendMessageBtn",
-  };
+  _restrictedEvents = ["copy", "cut"];
 
-  constructor() {
-    this.restrictedEvents = ["copy", "cut"];
-
-    this.copyUnlocked = null;
-  }
+  _copyUnlocked = null;
 
   static async create() {
     const copyUnlocker = new CopyUnlocker();
-    await copyUnlocker.init();
+    await copyUnlocker._init();
 
     return copyUnlocker;
   }
 
-  async init() {
-    await this.initState();
+  _init = async () => {
+    await this._initState();
 
-    this.bindEvents();
-  }
+    this._bindEvents();
+  };
 
-  async initState() {
-    this.copyUnlocked = await settingsManager.getLocalCopyUnlocked();
+  _initState = async () => {
+    this._copyUnlocked = await settingsManager.getLocalCopyUnlocked();
 
-    if (this.copyUnlocked === undefined) {
-      this.copyUnlocked = settingsManager.getDefaultSettings().copyUnlocked;
+    if (this._copyUnlocked === undefined) {
+      this._copyUnlocked = settingsManager.getDefaultSettings().copyUnlocked;
     }
+  };
 
-    this.boundOnAnyRestrictedEvent = this.onAnyRestrictedEvent.bind(this);
-  }
-
-  onChromeStorageChange(event) {
-    const copyChange = event[settingsManager.keys.common.copyUnlocked];
+  _onChromeStorageChange = (event) => {
+    const copyChange = event[STORAGE_KEYS.content.copyUnlocked];
 
     if (!copyChange) return;
 
-    this.copyUnlocked = copyChange.newValue;
+    this._copyUnlocked = copyChange.newValue;
 
-    this.toggleRestrictedListeners(this.copyUnlocked);
-  }
+    this._toggleRestrictedListeners(this._copyUnlocked);
+  };
 
-  toggleRestrictedListeners(shouldAdd) {
+  _toggleRestrictedListeners = (shouldAdd) => {
     const action = shouldAdd ? "addEventListener" : "removeEventListener";
 
-    this.restrictedEvents.forEach((event) => {
-      document[action](event, this.boundOnAnyRestrictedEvent, true);
+    this._restrictedEvents.forEach((event) => {
+      document[action](event, this._onAnyRestrictedEvent, true);
     });
-  }
+  };
 
-  onAnyRestrictedEvent(event) {
+  _onAnyRestrictedEvent = (event) => {
     event.stopImmediatePropagation();
-  }
+  };
 
-  bindEvents() {
-    chrome.storage.onChanged.addListener((changes) =>
-      this.onChromeStorageChange(changes),
-    );
+  _bindEvents = () => {
+    chrome.storage.onChanged.addListener(this._onChromeStorageChange);
 
-    if (!this.copyUnlocked) return;
+    if (!this._copyUnlocked) return;
 
-    this.restrictedEvents.forEach((event) => {
-      document.addEventListener(event, this.boundOnAnyRestrictedEvent, true);
+    this._restrictedEvents.forEach((event) => {
+      document.addEventListener(event, this._onAnyRestrictedEvent, true);
     });
-  }
+  };
 }
 
 export { CopyUnlocker };

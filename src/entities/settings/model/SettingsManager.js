@@ -1,28 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
+import { DEFAULT_SETTINGS, STORAGE_KEYS } from "../config/settings";
 
 class SettingsManager {
-  _defaultSettings = Object.freeze({
-    theme: "system",
-    tabsState: {
-      popupMainTabs: "settings",
-    },
-    sexFieldUnlocked: true,
-    copyUnlocked: true,
-  });
-
-  _keys = Object.freeze({
-    ui: {
-      theme: "theme",
-      tabsState: "tabsState",
-    },
-
-    content: {
-      sexFieldUnlocked: "sexFieldUnlocked",
-      copyUnlocked: "copyUnlocked",
-    },
-  });
-
   _setSetting(storageType, key, value) {
     const storage =
       storageType === "session" ? chrome.storage.session : chrome.storage.local;
@@ -54,32 +32,32 @@ class SettingsManager {
   }
 
   getDefaultSettings() {
-    return this._defaultSettings;
+    return DEFAULT_SETTINGS;
   }
 
   async getSessionTabsState(currentTabs) {
-    const state = await this._getSetting("session", this._keys.ui.tabsState);
-    return state?.[currentTabs] ?? this._defaultSettings.tabsState[currentTabs];
+    const state = await this._getSetting("session", STORAGE_KEYS.ui.tabsState);
+    return state?.[currentTabs] ?? DEFAULT_SETTINGS.tabsState[currentTabs];
   }
 
   async setSessionTabsState(currentTabs, tabStateValue) {
     const state =
-      (await this._getSetting("session", this._keys.ui.tabsState)) || {};
+      (await this._getSetting("session", STORAGE_KEYS.ui.tabsState)) || {};
 
     const newState = {
       ...state,
       [currentTabs]: tabStateValue,
     };
-    await this._setSetting("session", this._keys.ui.tabsState, newState);
+    await this._setSetting("session", STORAGE_KEYS.ui.tabsState, newState);
   }
 
   async setLocalTheme(themeValue) {
-    await this._setSetting("local", this._keys.ui.theme, themeValue);
+    await this._setSetting("local", STORAGE_KEYS.ui.theme, themeValue);
   }
 
   async getLocalTheme() {
-    const state = await this._getSetting("local", this._keys.ui.theme);
-    return state ?? this._defaultSettings.theme;
+    const state = await this._getSetting("local", STORAGE_KEYS.ui.theme);
+    return state ?? DEFAULT_SETTINGS.theme;
   }
 
   // async loadAllLocalSettings() {
@@ -123,26 +101,26 @@ class SettingsManager {
   // setLocalCopyUnlocked(copyUnlockedValue) {
   //   return this._setSetting(
   //     "local",
-  //     this._keys.content.copyUnlocked,
+  //     STORAGE_KEYS.content.copyUnlocked,
   //     copyUnlockedValue,
   //   );
-  // }
-
-  // getLocalCopyUnlocked() {
-  //   return this._getSetting("local", this._keys.content.copyUnlocked);
   // }
 
   // setLocalSexFieldUnlocked(sexFieldUnlockedValue) {
   //   return this._setSetting(
   //     "local",
-  //     this._keys.content.sexFieldUnlocked,
+  //     STORAGE_KEYS.content.sexFieldUnlocked,
   //     sexFieldUnlockedValue,
   //   );
   // }
 
-  // getLocalSexFieldUnlocked() {
-  //   return this._getSetting("local", this._keys.content.sexFieldUnlocked);
-  // }
+  getLocalSexFieldUnlocked() {
+    return this._getSetting("local", STORAGE_KEYS.content.sexFieldUnlocked);
+  }
+
+  getLocalCopyUnlocked() {
+    return this._getSetting("local", STORAGE_KEYS.content.copyUnlocked);
+  }
 }
 
 export { SettingsManager };

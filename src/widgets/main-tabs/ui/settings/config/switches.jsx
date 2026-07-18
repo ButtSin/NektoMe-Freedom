@@ -13,7 +13,7 @@ const switches = [
     isActive: true,
   },
   {
-    mainDescription: "Включить советы",
+    mainDescription: "Включить советы по безопасности",
     secondaryDescription: `Читайте cоветы на экране поиска диалога о том, как не попасть в 
                           неприятную ситуацию и что делать, если вы уже в ней оказались`,
     isActive: true,

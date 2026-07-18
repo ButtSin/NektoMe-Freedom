@@ -9,16 +9,23 @@ export default defineConfig([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
+
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
       reactX.configs["recommended"],
     ],
+
     languageOptions: {
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+
+    globals: {
+      chrome: "readonly",
+    },
+
     rules: {
       "no-unused-vars": "warn",
       "react/prop-types": "off",

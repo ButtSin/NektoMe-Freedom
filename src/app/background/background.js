@@ -1,17 +1,15 @@
-chrome.runtime.onInstalled.addListener(() => {
-  injectNektoScript();
-});
-
-function injectNektoScript() {
+chrome.runtime.onInstalled.addListener(async () => {
   const nektoPattern = "*://nekto.me/chat/*";
 
-  chrome.tabs.query({ url: nektoPattern }, (tabs) => {
-    tabs.forEach((tab) => {
+  try {
+    const tabs = await chrome.tabs.query({ url: nektoPattern });
+
+    for (const tab of tabs) {
       if (tab.id) {
-        chrome.tabs.reload(tab.id, {
-          bypassCache: true,
-        });
+        await chrome.tabs.reload(tab.id, { bypassCache: true });
       }
-    });
-  });
-}
+    }
+  } catch (error) {
+    console.error("Failed to reload tabs on install:", error);
+  }
+});

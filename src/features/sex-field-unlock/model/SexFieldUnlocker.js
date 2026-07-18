@@ -1,317 +1,280 @@
-import { settingsManager } from "@/entities/settings";
+import { settingsManager, STORAGE_KEYS } from "@/entities/settings";
+import { selectors, stateClasses } from "../config/constants";
+import { enableButtons, disableButtons } from "../lib/dom/button-utils";
+import { getAlertHtml } from "@/features/sex-field-unlock/lib/dom/getAlertHtml";
 
 class SexFieldUnlocker {
-  selectors = {
-    sexFieldClass: ".sexRow",
-    buttonsClass: ".btn",
-    buttonBaseClass: "btn",
-    searchButtonID: "#searchCompanyBtn",
+  _searchButtonElement = null;
+  _sexFieldElement = null;
+  _sexButtonElements = null;
+  _ownSexButtonElements = null;
+  _companionSexButtonElements = null;
+  _isInCommunicationTopic = null;
+
+  _isFirstUpdate = true;
+
+  _ownSexState = null;
+  _companionSexState = null;
+
+  _observerConfig = {
+    childList: true,
+    subtree: true,
   };
+  _observerNode = document.body;
+  _sexFieldUnlockObserver = null;
+  _observerCallback = null;
+  _observerPromiseResolve = null;
 
-  stateClasses = {
-    checked: "checked",
-    disabled: "disabled",
-    buttonRadio: "btnradio",
-  };
+  _sexFieldUnlocked = null;
 
-  constructor() {
-    this.searchButtonElement = null;
-    this.sexFieldElement = null;
-    this.sexButtonElements = null;
-    this.ownSexButtonElements = null;
-    this.companionSexButtonElements = null;
-    this.isInCommunicationTopic = null;
-
-    this.isFirstUpdate = true;
-
-    this.ownSexState = null;
-    this.companionSexState = null;
-
-    this.observerConfig = {
-      childList: true,
-      subtree: true,
-    };
-    this.observerNode = document.body;
-    this.sexFieldUnlockObserver = null;
-    this.observerCallback = null;
-
-    this.sexFieldUnlocked = null;
-
-    this.boundOnSearchButtonClick = this.onSearchButtonClick.bind(this);
-    this.boundOnSexFieldClick = this.onSexFieldClick.bind(this);
-    this.boundOnChromeStorageChange = this.onChromeStorageChange.bind(this);
-  }
-
-  static async create() {
+  static create = async () => {
     const sexFieldUnlocker = new SexFieldUnlocker();
-    await sexFieldUnlocker.init();
+    await sexFieldUnlocker._init();
 
     return sexFieldUnlocker;
-  }
+  };
 
-  async init() {
-    await this.initState();
+  _init = async () => {
+    await this._initState();
 
-    this.bindEvents();
-  }
+    this._bindEvents();
+  };
 
-  async initState() {
-    this.sexFieldUnlocked = await settingsManager.getLocalSexFieldUnlocked();
+  _initState = async () => {
+    this._sexFieldUnlocked = await settingsManager.getLocalSexFieldUnlocked();
 
-    if (this.sexFieldUnlocked === undefined) {
-      this.sexFieldUnlocked =
+    if (this._sexFieldUnlocked === undefined) {
+      this._sexFieldUnlocked =
         settingsManager.getDefaultSettings().sexFieldUnlocked;
     }
 
-    this.sexFieldUnlockObserver = this.getSexFieldUnlockObserver();
-    await this.initSexFieldUnlockObserver();
-  }
+    this._sexFieldUnlockObserver = this._getSexFieldUnlockObserver();
+    await this._initSexFieldUnlockObserver();
+  };
 
-  getSexFieldUnlockObserver() {
-    this.observerCallback = () => {
-      let search = document.querySelector(this.selectors.searchButtonID);
-      if (search) this.searchButtonElement = search;
+  _getSexFieldUnlockObserver = () => {
+    this._observerCallback = () => {
+      let search = document.querySelector(selectors.searchButtonID);
+      if (search) this._searchButtonElement = search;
 
-      let field = document.querySelector(this.selectors.sexFieldClass);
+      let field = document.querySelector(selectors.sexFieldClass);
       if (field) {
-        this.setupSexFieldElements(field);
+        this._setupSexFieldElements(field);
 
-        if (this.isFirstUpdate) {
-          this.saveButtonStates();
-          this.isFirstUpdate = false;
+        if (this._isFirstUpdate) {
+          this._saveButtonStates();
+          this._isFirstUpdate = false;
         }
 
-        if (!this.isInCommunicationTopic) {
-          this.enableButtons(this.sexButtonElements);
+        if (!this._isInCommunicationTopic) {
+          enableButtons(this._sexButtonElements);
         }
 
-        this.adjustCommunicationButtons();
+        this._adjustCommunicationButtons();
 
-        this.updateUI();
+        this._updateUI();
       }
 
-      if (this.searchButtonElement && this.sexFieldElement) {
-        this.bindEvents();
+      if (this._searchButtonElement && this._sexFieldElement) {
+        this._bindEvents();
 
-        this.observerPromiseResolve?.();
-        this.observerPromiseResolve = null;
+        this._observerPromiseResolve?.();
+        this._observerPromiseResolve = null;
       }
     };
 
-    return new MutationObserver(this.observerCallback);
-  }
+    return new MutationObserver(this._observerCallback);
+  };
 
-  setupSexFieldElements(main) {
+  _setupSexFieldElements = (main) => {
     const MIN_COMMUNICATION_TOPIC_BUTTONS = 4;
 
-    this.sexFieldElement =
-      main ?? document.querySelector(this.selectors.sexFieldClass);
-    this.sexButtonElements = Array.from(
-      this.sexFieldElement.querySelectorAll(this.selectors.buttonsClass),
+    this._sexFieldElement =
+      main ?? document.querySelector(selectors.sexFieldClass);
+    this._sexButtonElements = Array.from(
+      this._sexFieldElement.querySelectorAll(selectors.buttonsClass),
     );
-    this.isInCommunicationTopic =
-      this.sexButtonElements.length > MIN_COMMUNICATION_TOPIC_BUTTONS;
-    this.ownSexButtonElements = this.sexButtonElements.slice(
+    this._isInCommunicationTopic =
+      this._sexButtonElements.length > MIN_COMMUNICATION_TOPIC_BUTTONS;
+    this._ownSexButtonElements = this._sexButtonElements.slice(
       0,
-      this.sexButtonElements.length / 2,
+      this._sexButtonElements.length / 2,
     );
-    this.companionSexButtonElements = this.sexButtonElements.slice(
-      (-1 * this.sexButtonElements.length) / 2,
+    this._companionSexButtonElements = this._sexButtonElements.slice(
+      (-1 * this._sexButtonElements.length) / 2,
     );
-  }
+  };
 
-  async initSexFieldUnlockObserver() {
+  _initSexFieldUnlockObserver = async () => {
     return new Promise((resolve) => {
-      if (!this.sexFieldUnlocked) {
+      if (!this._sexFieldUnlocked) {
         resolve();
         return;
       }
 
-      if (this.observerNode) {
-        this.observerPromiseResolve = resolve;
-        this.sexFieldUnlockObserver.observe(
-          this.observerNode,
-          this.observerConfig,
+      if (this._observerNode) {
+        this._observerPromiseResolve = resolve;
+        this._sexFieldUnlockObserver.observe(
+          this._observerNode,
+          this._observerConfig,
         );
       } else {
-        this.showObserverAlert();
+        this._showAlert(
+          "Произошла ошибка инициализации расширения «NektoMe Freedom».\
+          Попробуйте перезагрузить страницу",
+        );
+
         resolve();
       }
     });
-  }
+  };
 
-  saveButtonStates() {
-    const startIndex = this.isInCommunicationTopic ? 1 : 0;
+  _saveButtonStates = () => {
+    const startIndex = this._isInCommunicationTopic ? 1 : 0;
 
-    this.ownSexState = this.ownSexButtonElements
+    this._ownSexState = this._ownSexButtonElements
       .slice(startIndex)
-      .map((button) => button.classList.contains(this.stateClasses.checked));
+      .map((button) => button.classList.contains(stateClasses.checked));
 
-    this.companionSexState = this.companionSexButtonElements
+    this._companionSexState = this._companionSexButtonElements
       .slice(startIndex)
-      .map((button) => button.classList.contains(this.stateClasses.checked));
-  }
+      .map((button) => button.classList.contains(stateClasses.checked));
+  };
 
-  setButtonStates(button) {
-    const isOwn = this.ownSexButtonElements.includes(button);
+  _setButtonStates = (button) => {
+    const isOwn = this._ownSexButtonElements.includes(button);
     const buttons = isOwn
-      ? this.ownSexButtonElements
-      : this.companionSexButtonElements;
-    const states = isOwn ? this.ownSexState : this.companionSexState;
+      ? this._ownSexButtonElements
+      : this._companionSexButtonElements;
+    const states = isOwn ? this._ownSexState : this._companionSexState;
 
     const originalIndex = buttons.indexOf(button);
-    const indexOffset = this.isInCommunicationTopic ? 1 : 0;
+    const indexOffset = this._isInCommunicationTopic ? 1 : 0;
     const adjustedIndex = originalIndex - indexOffset;
 
     const resetStates = (target = states) => target.fill(false);
 
-    if (!this.isInCommunicationTopic) {
+    if (!this._isInCommunicationTopic) {
       resetStates();
       states[adjustedIndex] = true;
       return;
     }
 
     if (isOwn) {
-      this.ownSexState[adjustedIndex] = true;
+      this._ownSexState[adjustedIndex] = true;
 
       switch (originalIndex) {
         case 0:
-          this.ownSexState.fill(false);
-          this.companionSexState.fill(false);
-          this.companionSexButtonElements[0].classList.add(
-            this.stateClasses.checked,
+          this._ownSexState.fill(false);
+          this._companionSexState.fill(false);
+          this._companionSexButtonElements[0].classList.add(
+            stateClasses.checked,
           );
           break;
         case 1:
         case 2:
-          this.ownSexState.fill(false);
-          this.ownSexState[adjustedIndex] = true;
+          this._ownSexState.fill(false);
+          this._ownSexState[adjustedIndex] = true;
           break;
       }
     } else {
-      this.companionSexState[adjustedIndex] = true;
+      this._companionSexState[adjustedIndex] = true;
 
       switch (originalIndex) {
         case 0:
-          this.companionSexState.fill(false);
-          this.companionSexButtonElements[0].classList.add(
-            this.stateClasses.checked,
+          this._companionSexState.fill(false);
+          this._companionSexButtonElements[0].classList.add(
+            stateClasses.checked,
           );
           break;
         case 1:
         case 2:
-          this.companionSexState.fill(false);
-          this.companionSexState[adjustedIndex] = true;
+          this._companionSexState.fill(false);
+          this._companionSexState[adjustedIndex] = true;
           break;
       }
     }
-  }
+  };
 
-  enableButtons(buttons) {
-    buttons.forEach((button) =>
-      button.classList.remove(this.stateClasses.disabled),
-    );
-  }
+  _resetCompanionButtons = () => {
+    if (this._isInCommunicationTopic) return;
 
-  disableButtons(buttons) {
-    buttons.forEach((button) =>
-      button.classList.add(this.stateClasses.disabled),
-    );
-  }
+    disableButtons(this._companionSexButtonElements);
 
-  resetCompanionButtons() {
-    if (this.isInCommunicationTopic) return;
-
-    this.disableButtons(this.companionSexButtonElements);
-
-    for (let button of this.companionSexButtonElements) {
-      button.classList.remove(this.stateClasses.checked);
+    for (const button of this._companionSexButtonElements) {
+      button.classList.remove(stateClasses.checked);
     }
 
-    if (this.ownSexState[0]) {
-      this.companionSexButtonElements[1].classList.add(
-        this.stateClasses.checked,
-      );
-      this.companionSexButtonElements[0].classList.remove(
-        this.stateClasses.checked,
+    if (this._ownSexState[0]) {
+      this._companionSexButtonElements[1].classList.add(stateClasses.checked);
+      this._companionSexButtonElements[0].classList.remove(
+        stateClasses.checked,
       );
     }
 
-    if (this.ownSexState[1]) {
-      this.companionSexButtonElements[0].classList.add(
-        this.stateClasses.checked,
-      );
-      this.companionSexButtonElements[1].classList.remove(
-        this.stateClasses.checked,
+    if (this._ownSexState[1]) {
+      this._companionSexButtonElements[0].classList.add(stateClasses.checked);
+      this._companionSexButtonElements[1].classList.remove(
+        stateClasses.checked,
       );
     }
-  }
+  };
 
-  adjustCommunicationButtons() {
+  _adjustCommunicationButtons = () => {
     const isCommunicationUpdate =
-      this.isInCommunicationTopic && !this.isFirstUpdate;
+      this._isInCommunicationTopic && !this._isFirstUpdate;
     const ownButtonSomeoneChecked =
-      this.ownSexButtonElements[0].classList.contains(
-        this.stateClasses.checked,
-      );
+      this._ownSexButtonElements[0].classList.contains(stateClasses.checked);
     const hasCompanionSelection =
-      this.companionSexState[0] || this.companionSexState[1];
+      this._companionSexState[0] || this._companionSexState[1];
 
     if (isCommunicationUpdate) {
       if (!ownButtonSomeoneChecked && hasCompanionSelection) {
-        this.companionSexButtonElements[0].classList.remove(
-          this.stateClasses.checked,
+        this._companionSexButtonElements[0].classList.remove(
+          stateClasses.checked,
         );
       }
 
       if (ownButtonSomeoneChecked && hasCompanionSelection) {
-        this.companionSexState.fill(false);
-        this.disableButtons(this.companionSexButtonElements);
+        this._companionSexState.fill(false);
+        disableButtons(this._companionSexButtonElements);
       }
 
       if (ownButtonSomeoneChecked && !hasCompanionSelection) {
-        this.disableButtons(this.companionSexButtonElements);
+        disableButtons(this._companionSexButtonElements);
       }
     }
-  }
+  };
 
-  updateUI() {
-    const startIndex = this.isInCommunicationTopic ? 1 : 0;
+  _updateUI = () => {
+    const startIndex = this._isInCommunicationTopic ? 1 : 0;
 
-    this.ownSexButtonElements
+    this._ownSexButtonElements
+      .slice(startIndex)
+      .forEach((button, index) =>
+        button.classList.toggle(stateClasses.checked, this._ownSexState[index]),
+      );
+
+    this._companionSexButtonElements
       .slice(startIndex)
       .forEach((button, index) =>
         button.classList.toggle(
-          this.stateClasses.checked,
-          this.ownSexState[index],
+          stateClasses.checked,
+          this._companionSexState[index],
         ),
       );
+  };
 
-    this.companionSexButtonElements
-      .slice(startIndex)
-      .forEach((button, index) =>
-        button.classList.toggle(
-          this.stateClasses.checked,
-          this.companionSexState[index],
-        ),
-      );
-  }
-
-  syncRequestStateBeforeSubmit() {
-    for (let button of this.companionSexButtonElements) {
-      if (button.classList.contains(this.stateClasses.checked)) {
+  _syncRequestStateBeforeSubmit = () => {
+    for (let button of this._companionSexButtonElements) {
+      if (button.classList.contains(stateClasses.checked)) {
         button.dispatchEvent(new Event("click"));
       }
     }
-  }
+  };
 
-  showSexSelectionAlert() {
-    const hasOwnSelection = this.ownSexState[0] || this.ownSexState[1];
-
-    const alertMessage = hasOwnSelection
-      ? "Укажите пол собеседника."
-      : "Укажите ваш пол и пол вашего собеседника.";
-    const alertHtml = this.getAlertHtml(alertMessage);
+  _showAlert = (message) => {
+    const alertHtml = getAlertHtml(message);
 
     document.body.insertAdjacentHTML("afterend", alertHtml);
     document
@@ -319,144 +282,104 @@ class SexFieldUnlocker {
       .addEventListener("click", () =>
         document.getElementById("custom-alert").remove(),
       );
-  }
+  };
 
-  showObserverAlert() {
-    const alertMessage =
-      "Произошла ошибка инициализации расширения +" +
-      "«NektoMe Freedom». Попробуйте перезагрузить страницу";
-    const alertHtml = this.getAlertHtml(alertMessage);
-
-    document.body.insertAdjacentHTML("afterend", alertHtml);
-    document
-      .querySelector("#custom-alert .swal2-confirm")
-      .addEventListener("click", () =>
-        document.getElementById("custom-alert").remove(),
-      );
-  }
-
-  getAlertHtml(alertMessage = "Наверное, что-то случилось.") {
-    return `
-      <div id='custom-alert' 
-          class='swal2-container swal2-center swal2-fade swal2-shown'
-          style='overflow-y: auto;'>
-        <div class='swal2-popup swal2-modal swal2-show' 
-            tabindex='-1' 
-            role='dialog' 
-            aria-modal='true' 
-            style='display: flex;'>
-          <div class='swal2-header'>
-            <h2 class='swal2-title'>${alertMessage}</h2>
-          </div>
-          <div class='swal2-actions' style='display: flex;'>
-            <button type='button' 
-                    class='swal2-confirm swal2-styled confirm-alert-button' 
-                    aria-label='OK'
-                    style='background-color: #6ac065;'>
-              OK
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  onSexFieldClick(event) {
-    if (!event.target.classList.contains(this.selectors.buttonBaseClass))
-      return;
+  _onSexFieldClick = (event) => {
+    if (!event.target.classList.contains(selectors.buttonBaseClass)) return;
 
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    if (!this.isInCommunicationTopic) {
-      this.enableButtons(this.sexButtonElements);
+    if (!this._isInCommunicationTopic) {
+      enableButtons(this._sexButtonElements);
     }
 
-    this.setButtonStates(event.target);
-    this.updateUI();
-    this.saveButtonStates();
-  }
+    this._setButtonStates(event.target);
+    this._updateUI();
+    this._saveButtonStates();
+  };
 
-  onSearchButtonClick(event) {
+  _onSearchButtonClick = (event) => {
     const hasNoCompanionSelection =
-      !this.companionSexState[0] && !this.companionSexState[1];
+      !this._companionSexState[0] && !this._companionSexState[1];
 
-    if (!this.isInCommunicationTopic && hasNoCompanionSelection) {
+    if (!this._isInCommunicationTopic && hasNoCompanionSelection) {
       event.preventDefault();
       event.stopImmediatePropagation();
 
-      this.showSexSelectionAlert();
+      const hasOwnSelection = this._ownSexState[0] || this._ownSexState[1];
+      const alertMessage = hasOwnSelection
+        ? "Укажите пол собеседника."
+        : "Укажите ваш пол и пол вашего собеседника.";
+      this._showAlert(alertMessage);
 
       return;
     }
 
-    this.syncRequestStateBeforeSubmit();
-  }
+    this._syncRequestStateBeforeSubmit();
+  };
 
-  onChromeStorageChange(event) {
-    const sexFieldChange = event[settingsManager.keys.common.sexFieldUnlocked];
+  _onChromeStorageChange = (event) => {
+    const sexFieldChange = event[STORAGE_KEYS.content.sexFieldUnlocked];
 
     if (!sexFieldChange) return;
 
-    this.sexFieldUnlocked = sexFieldChange.newValue;
+    this._sexFieldUnlocked = sexFieldChange.newValue;
 
-    if (this.sexFieldUnlocked) {
-      this.searchButtonElement = document.querySelector(
-        this.selectors.searchButtonID,
+    if (this._sexFieldUnlocked) {
+      this._searchButtonElement = document.querySelector(
+        selectors.searchButtonID,
       );
 
-      this.setupSexFieldElements();
+      this._setupSexFieldElements();
 
-      if (!this.isInCommunicationTopic) {
-        this.enableButtons(this.sexButtonElements);
+      if (!this._isInCommunicationTopic) {
+        enableButtons(this._sexButtonElements);
       }
 
-      this.saveButtonStates();
-      this.updateUI();
+      this._saveButtonStates();
+      this._updateUI();
 
-      this.sexFieldUnlockObserver.observe(
-        this.observerNode,
-        this.observerConfig,
+      this._sexFieldUnlockObserver.observe(
+        this._observerNode,
+        this._observerConfig,
       );
-      this.searchButtonElement.addEventListener(
+      this._searchButtonElement.addEventListener(
         "click",
-        this.boundOnSearchButtonClick,
+        this._onSearchButtonClick,
         true,
       );
-      this.sexFieldElement.addEventListener("click", this.boundOnSexFieldClick);
+      this._sexFieldElement.addEventListener("click", this._onSexFieldClick);
 
-      this.bindEvents();
+      this._bindEvents();
     } else {
-      if (!this.isInCommunicationTopic) {
-        this.saveButtonStates();
+      if (!this._isInCommunicationTopic) {
+        this._saveButtonStates();
       }
 
-      this.sexFieldUnlockObserver.disconnect();
-      this.searchButtonElement.removeEventListener(
+      this._sexFieldUnlockObserver.disconnect();
+      this._searchButtonElement.removeEventListener(
         "click",
-        this.boundOnSearchButtonClick,
+        this._onSearchButtonClick,
       );
-      this.sexFieldElement.removeEventListener(
-        "click",
-        this.boundOnSexFieldClick,
-      );
-      this.resetCompanionButtons();
+      this._sexFieldElement.removeEventListener("click", this._onSexFieldClick);
+      this._resetCompanionButtons();
     }
-  }
+  };
 
-  bindEvents() {
-    chrome.storage.onChanged.addListener(this.boundOnChromeStorageChange);
+  _bindEvents = () => {
+    chrome.storage.onChanged.addListener(this._onChromeStorageChange);
 
-    if (!this.sexFieldUnlocked) return;
+    if (!this._sexFieldUnlocked) return;
 
-    this.searchButtonElement.addEventListener(
+    this._searchButtonElement.addEventListener(
       "click",
-      this.boundOnSearchButtonClick,
+      this._onSearchButtonClick,
       true,
     );
 
-    this.sexFieldElement.addEventListener("click", this.boundOnSexFieldClick);
-  }
+    this._sexFieldElement.addEventListener("click", this._onSexFieldClick);
+  };
 }
 
 export { SexFieldUnlocker };
