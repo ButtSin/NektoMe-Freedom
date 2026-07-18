@@ -1,4 +1,4 @@
-import IconCircleDashed from "../../../ui/icons/IconCircleDashed";
+import IconCircleDashed from "../icons/IconCircleDashed";
 import styles from "./Accordion.module.scss";
 
 const Accordion = ({

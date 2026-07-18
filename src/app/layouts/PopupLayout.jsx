@@ -1,5 +1,5 @@
 import { extensionVersion } from "@/shared/config/constants";
-import IconLock from "@/shared/ui/icons/IconLock.jsx";
+import IconLock from "@/shared/ui/atoms/icons/IconLock.jsx";
 
 import styles from "./PopupLayout.module.scss";
 
