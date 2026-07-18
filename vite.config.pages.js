@@ -18,17 +18,27 @@ export default defineConfig({
     },
   },
   css: {
-    //TODO: additionalData вставляется только в корневые файлы, которые не импортируются через use?
-    //Пришлось всё импортировать в токены и globals. Либо исправить, либо понять, как всё работает.
     preprocessorOptions: {
       scss: {
         loadPaths: [sharedStylesPath],
-        additionalData: `@use "helpers" as *;\n`,
+        api: "modern",
+
+        additionalData: (source, filename) => {
+          const normalizedFilename = toPosix(filename);
+
+          if (
+            normalizedFilename.includes("/app/styles/") ||
+            normalizedFilename.includes("/shared/styles/")
+          ) {
+            return source;
+          }
+
+          return `@use "helpers" as *;\n${source}`;
+        },
       },
     },
   },
   build: {
-    //TODO: Починить минификатор
     cssMinify: false,
     outDir: "dist",
     emptyOutDir: true,
