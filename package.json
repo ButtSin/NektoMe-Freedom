@@ -1,14 +1,16 @@
 {
   "name": "nektome-freedom",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "npx rimraf dist && npm run build:pages && npm run build:background && npm run build:content",
+    "build:chromium": "npx rimraf dist && npm run build:pages && npm run build:background && npm run build:content && node scripts/build-manifest.js chromium",
+    "build:firefox": "npx rimraf dist && npm run build:pages && npm run build:background && npm run build:content && node scripts/build-manifest.js firefox",
     "build:pages": "vite build --config vite.config.pages.js",
     "build:background": "vite build --config vite.config.background.js",
     "build:content": "vite build --config vite.config.content.js",
-    "watch": "npx rimraf dist && node watch.js",
+    "watch:chromium": "npx rimraf dist && node scripts/watch.js && node scripts/build-manifest.js chromium",
+    "watch:firefox": "npx rimraf dist && node scripts/watch.js && node scripts/build-manifest.js firefox",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "format": "prettier . --write"

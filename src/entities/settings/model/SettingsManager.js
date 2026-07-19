@@ -1,16 +1,19 @@
 import { DEFAULT_SETTINGS, STORAGE_KEYS } from "../config/settings";
+import { browserApi } from "../config/browser";
 
 class SettingsManager {
   _setSetting(storageType, key, value) {
     const storage =
-      storageType === "session" ? chrome.storage.session : chrome.storage.local;
+      storageType === "session"
+        ? browserApi.storage.session
+        : browserApi.storage.local;
 
     key = typeof key === "string" ? key : String(key);
 
     return new Promise((resolve, reject) => {
       storage.set({ [key]: value }, () => {
-        chrome.runtime.lastError
-          ? reject(new Error(chrome.runtime.lastError.message))
+        browserApi.runtime.lastError
+          ? reject(new Error(browserApi.runtime.lastError.message))
           : resolve();
       });
     });
@@ -18,14 +21,16 @@ class SettingsManager {
 
   _getSetting(storageType, key) {
     const storage =
-      storageType === "session" ? chrome.storage.session : chrome.storage.local;
+      storageType === "session"
+        ? browserApi.storage.session
+        : browserApi.storage.local;
 
     key = typeof key === "string" ? key : String(key);
 
     return new Promise((resolve, reject) => {
       storage.get(key, (result) => {
-        chrome.runtime.lastError
-          ? reject(new Error(chrome.runtime.lastError.message))
+        browserApi.runtime.lastError
+          ? reject(new Error(browserApi.runtime.lastError.message))
           : resolve(result[key]);
       });
     });
