@@ -1,5 +1,15 @@
+@use "sass:math";
+
+$controlSizeSass: 16;
+
 .radio {
-  --controlSize: #{toRem(16)};
+  --controlSize: #{$controlSizeSass * 1px};
+  --controlSizeUnitless: #{$controlSizeSass};
+  --controlIndicatorSize: #{math.div($controlSizeSass, 2)};
+  --controlIndicatorSizeActive: #{math.div($controlSizeSass, 2) - math.div(
+      $controlSizeSass,
+      8
+    )};
 
   display: flex;
   gap: toRem(12);
@@ -75,17 +85,23 @@
       &::before {
         z-index: -1;
 
-        @include square(toRem(16));
+        @include square(var(--controlSize));
         background-color: var(--color-accent);
       }
 
       &::after {
-        @include scale-to-size(var(--controlSize), toRem(6));
+        @include scale-to-size(
+          var(--controlSizeUnitless),
+          var(--controlIndicatorSizeActive)
+        );
       }
     }
 
     &:checked:active::after {
-      @include scale-to-size(var(--controlSize), toRem(8));
+      @include scale-to-size(
+        var(--controlSizeUnitless),
+        var(--controlIndicatorSize)
+      );
     }
 
     &:focus-visible {
