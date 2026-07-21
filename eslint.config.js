@@ -41,6 +41,13 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
     rules: {
+      'padding-line-between-statements': [
+        'warn',
+        { blankLine: 'always', prev: 'import', next: '*' },
+        { blankLine: 'any', prev: 'import', next: 'import' },
+        { blankLine: 'always', prev: '*', next: 'export' },
+        { blankLine: 'any', prev: 'export', next: 'export' },
+      ],
       'no-unused-vars': 'warn',
       'react/prop-types': 'off',
       '@eslint-react/no-missing-key': 'warn',
