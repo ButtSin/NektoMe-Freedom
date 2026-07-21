@@ -1,4 +1,5 @@
 import IconCircleDashed from '../icons/IconCircleDashed.jsx';
+
 import styles from './ButtonTabs.module.scss';
 
 const ButtonTabs = ({

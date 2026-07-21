@@ -1,5 +1,5 @@
-import { DEFAULT_SETTINGS, STORAGE_KEYS } from '../config/settings';
 import { browserApi } from '../config/browser';
+import { DEFAULT_SETTINGS, STORAGE_KEYS } from '../config/settings';
 
 class SettingsManager {
   _setSetting(storageType, key, value) {

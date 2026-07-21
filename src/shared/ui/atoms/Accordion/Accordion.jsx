@@ -1,4 +1,5 @@
 import IconCircleDashed from '../icons/IconCircleDashed';
+
 import styles from './Accordion.module.scss';
 
 const Accordion = ({ title, name = '', open = false, icon = <IconCircleDashed />, children }) => {

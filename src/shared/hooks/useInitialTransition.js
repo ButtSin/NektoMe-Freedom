@@ -1,4 +1,5 @@
 import { computed, ref, watch } from 'vue';
+
 import afterVisualUpdate from '@/shared/lib/dom/afterVisualUpdate';
 
 export function useInitialTransition({ targetElement, onDomReady } = {}) {

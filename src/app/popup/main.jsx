@@ -1,9 +1,12 @@
-import { createRoot } from 'react-dom/client';
-import '@/app/styles/main.scss';
-import { App } from './App.jsx';
-import ErrorHandlers from '@/shared/lib/ErrorHandler.js';
 import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
 import { ThemeProvider } from '@/app/providers/ThemeContext.jsx';
+import ErrorHandlers from '@/shared/lib/ErrorHandler.js';
+
+import { App } from './App.jsx';
+
+import '@/app/styles/main.scss';
 
 new ErrorHandlers().promiseGlobalErrorSetup();
 

@@ -1,8 +1,10 @@
-import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
-import { settingsManager } from '@/entities/settings/';
 import { use } from 'react';
+
 import { ThemeContext } from '@/app/providers/ThemeContext';
+import { settingsManager } from '@/entities/settings/';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
+import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
+
 import { themeSwitcherData } from '../config/themeSwitcherData';
 
 function ThemeSwitcher() {
@@ -26,4 +28,4 @@ function ThemeSwitcher() {
   );
 }
 
-export default ThemeSwitcher;
+export { ThemeSwitcher };

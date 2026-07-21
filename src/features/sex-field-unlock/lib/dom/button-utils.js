@@ -8,4 +8,4 @@ function disableButtons(buttons) {
   buttons.forEach((button) => button.classList.add(stateClasses.disabled));
 }
 
-export { enableButtons, disableButtons };
+export { disableButtons, enableButtons };

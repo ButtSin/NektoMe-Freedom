@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // импорт стилей (если нужны только для этого компонента)
 
 const App = () => {

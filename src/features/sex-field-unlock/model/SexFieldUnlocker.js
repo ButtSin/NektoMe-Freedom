@@ -1,7 +1,8 @@
 import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
-import { selectors, stateClasses } from '../config/constants';
-import { enableButtons, disableButtons } from '../lib/dom/button-utils';
 import { getAlertHtml } from '@/features/sex-field-unlock/lib/dom/getAlertHtml';
+
+import { selectors, stateClasses } from '../config/constants';
+import { disableButtons, enableButtons } from '../lib/dom/button-utils';
 
 class SexFieldUnlocker {
   _searchButtonElement = null;

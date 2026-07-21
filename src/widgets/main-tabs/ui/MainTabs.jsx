@@ -1,9 +1,10 @@
-import { Tabs } from '@/shared/ui/organisms/Tabs';
-import { settingsManager } from '@/entities/settings';
 import { useEffect, useState } from 'react';
 
-import { tabsPanel } from '../config/tabsPanel';
+import { settingsManager } from '@/entities/settings';
+import { Tabs } from '@/shared/ui/organisms/Tabs';
+
 import { SKELETON_TAB_COUNT, tabsKey } from '../config/constants';
+import { tabsPanel } from '../config/tabsPanel';
 
 const MainTabs = () => {
   const [selectedTab, setSelectedTab] = useState(null);

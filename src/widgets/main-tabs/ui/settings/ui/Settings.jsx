@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import ThemeSwitcher from './ThemeSwitcher';
 import { Switch } from '@/shared/ui/atoms/Switch';
-import styles from './Settings.module.scss';
+
 import { switches } from '../config/switches';
+
+import { ThemeSwitcher } from './ThemeSwitcher';
+
+import styles from './Settings.module.scss';
 
 const Settings = (props) => {
   return (

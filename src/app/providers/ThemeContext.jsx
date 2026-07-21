@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+
 import { settingsManager } from '@/entities/settings/';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
 
@@ -17,4 +18,4 @@ function ThemeProvider({ children }) {
   return <ThemeContext value={{ selectedTheme, setSelectedTheme }}>{children}</ThemeContext>;
 }
 
-export { ThemeProvider, ThemeContext };
+export { ThemeContext, ThemeProvider };

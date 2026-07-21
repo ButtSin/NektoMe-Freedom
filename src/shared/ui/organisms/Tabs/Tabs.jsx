@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
-import styles from './Tabs.module.scss';
+
 import { ButtonTabs } from '../../atoms/ButtonTabs';
+
+import styles from './Tabs.module.scss';
 
 const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
   const statusRef = useRef(null);
