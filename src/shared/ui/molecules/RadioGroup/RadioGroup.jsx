@@ -8,15 +8,13 @@ function RadioGroup({ mainDescription, radios, name, selected, secondaryDescript
   return (
     <fieldset
       className={`${styles['radio-group']}`}
-      aria-describedby={secondaryDescription ? ariaDescriptionId : ''}
+      aria-describedby={secondaryDescription && ariaDescriptionId}
     >
       <legend className={`${styles['radio-group__main-description']}`}>{mainDescription}</legend>
-      {secondaryDescription ? (
+      {secondaryDescription && (
         <p id={ariaDescriptionId} className={`${styles['radio-group__secondary-description']}`}>
           {secondaryDescription}
         </p>
-      ) : (
-        ''
       )}
       <div
         className={`${styles['radio-group__radios']}`}
