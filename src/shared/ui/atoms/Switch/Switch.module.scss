@@ -22,10 +22,7 @@
 
     &:active {
       .switch__input {
-        background-color: colorToOpacity(
-          var(--opacity),
-          var(--color-default-hover)
-        );
+        background-color: colorToOpacity(var(--opacity), var(--color-default-hover));
       }
       .switch__input:checked {
         background-color: colorToOpacity(var(--opacity), var(--color-accent));
@@ -42,8 +39,8 @@
       justify-content: flex-start;
       column-gap: var(--spacing);
       grid-template-areas:
-        "input main-description"
-        ". secondary-description";
+        'input main-description'
+        '. secondary-description';
 
       cursor: pointer;
     }
@@ -64,9 +61,7 @@
     transition-duration: var(--transition-duration);
 
     &:has(+ .switch__input:checked) {
-      translate: calc(
-          var(--switchControllerWidth) - var(--switchInputIconOffset) - 100%
-        ) -50%;
+      translate: calc(var(--switchControllerWidth) - var(--switchInputIconOffset) - 100%) -50%;
     }
   }
 
@@ -92,7 +87,7 @@
       left: 0;
       translate: var(--switchInputThumbOffset) -50%;
 
-      content: "";
+      content: '';
       width: toRem(16);
       height: toRem(12);
 
@@ -108,9 +103,7 @@
       background-color: var(--color-accent);
 
       &::before {
-        translate: calc(
-            var(--switchControllerWidth) - var(--switchInputThumbOffset) - 100%
-          ) -50%;
+        translate: calc(var(--switchControllerWidth) - var(--switchInputThumbOffset) - 100%) -50%;
 
         box-shadow: var(--box-shadow-inner);
       }
@@ -122,10 +115,7 @@
     }
 
     &:active {
-      background-color: colorToOpacity(
-        var(--opacity),
-        var(--color-default-hover)
-      );
+      background-color: colorToOpacity(var(--opacity), var(--color-default-hover));
 
       &:checked {
         background-color: colorToOpacity(var(--opacity), var(--color-accent));

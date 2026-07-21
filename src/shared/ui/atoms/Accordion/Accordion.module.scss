@@ -2,8 +2,7 @@
   --accordionMainIconSize: #{toRem(16)};
   --accordionArrowIconOffsetRight: #{toRem(16)};
   --accordionPaddingRight: calc(
-    var(--accordionMainIconSize) + var(--accordionArrowIconOffsetRight) +
-      #{toRem(8)}
+    var(--accordionMainIconSize) + var(--accordionArrowIconOffsetRight) + #{toRem(8)}
   );
 
   @include separator-line($side: bottom);
@@ -62,10 +61,10 @@
       position: absolute;
       right: var(--accordionArrowIconOffsetRight);
 
-      content: "";
+      content: '';
       @include square(var(--accordionMainIconSize));
 
-      mask: url("@/shared/assets/icons/arrow.svg") no-repeat center / contain;
+      mask: url('@/shared/assets/icons/arrow.svg') no-repeat center / contain;
       background-color: var(--color-muted);
 
       transition-property: rotate;

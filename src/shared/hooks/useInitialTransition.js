@@ -1,5 +1,5 @@
-import { computed, ref, watch } from "vue";
-import afterVisualUpdate from "@/shared/lib/dom/afterVisualUpdate";
+import { computed, ref, watch } from 'vue';
+import afterVisualUpdate from '@/shared/lib/dom/afterVisualUpdate';
 
 export function useInitialTransition({ targetElement, onDomReady } = {}) {
   const isFirstUpdate = ref(true);
@@ -7,7 +7,7 @@ export function useInitialTransition({ targetElement, onDomReady } = {}) {
 
   const enableAnimations = async () => {
     await afterVisualUpdate(() => {
-      if (targetElement) targetElement.classList.remove("disable-animation");
+      if (targetElement) targetElement.classList.remove('disable-animation');
       isFirstUpdate.value = false;
     });
 
@@ -17,7 +17,7 @@ export function useInitialTransition({ targetElement, onDomReady } = {}) {
   };
 
   const transitionClass = computed(() => ({
-    "disable-animation": isFirstUpdate.value,
+    'disable-animation': isFirstUpdate.value,
   }));
 
   const stopWatch = watch(

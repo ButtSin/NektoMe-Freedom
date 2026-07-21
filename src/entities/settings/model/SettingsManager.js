@@ -1,14 +1,12 @@
-import { DEFAULT_SETTINGS, STORAGE_KEYS } from "../config/settings";
-import { browserApi } from "../config/browser";
+import { DEFAULT_SETTINGS, STORAGE_KEYS } from '../config/settings';
+import { browserApi } from '../config/browser';
 
 class SettingsManager {
   _setSetting(storageType, key, value) {
     const storage =
-      storageType === "session"
-        ? browserApi.storage.session
-        : browserApi.storage.local;
+      storageType === 'session' ? browserApi.storage.session : browserApi.storage.local;
 
-    key = typeof key === "string" ? key : String(key);
+    key = typeof key === 'string' ? key : String(key);
 
     return new Promise((resolve, reject) => {
       storage.set({ [key]: value }, () => {
@@ -21,11 +19,9 @@ class SettingsManager {
 
   _getSetting(storageType, key) {
     const storage =
-      storageType === "session"
-        ? browserApi.storage.session
-        : browserApi.storage.local;
+      storageType === 'session' ? browserApi.storage.session : browserApi.storage.local;
 
-    key = typeof key === "string" ? key : String(key);
+    key = typeof key === 'string' ? key : String(key);
 
     return new Promise((resolve, reject) => {
       storage.get(key, (result) => {
@@ -41,27 +37,26 @@ class SettingsManager {
   }
 
   async getSessionTabsState(currentTabs) {
-    const state = await this._getSetting("session", STORAGE_KEYS.ui.tabsState);
+    const state = await this._getSetting('session', STORAGE_KEYS.ui.tabsState);
     return state?.[currentTabs] ?? DEFAULT_SETTINGS.tabsState[currentTabs];
   }
 
   async setSessionTabsState(currentTabs, tabStateValue) {
-    const state =
-      (await this._getSetting("session", STORAGE_KEYS.ui.tabsState)) || {};
+    const state = (await this._getSetting('session', STORAGE_KEYS.ui.tabsState)) || {};
 
     const newState = {
       ...state,
       [currentTabs]: tabStateValue,
     };
-    await this._setSetting("session", STORAGE_KEYS.ui.tabsState, newState);
+    await this._setSetting('session', STORAGE_KEYS.ui.tabsState, newState);
   }
 
   async setLocalTheme(themeValue) {
-    await this._setSetting("local", STORAGE_KEYS.ui.theme, themeValue);
+    await this._setSetting('local', STORAGE_KEYS.ui.theme, themeValue);
   }
 
   async getLocalTheme() {
-    const state = await this._getSetting("local", STORAGE_KEYS.ui.theme);
+    const state = await this._getSetting('local', STORAGE_KEYS.ui.theme);
     return state ?? DEFAULT_SETTINGS.theme;
   }
 
@@ -120,11 +115,11 @@ class SettingsManager {
   // }
 
   getLocalSexFieldUnlocked() {
-    return this._getSetting("local", STORAGE_KEYS.content.sexFieldUnlocked);
+    return this._getSetting('local', STORAGE_KEYS.content.sexFieldUnlocked);
   }
 
   getLocalCopyUnlocked() {
-    return this._getSetting("local", STORAGE_KEYS.content.copyUnlocked);
+    return this._getSetting('local', STORAGE_KEYS.content.copyUnlocked);
   }
 }
 

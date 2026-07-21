@@ -2,15 +2,15 @@
 class ErrorHandler {
   _onPromiseGlobalError(event) {
     alert(
-      "Произошла ошибка обработки асинхронного кода. Расширение может начать работать некорректно.",
+      'Произошла ошибка обработки асинхронного кода. Расширение может начать работать некорректно.',
     );
-    console.error("Nekto Me Plus. Unhandled Promise Rejection: ", event.reason);
+    console.error('Nekto Me Plus. Unhandled Promise Rejection: ', event.reason);
 
     event.preventDefault();
   }
 
   promiseGlobalErrorSetup() {
-    window.addEventListener("unhandledrejection", this._onPromiseGlobalError);
+    window.addEventListener('unhandledrejection', this._onPromiseGlobalError);
   }
 }
 

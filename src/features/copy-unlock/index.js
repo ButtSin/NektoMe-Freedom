@@ -1,1 +1,1 @@
-export { CopyUnlocker } from "./model/CopyUnlocker";
+export { CopyUnlocker } from './model/CopyUnlocker';

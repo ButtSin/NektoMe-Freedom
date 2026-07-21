@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(async () => {
-  const nektoPattern = "*://nekto.me/chat/*";
+  const nektoPattern = '*://nekto.me/chat/*';
 
   try {
     const tabs = await chrome.tabs.query({ url: nektoPattern });
@@ -10,6 +10,6 @@ chrome.runtime.onInstalled.addListener(async () => {
       }
     }
   } catch (error) {
-    console.error("Failed to reload tabs on install:", error);
+    console.error('Failed to reload tabs on install:', error);
   }
 });

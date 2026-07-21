@@ -1,4 +1,4 @@
-@use "helpers" as *;
+@use 'helpers' as *;
 
 :where(.reset-accordion-summary) {
   @include reset-accordion-summary;

@@ -1,6 +1,6 @@
-@use "sass:math";
-@use "sass:meta";
-@use "sass:string";
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
 
 @function toRem($pixel) {
   @if math.is-unitless($pixel) {
@@ -25,11 +25,7 @@
   $yAxisIntersection: $minSize - ($slope * $minWidth);
   $slopeVw: $slope * 100;
 
-  @return clamp(
-    #{$clampMin}rem,
-    calc(#{$yAxisIntersection}rem + #{$slopeVw}vw),
-    #{$clampMax}rem
-  );
+  @return clamp(#{$clampMin}rem, calc(#{$yAxisIntersection}rem + #{$slopeVw}vw), #{$clampMax}rem);
 }
 
 @function fluid-height($max, $min, $max-viewport: 1080, $min-viewport: 840) {
@@ -46,21 +42,13 @@
   $yAxisIntersection: $minSize - ($slope * $minHeight);
   $slopeVh: $slope * 100;
 
-  @return clamp(
-    #{$clampMin}rem,
-    calc(#{$yAxisIntersection}rem + #{$slopeVh}vh),
-    #{$clampMax}rem
-  );
+  @return clamp(#{$clampMin}rem, calc(#{$yAxisIntersection}rem + #{$slopeVh}vh), #{$clampMax}rem);
 }
 
 @function colorToOpacity($opacity, $color: currentColor, $var-is-number: true) {
-  @if meta.type-of($opacity) == "number" and math.is-unitless($opacity) {
+  @if meta.type-of($opacity) == 'number' and math.is-unitless($opacity) {
     $opacity: $opacity * 100%;
-  } @else if
-    meta.type-of($opacity) ==
-    "string" and
-    string.index(#{$opacity}, "var(")
-  {
+  } @else if meta.type-of($opacity) == 'string' and string.index(#{$opacity}, 'var(') {
     @if $var-is-number {
       $opacity: calc(#{$opacity} * 100%);
     }

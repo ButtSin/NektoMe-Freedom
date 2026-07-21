@@ -1,5 +1,5 @@
-@use "functions" as *;
-@use "sass:math";
+@use 'functions' as *;
+@use 'sass:math';
 
 @mixin reset-accordion-summary {
   list-style: none;
@@ -122,7 +122,7 @@
     #{$side}: 0;
     transform: translateX(-50%);
 
-    content: "";
+    content: '';
 
     @if $full-width {
       width: 100vw;
@@ -170,11 +170,11 @@
   margin-inline: auto;
 }
 
-@mixin ensure-click-area($min-width, $min-height: 2.75rem, $pseudo: "before") {
+@mixin ensure-click-area($min-width, $min-height: 2.75rem, $pseudo: 'before') {
   position: relative;
 
   &::#{$pseudo} {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;

@@ -1,7 +1,7 @@
-import { settingsManager, STORAGE_KEYS } from "@/entities/settings";
+import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
 
 class CopyUnlocker {
-  _restrictedEvents = ["copy", "cut"];
+  _restrictedEvents = ['copy', 'cut'];
 
   _copyUnlocked = null;
 
@@ -37,7 +37,7 @@ class CopyUnlocker {
   };
 
   _toggleRestrictedListeners = (shouldAdd) => {
-    const action = shouldAdd ? "addEventListener" : "removeEventListener";
+    const action = shouldAdd ? 'addEventListener' : 'removeEventListener';
 
     this._restrictedEvents.forEach((event) => {
       document[action](event, this._onAnyRestrictedEvent, true);

@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-import styles from "./Tabs.module.scss";
-import { ButtonTabs } from "../../atoms/ButtonTabs";
+import { useEffect, useRef } from 'react';
+import styles from './Tabs.module.scss';
+import { ButtonTabs } from '../../atoms/ButtonTabs';
 
 const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
   const statusRef = useRef(null);
@@ -17,7 +17,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
     if (!selected) return;
 
     const getActiveButtonRef = () =>
-      buttonsRef.current?.find((button) => button.dataset.selected === "true");
+      buttonsRef.current?.find((button) => button.dataset.selected === 'true');
 
     const updateStatus = async () => {
       await document.fonts.ready;
@@ -30,9 +30,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
 
       if (cachedStatusPaddingLeftRef.current === null) {
         const statusStyles = getComputedStyle(statusRef.current);
-        cachedStatusPaddingLeftRef.current = parseFloat(
-          statusStyles.paddingLeft,
-        );
+        cachedStatusPaddingLeftRef.current = parseFloat(statusStyles.paddingLeft);
       }
 
       statusRef.current.style.width = `${activeButtonRect.width}px`;
@@ -48,33 +46,31 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
   const handleKeyDown = (event) => {
     const { key } = event;
 
-    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(key)) return;
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(key)) return;
 
     event.preventDefault();
 
     const activeButtonIndex = buttonsRef.current.findIndex(
-      (button) => button.dataset.selected === "true",
+      (button) => button.dataset.selected === 'true',
     );
 
     const lastButtonIndex = buttonsRef.current.length - 1;
     let newButtonIndex = activeButtonIndex;
 
     switch (key) {
-      case "ArrowLeft": {
-        newButtonIndex =
-          activeButtonIndex === 0 ? lastButtonIndex : activeButtonIndex - 1;
+      case 'ArrowLeft': {
+        newButtonIndex = activeButtonIndex === 0 ? lastButtonIndex : activeButtonIndex - 1;
         break;
       }
-      case "ArrowRight": {
-        newButtonIndex =
-          activeButtonIndex === lastButtonIndex ? 0 : activeButtonIndex + 1;
+      case 'ArrowRight': {
+        newButtonIndex = activeButtonIndex === lastButtonIndex ? 0 : activeButtonIndex + 1;
         break;
       }
-      case "Home": {
+      case 'Home': {
         newButtonIndex = 0;
         break;
       }
-      case "End": {
+      case 'End': {
         newButtonIndex = lastButtonIndex;
         break;
       }
@@ -89,17 +85,17 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
     }
   };
 
-  if (typeof tabs === "number") {
+  if (typeof tabs === 'number') {
     return (
       <section>
-        <h2 className="visually-hidden" id={headingId}>
+        <h2 className='visually-hidden' id={headingId}>
           {heading}
         </h2>
         <header className={`${styles.tabs__header}`}>
           <div
             className={`${styles.tabs__buttons}`}
-            role="tablist"
-            aria-orientation="horizontal"
+            role='tablist'
+            aria-orientation='horizontal'
             aria-labelledby={headingId}
           >
             {Array.from({ length: tabs }).map((_, i) => (
@@ -110,8 +106,8 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
         <div className={`${styles.tabs__body}`}>
           <div
             className={`${styles.tabs__content} surface disable-scrollbar`}
-            role="tabpanel"
-            tabIndex="0"
+            role='tabpanel'
+            tabIndex='0'
           ></div>
         </div>
       </section>
@@ -120,14 +116,14 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
 
   return (
     <section>
-      <h2 className="visually-hidden" id={headingId}>
+      <h2 className='visually-hidden' id={headingId}>
         {heading}
       </h2>
       <header className={`${styles.tabs__header}`} onKeyDown={handleKeyDown}>
         <div
           className={`${styles.tabs__buttons}`}
-          role="tablist"
-          aria-orientation="horizontal"
+          role='tablist'
+          aria-orientation='horizontal'
           aria-labelledby={headingId}
         >
           {tabs.map((tab, index) => (
@@ -143,10 +139,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
             />
           ))}
 
-          <div
-            className={`${styles["tabs__buttons-status"]}`}
-            ref={statusRef}
-          ></div>
+          <div className={`${styles['tabs__buttons-status']}`} ref={statusRef}></div>
         </div>
       </header>
       <div className={`${styles.tabs__body}`}>
@@ -155,10 +148,10 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
             selected === tab.id && (
               <div
                 className={`${styles.tabs__content} surface disable-scrollbar`}
-                role="tabpanel"
+                role='tabpanel'
                 aria-labelledby={tab.id}
                 key={tab.id}
-                tabIndex="0"
+                tabIndex='0'
               >
                 {tab.panel}
               </div>

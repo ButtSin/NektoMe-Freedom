@@ -1,5 +1,5 @@
 const selectors = {
-  sendButtonClass: ".sendMessageBtn",
+  sendButtonClass: '.sendMessageBtn',
 };
 
 export { selectors };

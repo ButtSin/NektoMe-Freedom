@@ -1,29 +1,20 @@
-import styles from "./Radio.module.scss";
+import styles from './Radio.module.scss';
 
-function Radio({
-  value,
-  name,
-  mainDescription,
-  secondaryDescription,
-  checked,
-  onChange,
-}) {
+function Radio({ value, name, mainDescription, secondaryDescription, checked, onChange }) {
   return (
     <label className={`${styles.radio}`}>
       <input
         className={`${styles.radio__control}`}
-        type="radio"
+        type='radio'
         value={value}
         name={name}
         checked={checked}
         onChange={onChange}
       />
       <div className={`${styles.radio__descriptions}`}>
-        <span className={`${styles["radio__main-description"]}`}>
-          {mainDescription}
-        </span>
+        <span className={`${styles['radio__main-description']}`}>{mainDescription}</span>
         {secondaryDescription ? (
-          <span className={`${styles["radio__secondary-description"]}`}>
+          <span className={`${styles['radio__secondary-description']}`}>
             {secondaryDescription}
           </span>
         ) : null}

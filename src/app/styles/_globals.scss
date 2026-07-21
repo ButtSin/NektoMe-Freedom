@@ -1,4 +1,4 @@
-@use "helpers" as *;
+@use 'helpers' as *;
 
 body {
   display: flex;
@@ -32,7 +32,7 @@ main {
 a {
   --aOffsetX: #{toRem(2)};
   --aOffsetY: 0.19em;
-  --backgroundUrl: url("@/shared/assets/icons/squareArrow.svg");
+  --backgroundUrl: url('@/shared/assets/icons/squareArrow.svg');
 
   position: relative;
 
@@ -62,7 +62,7 @@ a {
     left: 100%;
     translate: calc(-100% - var(--aOffsetX)) var(--aOffsetY);
 
-    content: "";
+    content: '';
     @include square(toRem(9));
 
     mask: var(--backgroundUrl) no-repeat center / contain;
@@ -76,10 +76,7 @@ a {
 
   @include hover(itself, after) {
     color: colorToOpacity(var(--opacity));
-    text-decoration-color: colorToOpacity(
-      var(--opacity),
-      var(--color-separator-tertiary)
-    );
+    text-decoration-color: colorToOpacity(var(--opacity), var(--color-separator-tertiary));
 
     &::after {
       --aOffsetX: 0px;

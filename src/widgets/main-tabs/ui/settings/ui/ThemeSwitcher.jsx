@@ -1,9 +1,9 @@
-import { RadioGroup } from "@/shared/ui/molecules/RadioGroup";
-import { settingsManager } from "@/entities/settings/";
-import { use } from "react";
-import { ThemeContext } from "@/app/providers/ThemeContext";
-import { applyTheme } from "@/shared/lib/dom/applyTheme";
-import { themeSwitcherData } from "../config/themeSwitcherData";
+import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
+import { settingsManager } from '@/entities/settings/';
+import { use } from 'react';
+import { ThemeContext } from '@/app/providers/ThemeContext';
+import { applyTheme } from '@/shared/lib/dom/applyTheme';
+import { themeSwitcherData } from '../config/themeSwitcherData';
 
 function ThemeSwitcher() {
   const { selectedTheme, setSelectedTheme } = use(ThemeContext);

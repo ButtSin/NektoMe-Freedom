@@ -1,4 +1,4 @@
-@use "../helpers/index" as *;
+@use '../helpers/index' as *;
 
 :root {
   // Темы
@@ -17,15 +17,9 @@
 
   --color-default: light-dark(#ebebec, #27272a);
   --color-default-hover: light-dark(#e1e1e2, #2e2e31);
-  --color-default-foreground: light-dark(
-    var(--color-eclipse),
-    var(--color-snow)
-  );
+  --color-default-foreground: light-dark(var(--color-eclipse), var(--color-snow));
   --color-muted: light-dark(var(--color-zinc-500), var(--color-zinc-400));
-  --color-segment: light-dark(
-    rgba(255, 255, 255, 1),
-    rgba(230, 235, 255, 0.16)
-  );
+  --color-segment: light-dark(rgba(255, 255, 255, 1), rgba(230, 235, 255, 0.16));
 
   --color-background: light-dark(#f5f5f5, #060607);
   --color-background-secondary: light-dark(#ebebeb, #0c0c0e);
@@ -38,10 +32,7 @@
     color-mix(in srgb, #eda2a24 3%, transparent)
   );
 
-  --color-field-background: light-dark(
-    var(--color-white),
-    var(--color-eclipse)
-  );
+  --color-field-background: light-dark(var(--color-white), var(--color-eclipse));
   --color-field-background-hover: light-dark(
     color-mix(in srgb, #f9f9f9 92%, transparent),
     color-mix(in srgb, #1c1c1f 92%, transparent)

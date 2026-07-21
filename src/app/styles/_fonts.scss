@@ -1,64 +1,64 @@
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   src:
-    local("Inter Regular"),
-    local("Inter-Regular"),
-    url("@/shared/assets/fonts/Inter-Italic.woff2") format("woff2");
+    local('Inter Regular'),
+    local('Inter-Regular'),
+    url('@/shared/assets/fonts/Inter-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   src:
-    local("Inter Regular"),
-    local("Inter-Regular"),
-    url("@/shared/assets/fonts/Inter-Regular.woff2") format("woff2");
+    local('Inter Regular'),
+    local('Inter-Regular'),
+    url('@/shared/assets/fonts/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   src:
-    local("Inter Medium"),
-    local("Inter-Medium"),
-    url("@/shared/assets/fonts/Inter-Medium.woff2") format("woff2");
+    local('Inter Medium'),
+    local('Inter-Medium'),
+    url('@/shared/assets/fonts/Inter-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   src:
-    local("Inter SemiBold"),
-    local("Inter-SemiBold"),
-    url("@/shared/assets/fonts/Inter-SemiBold.woff2") format("woff2");
+    local('Inter SemiBold'),
+    local('Inter-SemiBold'),
+    url('@/shared/assets/fonts/Inter-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   src:
-    local("Inter Bold"),
-    local("Inter-Bold"),
-    url("@/shared/assets/fonts/Inter-Bold.woff2") format("woff2");
+    local('Inter Bold'),
+    local('Inter-Bold'),
+    url('@/shared/assets/fonts/Inter-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   src:
-    local("Inter ExtraBold"),
-    local("Inter-ExtraBold"),
-    url("@/shared/assets/fonts/Inter-ExtraBold.woff2") format("woff2");
+    local('Inter ExtraBold'),
+    local('Inter-ExtraBold'),
+    url('@/shared/assets/fonts/Inter-ExtraBold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;

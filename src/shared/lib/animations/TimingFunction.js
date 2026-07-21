@@ -19,14 +19,10 @@ class TimingFunction {
 
   getRandomTimingFunction() {
     if (Math.round(Math.random())) {
-      return this.timingFunctions[
-        Math.floor(Math.random() * this.timingFunctions.length)
-      ];
+      return this.timingFunctions[Math.floor(Math.random() * this.timingFunctions.length)];
     }
     return this.makeEaseOut(
-      this.timingFunctions[
-        Math.floor(Math.random() * this.timingFunctions.length)
-      ],
+      this.timingFunctions[Math.floor(Math.random() * this.timingFunctions.length)],
     );
   }
 }

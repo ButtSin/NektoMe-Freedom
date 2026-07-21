@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import ThemeSwitcher from "./ThemeSwitcher";
-import { Switch } from "@/shared/ui/atoms/Switch";
-import styles from "./Settings.module.scss";
-import { switches } from "../config/switches";
+import ThemeSwitcher from './ThemeSwitcher';
+import { Switch } from '@/shared/ui/atoms/Switch';
+import styles from './Settings.module.scss';
+import { switches } from '../config/switches';
 
 const Settings = (props) => {
   return (
@@ -18,7 +18,7 @@ const Settings = (props) => {
             requiredContent={switchItem.requiredContent}
           />
         );
-      })}{" "}
+      })}{' '}
       <ThemeSwitcher />
     </div>
   );

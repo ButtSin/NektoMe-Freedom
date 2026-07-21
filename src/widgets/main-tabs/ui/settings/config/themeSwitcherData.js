@@ -1,19 +1,19 @@
 const themeSwitcherData = {
-  mainDescription: "Тема",
-  secondaryDescription: "Выберите тему оформления",
-  name: "theme",
+  mainDescription: 'Тема',
+  secondaryDescription: 'Выберите тему оформления',
+  name: 'theme',
   radios: [
     {
-      mainDescription: "Светлая",
-      value: "light",
+      mainDescription: 'Светлая',
+      value: 'light',
     },
     {
-      mainDescription: "Тёмная",
-      value: "dark",
+      mainDescription: 'Тёмная',
+      value: 'dark',
     },
     {
-      mainDescription: "Системная",
-      value: "system",
+      mainDescription: 'Системная',
+      value: 'system',
     },
   ],
 };

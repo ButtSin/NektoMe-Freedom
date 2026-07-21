@@ -1,4 +1,4 @@
-import { stateClasses } from "../../config/constants";
+import { stateClasses } from '../../config/constants';
 
 function enableButtons(buttons) {
   buttons.forEach((button) => button.classList.remove(stateClasses.disabled));

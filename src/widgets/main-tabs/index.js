@@ -1,1 +1,1 @@
-export { MainTabs } from "./ui/MainTabs.jsx";
+export { MainTabs } from './ui/MainTabs.jsx';

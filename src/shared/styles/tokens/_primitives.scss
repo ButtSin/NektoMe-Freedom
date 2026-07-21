@@ -1,4 +1,4 @@
-@use "../helpers/index" as *;
+@use '../helpers/index' as *;
 
 :root {
   // Цвета
@@ -10,7 +10,7 @@
   --color-zinc-400: #a1a1aa;
 
   // Шрифты
-  --font-family-base: "Inter", sans-serif;
+  --font-family-base: 'Inter', sans-serif;
 
   // Строки
   --line-height-lg: 1.29;

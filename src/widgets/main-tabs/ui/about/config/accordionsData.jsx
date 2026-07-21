@@ -1,32 +1,30 @@
-import { extensionVersion } from "@/shared/config/constants.js";
+import { extensionVersion } from '@/shared/config/constants.js';
 
-import IconExclamationMark from "@/shared/ui/atoms/icons/IconExclamationMark.jsx";
-import IconSourceCode from "@/shared/ui/atoms/icons/IconSourceCode.jsx";
-import IconThumb from "@/shared/ui/atoms/icons/IconThumb.jsx";
-import IconHummer from "@/shared/ui/atoms/icons/IconHummer.jsx";
-import IconCloudArrowUp from "@/shared/ui/atoms/icons/IconCloudArrowUp.jsx";
+import IconExclamationMark from '@/shared/ui/atoms/icons/IconExclamationMark.jsx';
+import IconSourceCode from '@/shared/ui/atoms/icons/IconSourceCode.jsx';
+import IconThumb from '@/shared/ui/atoms/icons/IconThumb.jsx';
+import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
+import IconCloudArrowUp from '@/shared/ui/atoms/icons/IconCloudArrowUp.jsx';
 
 const accordionsData = [
   {
-    name: "base-info",
+    name: 'base-info',
     children: (
       <p>
-        Автор данного расширения не пропагандирует какие-либо социальные,
-        политические или идеологические взгляды. Оно — лишь технический
-        инструмент, выполняющий множество различных функций. Взаимодействие
-        участников осуществляется исключительно по общему согласию и
-        регулируется правилами платформы «NektoMe». Используя это расширение, вы
-        подтверждаете, что достигли совершеннолетнего возраста и не выходите за
-        рамки законодательства страны, в которой пребываете. Разработчик не
-        несёт ответственности за нарушения пользователями тех или иных правил и
-        законов.
+        Автор данного расширения не пропагандирует какие-либо социальные, политические или
+        идеологические взгляды. Оно — лишь технический инструмент, выполняющий множество различных
+        функций. Взаимодействие участников осуществляется исключительно по общему согласию и
+        регулируется правилами платформы «NektoMe». Используя это расширение, вы подтверждаете, что
+        достигли совершеннолетнего возраста и не выходите за рамки законодательства страны, в
+        которой пребываете. Разработчик не несёт ответственности за нарушения пользователями тех или
+        иных правил и законов.
       </p>
     ),
-    title: "Дисклеймер",
+    title: 'Дисклеймер',
     icon: <IconExclamationMark />,
   },
   {
-    name: "base-info",
+    name: 'base-info',
     children: (
       <>
         <p>Версия {extensionVersion} включает следующие изменения:</p>
@@ -34,12 +32,12 @@ const accordionsData = [
           <li>код портирован на React;</li>
           <li>переработан дизайн с использованием «HeroUI&nbsp;V3»;</li>
           <li>
-            расширение адаптировано для работы в популярных десктопных браузерах
-            и опубликовано в соответствующих магазинах;
+            расширение адаптировано для работы в популярных десктопных браузерах и опубликовано в
+            соответствующих магазинах;
           </li>
           <li>
-            добавлена новая функция: «Советы по безопасности». Вы можете
-            просматривать их отдельно и во время поиска собеседника.
+            добавлена новая функция: «Советы по безопасности». Вы можете просматривать их отдельно и
+            во время поиска собеседника.
           </li>
         </ul>
       </>
@@ -48,57 +46,56 @@ const accordionsData = [
     icon: <IconCloudArrowUp />,
   },
   {
-    name: "base-info",
+    name: 'base-info',
     children: (
       <p>
-        Данное расширение не собирает и, соответственно, не использует никаких
-        данных. Вы можете убедиться в этом сами, ознакомившись с его исходным
-        кодом, выложенным на{" "}
-        <a target="_blank" href="https://github.com/ButtSin/NektoMe-Freedom">
+        Данное расширение не собирает и, соответственно, не использует никаких данных. Вы можете
+        убедиться в этом сами, ознакомившись с его исходным кодом, выложенным на{' '}
+        <a target='_blank' href='https://github.com/ButtSin/NektoMe-Freedom'>
           GitHub
-        </a>{" "}
+        </a>{' '}
         под лицензией MIT.
       </p>
     ),
-    title: "Исходный код и конфиденциальность",
+    title: 'Исходный код и конфиденциальность',
     icon: <IconSourceCode />,
   },
   {
-    name: "base-info",
+    name: 'base-info',
     children: (
       <p>
-        Спасибо{" "}
-        <a target="_blank" href="https://github.com/VolrakNik">
+        Спасибо{' '}
+        <a target='_blank' href='https://github.com/VolrakNik'>
           VolrakNik
-        </a>{" "}
+        </a>{' '}
         за объяснение работы backend-части сайта «nekto.me».
       </p>
     ),
-    title: "Благодарности",
+    title: 'Благодарности',
     icon: <IconThumb />,
   },
   {
-    name: "base-info",
+    name: 'base-info',
     children: (
       <>
         <p>Текущая версия расширения использует следующие материалы:</p>
         <ul>
           <li>
-            <a target="_blank" href="https://v3.heroui.com/">
+            <a target='_blank' href='https://v3.heroui.com/'>
               «HeroUI&nbsp;V3 (ранее NextUI)»
-            </a>{" "}
+            </a>{' '}
             — в качестве основы дизайна;
           </li>
           <li>
-            <a target="_blank" href="https://github.com/gravity-ui/icons">
+            <a target='_blank' href='https://github.com/gravity-ui/icons'>
               «Gravity-UI&nbsp;Icons»
-            </a>{" "}
+            </a>{' '}
             — для большинства иконок.
           </li>
         </ul>
       </>
     ),
-    title: "Использованные материалы",
+    title: 'Использованные материалы',
     icon: <IconHummer />,
   },
 ];

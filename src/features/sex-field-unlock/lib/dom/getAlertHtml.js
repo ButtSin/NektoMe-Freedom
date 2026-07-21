@@ -1,4 +1,4 @@
-function getAlertHtml(alertMessage = "Сюда надо было вставить сообщение...") {
+function getAlertHtml(alertMessage = 'Сюда надо было вставить сообщение...') {
   return `
       <div id='custom-alert' 
           class='swal2-container swal2-center swal2-fade swal2-shown'

@@ -12,26 +12,15 @@ TODO: Тень хорошо интегрируется в контейнер с 
 контейнер с v-if.
 */
 
-import {
-  inject,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  ref,
-  useTemplateRef,
-  watch,
-} from "vue";
+import { inject, nextTick, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 
-import { useInitialTransition } from "@/html/shared/composables/useInitialTransition";
+import { useInitialTransition } from '@/html/shared/composables/useInitialTransition';
 
-import {
-  isThemeChangingProvide,
-  THEME_TRANSITION_DURATION,
-} from "@/js/constants.js";
-import { toUnit } from "@/js/utils/toUnit";
-import TimingFunction from "@/js/utils/TimingFunction";
-import Animation from "@/js/utils/Animation";
-import afterVisualUpdate from "@/js/utils/afterVisualUpdate";
+import { isThemeChangingProvide, THEME_TRANSITION_DURATION } from '@/js/constants.js';
+import { toUnit } from '@/js/utils/toUnit';
+import TimingFunction from '@/js/utils/TimingFunction';
+import Animation from '@/js/utils/Animation';
+import afterVisualUpdate from '@/js/utils/afterVisualUpdate';
 
 const {
   shadowHeight = 60,
@@ -45,9 +34,9 @@ const {
   parentBackground: String,
 });
 const isThemeChanging = inject(isThemeChangingProvide, ref(false));
-const shadowElement = useTemplateRef("shadowElement");
+const shadowElement = useTemplateRef('shadowElement');
 const parentElementVarsStyles = ref(null);
-const parentEvents = ["scroll", "click", "dblclick", "keydown", "keyup"];
+const parentEvents = ['scroll', 'click', 'dblclick', 'keydown', 'keyup'];
 
 let parentElement = null;
 let parentEventsHandler = null;
@@ -88,15 +77,12 @@ const updateShadowsOpacity = async () => {
 
   const shadowTopOpacity = Math.min(parentElementScrollTop / shadowHeight, 1);
   const shadowBottomOpacity = Math.min(
-    (parentElementScrollHeight -
-      parentElementClientHeight -
-      parentElementScrollTop) /
-      shadowHeight,
+    (parentElementScrollHeight - parentElementClientHeight - parentElementScrollTop) / shadowHeight,
     1,
   );
 
-  parentElementVarsStyles.value["--shadowTopOpacity"] = shadowTopOpacity;
-  parentElementVarsStyles.value["--shadowBottomOpacity"] = shadowBottomOpacity;
+  parentElementVarsStyles.value['--shadowTopOpacity'] = shadowTopOpacity;
+  parentElementVarsStyles.value['--shadowBottomOpacity'] = shadowBottomOpacity;
 
   isShadowUpdating = false;
 };
@@ -123,7 +109,7 @@ const initParentEvents = () => {
       return;
     }
 
-    if (event.type === "scroll") {
+    if (event.type === 'scroll') {
       collapsedUpdateShadowsOpacity();
 
       return;
@@ -143,18 +129,17 @@ const initParentEvents = () => {
 const initParentStyles = () => {
   const parentElementStyles = getComputedStyle(parentElement);
   parentElementVarsStyles.value = {
-    "--topOffset": toUnit({ value: parentElementStyles.paddingTop }),
-    "--bottomOffset": toUnit({ value: parentElementStyles.paddingBottom }),
-    "--leftOffset": toUnit({ value: parentElementStyles.paddingLeft }),
-    "--rightOffset": toUnit({ value: parentElementStyles.paddingRight }),
+    '--topOffset': toUnit({ value: parentElementStyles.paddingTop }),
+    '--bottomOffset': toUnit({ value: parentElementStyles.paddingBottom }),
+    '--leftOffset': toUnit({ value: parentElementStyles.paddingLeft }),
+    '--rightOffset': toUnit({ value: parentElementStyles.paddingRight }),
 
-    "--shadowHeight": toUnit({ value: shadowHeight, unit: "rem" }),
+    '--shadowHeight': toUnit({ value: shadowHeight, unit: 'rem' }),
 
-    "--shadowBackground":
-      parentBackground || parentElementStyles.backgroundColor,
+    '--shadowBackground': parentBackground || parentElementStyles.backgroundColor,
 
-    "--shadowTopOpacity": 1,
-    "--shadowBottomOpacity": 1,
+    '--shadowTopOpacity': 1,
+    '--shadowBottomOpacity': 1,
   };
 };
 
@@ -164,10 +149,9 @@ const removeParentEvents = () => {
   });
 };
 
-const { isFirstUpdate, transitionClass, enableAnimations } =
-  useInitialTransition({
-    onDomReady: initParentEvents,
-  });
+const { isFirstUpdate, transitionClass, enableAnimations } = useInitialTransition({
+  onDomReady: initParentEvents,
+});
 
 onMounted(() => {
   parentElement = shadowElement.value.parentElement;
@@ -213,7 +197,7 @@ watch(isThemeChanging, (isChanging) => {
 
 <style scoped lang="scss">
 @property --shadowBackground {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: transparent;
 }
@@ -234,7 +218,7 @@ watch(isThemeChanging, (isChanging) => {
     left: calc(var(--leftOffset) * -1);
     right: calc(var(--rightOffset) * -1);
 
-    content: "";
+    content: '';
     height: var(--shadowHeight);
 
     transition-property: --shadowBackground;
@@ -245,22 +229,14 @@ watch(isThemeChanging, (isChanging) => {
     top: calc(var(--topOffset) * -1);
 
     opacity: var(--shadowTopOpacity);
-    background: linear-gradient(
-      0deg,
-      transparent 0%,
-      var(--shadowBackground) 100%
-    );
+    background: linear-gradient(0deg, transparent 0%, var(--shadowBackground) 100%);
   }
 
   &::after {
     bottom: calc(var(--bottomOffset) * -1);
 
     opacity: var(--shadowBottomOpacity);
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      var(--shadowBackground) 100%
-    );
+    background: linear-gradient(180deg, transparent 0%, var(--shadowBackground) 100%);
   }
 }
 </style>

@@ -1,4 +1,4 @@
-import { MainTabs } from "@/widgets/main-tabs";
+import { MainTabs } from '@/widgets/main-tabs';
 
 const PopupPage = () => {
   return <MainTabs />;
