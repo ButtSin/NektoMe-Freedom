@@ -87,35 +87,6 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
     }
   };
 
-  if (typeof tabs === 'number') {
-    return (
-      <section>
-        <h2 className='visually-hidden' id={headingId}>
-          {heading}
-        </h2>
-        <header className={`${styles.tabs__header}`}>
-          <div
-            className={`${styles.tabs__buttons}`}
-            role='tablist'
-            aria-orientation='horizontal'
-            aria-labelledby={headingId}
-          >
-            {Array.from({ length: tabs }).map((_, i) => (
-              <ButtonTabs key={i} />
-            ))}
-          </div>
-        </header>
-        <div className={`${styles.tabs__body}`}>
-          <div
-            className={`${styles.tabs__content} surface disable-scrollbar`}
-            role='tabpanel'
-            tabIndex='0'
-          ></div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section>
       <h2 className='visually-hidden' id={headingId}>
