@@ -1,15 +1,16 @@
-@use "sass:math";
+@use 'sass:math';
 
+/*
+  В firefox баг: свойство scale с calc() не работает, если в выражении есть числа с единицами 
+  измерения. Поэтому храним значение переменной и с px, и без.
+*/
 $controlSizeSass: 16;
 
 .radio {
   --controlSize: #{$controlSizeSass * 1px};
   --controlSizeUnitless: #{$controlSizeSass};
   --controlIndicatorSize: #{math.div($controlSizeSass, 2)};
-  --controlIndicatorSizeActive: #{math.div($controlSizeSass, 2) - math.div(
-      $controlSizeSass,
-      8
-    )};
+  --controlIndicatorSizeActive: #{math.div($controlSizeSass, 2) - math.div($controlSizeSass, 8)};
 
   display: flex;
   gap: toRem(12);
@@ -43,7 +44,7 @@ $controlSizeSass: 16;
     &::after {
       @include abs-center;
 
-      content: "";
+      content: '';
       @include square(var(--controlSize));
     }
 
@@ -90,18 +91,12 @@ $controlSizeSass: 16;
       }
 
       &::after {
-        @include scale-to-size(
-          var(--controlSizeUnitless),
-          var(--controlIndicatorSizeActive)
-        );
+        @include scale-to-size(var(--controlSizeUnitless), var(--controlIndicatorSizeActive));
       }
     }
 
     &:checked:active::after {
-      @include scale-to-size(
-        var(--controlSizeUnitless),
-        var(--controlIndicatorSize)
-      );
+      @include scale-to-size(var(--controlSizeUnitless), var(--controlIndicatorSize));
     }
 
     &:focus-visible {
