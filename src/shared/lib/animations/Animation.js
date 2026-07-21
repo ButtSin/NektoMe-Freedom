@@ -28,7 +28,7 @@ class Animation {
       if (timeFraction < 1) {
         this.animationId = requestAnimationFrame(animateStep);
       } else {
-        timeFraction = 1;
+        this.draw(this.timing(1));
         this.onEnd?.();
         this.animationId = null;
       }
