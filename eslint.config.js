@@ -20,12 +20,8 @@ export default defineConfig([
     ],
 
     languageOptions: {
-      globals: globals.browser,
+      globals: { ...globals.browser, chrome: 'readonly' },
       parserOptions: { ecmaFeatures: { jsx: true } },
-    },
-
-    globals: {
-      chrome: 'readonly',
     },
 
     rules: {
