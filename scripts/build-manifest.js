@@ -1,23 +1,21 @@
-// scripts/build-manifest.js
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const browser = process.argv[2] || "chromium";
+const browser = process.argv[2] || 'chromium';
 
-const sourceFile = path.resolve(__dirname, "../public/manifest.json");
-const destFile = path.resolve(__dirname, "../dist/manifest.json");
+const sourceFile = path.resolve(__dirname, '../public/manifest.json');
+const destFile = path.resolve(__dirname, '../dist/manifest.json');
 
 if (!fs.existsSync(sourceFile)) {
   console.error(`❌ Файл ${sourceFile} не найден!`);
   process.exit(1);
 }
 
-const manifest = JSON.parse(fs.readFileSync(sourceFile, "utf-8"));
+const manifest = JSON.parse(fs.readFileSync(sourceFile, 'utf-8'));
 
-// Трансформации под Firefox
-if (browser === "firefox") {
+if (browser === 'firefox') {
   if (manifest.background?.service_worker) {
     manifest.background = {
       scripts: [manifest.background.service_worker],
@@ -26,8 +24,8 @@ if (browser === "firefox") {
 
   manifest.browser_specific_settings = {
     gecko: {
-      id: "nektome-freedom@dmitrii.buttsin",
-      strict_min_version: "115.0",
+      id: 'nektome-freedom@dmitrii.buttsin',
+      strict_min_version: '115.0',
     },
   };
 }
@@ -38,6 +36,4 @@ if (!fs.existsSync(destDir)) {
 }
 
 fs.writeFileSync(destFile, JSON.stringify(manifest, null, 2));
-console.log(
-  `✅ Манифест для ${browser.toUpperCase()} (v${manifest.version}) собран в dist/`,
-);
+console.log(`✅ Манифест для ${browser.toUpperCase()} (v${manifest.version}) собран в dist/`);
