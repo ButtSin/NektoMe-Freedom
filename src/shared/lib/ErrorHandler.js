@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 class ErrorHandler {
   _onPromiseGlobalError(event) {
     alert(
