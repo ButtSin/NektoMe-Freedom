@@ -51,7 +51,7 @@ export default defineConfig([
       'no-unused-vars': 'warn',
       'react/prop-types': 'off',
       '@eslint-react/no-missing-key': 'warn',
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'simple-import-sort/imports': [
         'warn',
         {
