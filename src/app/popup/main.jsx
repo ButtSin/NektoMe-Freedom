@@ -1,14 +1,15 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { PromiseRejectionHandler } from '@/app/lib/PromiseRejectionHandler.js';
 import { ThemeProvider } from '@/app/providers/ThemeContext.jsx';
+import { extensionName, extensionVersion } from '@/shared/config/constants';
+import { PromiseRejectionHandler } from '@/shared/lib/PromiseRejectionHandler.js';
 
 import { App } from './App.jsx';
 
 import '@/app/styles/main.scss';
 
-new PromiseRejectionHandler().promiseGlobalErrorSetup();
+new PromiseRejectionHandler(extensionName, extensionVersion).promiseGlobalErrorSetup();
 
 const container = document.getElementById('app');
 const root = createRoot(container);
