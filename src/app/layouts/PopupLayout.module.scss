@@ -29,6 +29,8 @@
 
     &-icon {
       display: flex;
+
+      transition-duration: var(--transition-duration);
     }
   }
 
@@ -37,6 +39,8 @@
 
     color: colorToOpacity(var(--opacity));
     font-size: toRem(12);
+
+    transition-duration: var(--transition-duration);
   }
 }
 

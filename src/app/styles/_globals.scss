@@ -3,6 +3,7 @@
 body {
   display: flex;
   flex-direction: column;
+  height: var(--container-height);
   width: calc(var(--container-width) + var(--container-padding-x) * 2);
   padding-inline: var(--container-padding-x);
   padding-block: var(--container-padding-y);

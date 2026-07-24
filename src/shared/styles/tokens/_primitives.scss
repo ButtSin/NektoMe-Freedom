@@ -22,6 +22,7 @@
 
   // Контейнеры
   --container-width: #{toRem(468)};
+  --container-height: #{toRem(498)};
   //TODO: По макету 16px, а не 15px. Исправить, если появятся новые функции в настройках
   --container-padding-x: #{toRem(15)};
   --container-padding-y: #{toRem(15)};

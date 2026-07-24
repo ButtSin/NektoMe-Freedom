@@ -19,6 +19,7 @@ const adviceUrl = chrome.runtime.getURL('src/html/advices/index.html');
 
 const Settings = () => {
   const [settings, setSettings] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const initFieldsValue = async () => {
@@ -33,6 +34,8 @@ const Settings = () => {
         [STORAGE_KEYS.content.copyUnlocked]: copy ?? defaultSettings.copyUnlocked,
         [STORAGE_KEYS.ui.advices]: advices ?? defaultSettings.advices,
       });
+
+      setIsLoaded(true);
     };
 
     initFieldsValue();
@@ -45,6 +48,8 @@ const Settings = () => {
     await currentSetter(newSwitchValue);
     setSettings((oldSettings) => ({ ...oldSettings, ...{ [id]: newSwitchValue } }));
   };
+
+  if (!isLoaded) return null;
 
   return (
     <div className={`${styles.settings}`}>

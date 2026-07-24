@@ -22,8 +22,6 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
       buttonsRef.current?.find((button) => button.dataset.selected === 'true');
 
     const updateStatus = async () => {
-      await document.fonts.ready;
-
       const activeButtonRef = getActiveButtonRef();
 
       if (!activeButtonRef) return;
