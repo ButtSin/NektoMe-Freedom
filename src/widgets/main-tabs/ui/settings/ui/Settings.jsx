@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
 import { Switch } from '@/shared/ui/atoms/Switch';
 
-import { switches } from '../config/switches';
+import { switches } from '../config/switchesData';
 
 import { ThemeSwitcher } from './ThemeSwitcher';
 
