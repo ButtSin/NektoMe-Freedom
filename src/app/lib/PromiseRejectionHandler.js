@@ -1,6 +1,6 @@
-import { extensionName, extensionVersion } from '../config/constants';
+import { extensionName, extensionVersion } from '@/shared/config/constants';
 
-class ErrorHandler {
+class PromiseRejectionHandler {
   _onPromiseGlobalError(event) {
     alert(
       `[${extensionName} v${extensionVersion}] Произошла ошибка обработки асинхронного кода. ` +
@@ -19,4 +19,4 @@ class ErrorHandler {
   }
 }
 
-export default ErrorHandler;
+export { PromiseRejectionHandler };
