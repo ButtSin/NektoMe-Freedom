@@ -5,12 +5,14 @@ const DEFAULT_SETTINGS = Object.freeze({
   },
   sexFieldUnlocked: true,
   copyUnlocked: true,
+  advices: true,
 });
 
 const STORAGE_KEYS = Object.freeze({
   ui: {
     theme: 'theme',
     tabsState: 'tabsState',
+    advices: 'advices',
   },
 
   content: {
