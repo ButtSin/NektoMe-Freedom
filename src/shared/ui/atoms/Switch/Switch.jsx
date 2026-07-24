@@ -7,6 +7,7 @@ const Switch = ({
   icons = null,
   requiredContent,
   conditionalContent,
+  onChange,
 }) => {
   return (
     <div className={`${styles.switch}`}>
@@ -19,6 +20,7 @@ const Switch = ({
             role='switch'
             checked={isActive}
             aria-checked={isActive}
+            onChange={onChange}
           />
           <span className={`${styles['switch__main-description']}`}>{mainDescription}</span>
           {secondaryDescription && (
