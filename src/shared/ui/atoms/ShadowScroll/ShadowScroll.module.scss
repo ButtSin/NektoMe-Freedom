@@ -1,0 +1,44 @@
+@property --shadowBackground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+.shadow {
+  position: sticky;
+  top: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
+  margin-top: -100%;
+
+  pointer-events: none;
+
+  &::before,
+  &::after {
+    position: absolute;
+    left: calc(var(--leftOffset) * -1);
+    right: calc(var(--rightOffset) * -1);
+
+    content: '';
+    height: var(--shadowHeight);
+
+    transition-property: --shadowBackground;
+    transition-duration: var(--transition-duration);
+  }
+
+  &::before {
+    top: calc(var(--topOffset) * -1);
+
+    opacity: var(--shadowTopOpacity);
+    background: linear-gradient(0deg, transparent 0%, var(--shadowBackground) 100%);
+  }
+
+  &::after {
+    bottom: calc(var(--bottomOffset) * -1);
+
+    opacity: var(--shadowBottomOpacity);
+    background: linear-gradient(180deg, transparent 0%, var(--shadowBackground) 100%);
+  }
+}

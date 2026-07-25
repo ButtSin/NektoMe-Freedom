@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { ButtonTabs } from '../../atoms/ButtonTabs';
+import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
 
 import styles from './Tabs.module.scss';
 
@@ -125,6 +126,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
                 tabIndex='0'
               >
                 {tab.panel}
+                <ShadowScroll />
               </div>
             )
           );
