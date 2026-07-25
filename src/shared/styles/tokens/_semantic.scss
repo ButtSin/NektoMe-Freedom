@@ -61,4 +61,19 @@
   // Отступы
   --spacing: var(--container-padding-y);
   --spacing-xs: calc(var(--spacing) / 2);
+
+  // Тени
+  --box-shadow:
+    0 0 #{toRem(1)} 0 var(--color-field-shadow-alt),
+    0 #{toRem(1)} #{toRem(2)} 0 var(--color-field-shadow-alt),
+    0 #{toRem(2)} #{toRem(4)} 0 var(--color-field-shadow), inset 0 0 0 0 var(--color-accent);
+  --box-shadow-alt:
+    0 0 #{toRem(1)} 0 var(--color-field-shadow-alt),
+    0 #{toRem(1)} #{toRem(2)} 0 var(--color-field-shadow-alt),
+    0 #{toRem(2)} #{toRem(4)} 0 var(--color-field-shadow),
+    inset 0 0 0 #{toRem(2)} var(--color-accent-hover);
+  --box-shadow-inner:
+    0 0 #{toRem(5)} 0 rgba(0, 0, 0, 0.02),
+    0 #{toRem(2)} #{toRem(10)} 0 var(--color-field-shadow-alt),
+    0 0 #{toRem(1)} 0 var(--color-shadow-inner);
 }
