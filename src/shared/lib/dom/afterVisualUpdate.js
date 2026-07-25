@@ -16,4 +16,4 @@ function afterVisualUpdate(callback, useExtraFrame) {
   });
 }
 
-export default afterVisualUpdate;
+export { afterVisualUpdate };

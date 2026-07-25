@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 
 import { THEME_TRANSITION_DURATION } from '@/shared/config/constants';
-import Animation from '@/shared/lib/animations/Animation';
-import TimingFunction from '@/shared/lib/animations/TimingFunction';
+import { utilClasses } from '@/shared/config/constants';
+import { Animation } from '@/shared/lib/animations/Animation';
+import { TimingFunction } from '@/shared/lib/animations/TimingFunction';
+import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 import { pxToRem } from '@/shared/lib/dom/rootRem';
 
 import styles from './ShadowScroll.module.scss';
@@ -21,6 +23,10 @@ const ShadowScroll = ({ height = 50, parentBackground }) => {
 
     const style = element.style;
     const parentStyles = getComputedStyle(parentElement);
+
+    afterVisualUpdate(() => {
+      element.classList.remove('disable-animation');
+    });
 
     const initParentStyles = () => {
       style.setProperty('--topOffset', parseFloat(parentStyles.paddingTop) + 'px');
@@ -61,8 +67,11 @@ const ShadowScroll = ({ height = 50, parentBackground }) => {
       if (event.type === 'scroll') {
         updateShadowOpacity();
         return;
+      } else {
+        shadowAnimation.cancel();
+        shadowAnimation.enable();
       }
-      shadowAnimation.stopAnimation();
+
       shadowAnimation.animate();
     };
 
@@ -81,11 +90,13 @@ const ShadowScroll = ({ height = 50, parentBackground }) => {
         parentElement.removeEventListener(event, handleParentEvent);
       }
 
-      shadowAnimation.stopAnimation();
+      shadowAnimation.cancel();
     };
   }, [height, parentBackground]);
 
-  return <div className={styles.shadow} ref={shadowScrollRef} />;
+  return (
+    <div className={`${styles.shadow} ${utilClasses.disableAnimation}`} ref={shadowScrollRef} />
+  );
 };
 
 export { ShadowScroll };

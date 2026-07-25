@@ -27,4 +27,4 @@ class TimingFunction {
   }
 }
 
-export default TimingFunction;
+export { TimingFunction };

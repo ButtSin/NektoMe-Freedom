@@ -37,13 +37,9 @@ class Animation {
     this.animationId = requestAnimationFrame(animateStep);
   };
 
-  stopAnimation = () => {
+  cancel = () => {
     cancelAnimationFrame(this.animationId);
     this.animationId = null;
-  };
-
-  cancel = () => {
-    this.stopAnimation();
     this.cancelled = true;
   };
 
@@ -52,4 +48,4 @@ class Animation {
   };
 }
 
-export default Animation;
+export { Animation };
