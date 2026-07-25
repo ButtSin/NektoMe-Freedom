@@ -1,24 +1,26 @@
-export async function applyTheme(theme) {
+const applyTheme = (theme, themeClasses) => {
   const htmlElement = document.documentElement;
 
-  htmlElement.classList.remove('is-light', 'is-dark');
+  htmlElement.classList.remove(themeClasses.dark, themeClasses.light);
 
   switch (theme) {
     case 'light': {
-      htmlElement.classList.add('is-light');
+      htmlElement.classList.add(themeClasses.light);
 
       break;
     }
     case 'dark': {
-      htmlElement.classList.add('is-dark');
+      htmlElement.classList.add(themeClasses.dark);
 
       break;
     }
     case 'system': {
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      htmlElement.classList.add(systemDark ? 'is-dark' : 'is-light');
+      htmlElement.classList.add(systemDark ? themeClasses.dark : themeClasses.light);
 
       break;
     }
   }
-}
+};
+
+export { applyTheme };

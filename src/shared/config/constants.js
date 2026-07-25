@@ -8,11 +8,16 @@ const utilClasses = {
   disableAnimation: 'disable-animation',
   hide: 'hide',
 };
+const themeClasses = {
+  dark: 'is-dark',
+  light: 'is-light',
+};
 
 export {
   extensionName,
   extensionVersion,
   isThemeChangingProvide,
   THEME_TRANSITION_DURATION,
+  themeClasses,
   utilClasses,
 };

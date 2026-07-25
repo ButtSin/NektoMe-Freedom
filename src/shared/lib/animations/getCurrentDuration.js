@@ -1,4 +1,4 @@
-export function getCurrentDuration(targetElement) {
+function getCurrentDuration(targetElement) {
   const documentStyles = getComputedStyle(targetElement);
   const durationVar = documentStyles.transitionDuration;
   const unit = durationVar.split('').at(-2) === 'm' ? 'ms' : 's';
@@ -16,3 +16,5 @@ export function getCurrentDuration(targetElement) {
 
   return duration;
 }
+
+export { getCurrentDuration };

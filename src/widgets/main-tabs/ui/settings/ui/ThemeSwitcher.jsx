@@ -1,19 +1,15 @@
 import { use } from 'react';
 
 import { ThemeContext } from '@/app/providers/ThemeContext';
-import { settingsManager } from '@/entities/settings/';
-import { applyTheme } from '@/shared/lib/dom/applyTheme';
 import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
 
 import { themeSwitcherData } from '../config/themeSwitcherData';
 
 function ThemeSwitcher() {
-  const { selectedTheme, setSelectedTheme } = use(ThemeContext);
+  const { selectedTheme, changeTheme } = use(ThemeContext);
 
-  const handleSelectTheme = (theme) => {
-    setSelectedTheme(theme);
-    settingsManager.setLocalTheme(theme);
-    applyTheme(theme);
+  const handleSelectTheme = (newTheme) => {
+    changeTheme(newTheme);
   };
 
   return (
