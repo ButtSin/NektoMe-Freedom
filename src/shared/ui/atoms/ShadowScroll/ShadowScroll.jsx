@@ -25,7 +25,7 @@ const ShadowScroll = ({ height = 50, parentBackground }) => {
     const parentStyles = getComputedStyle(parentElement);
 
     afterVisualUpdate(() => {
-      element.classList.remove('disable-animation');
+      element.classList.remove(utilClasses.disableAnimation);
     });
 
     const initParentStyles = () => {
