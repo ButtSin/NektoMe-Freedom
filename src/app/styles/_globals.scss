@@ -121,3 +121,11 @@ h1,
   line-height: var(--line-height-xxl);
   font-weight: 600;
 }
+
+.surface {
+  background-color: var(--color-field-background);
+  box-shadow: 0 toRem(2) toRem(8) 0 var(--color-field-shadow-alt);
+
+  transition-property: box-shadow;
+  transition-duration: var(--transition-duration);
+}

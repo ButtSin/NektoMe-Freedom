@@ -28,11 +28,6 @@
   @include container;
 }
 
-.surface {
-  background-color: var(--color-field-background);
-  box-shadow: 0 toRem(2) toRem(8) 0 var(--color-field-shadow-alt);
-}
-
 .disable-scrollbar {
   &::-webkit-scrollbar {
     display: none;
