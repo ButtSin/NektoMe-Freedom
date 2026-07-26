@@ -45,7 +45,7 @@
       transform-origin: left;
 
       transition-duration: var(--transition-duration);
-      transition-property: width, transform, background-color;
+      transition-property: width, transform, background-color, box-shadow;
     }
   }
 
@@ -67,7 +67,7 @@
 
     overflow: auto;
 
-    transition-property: background-color;
+    transition-property: background-color, box-shadow;
     transition-duration: var(--transition-duration);
 
     &:focus-visible {
