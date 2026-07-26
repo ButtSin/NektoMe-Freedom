@@ -1,13 +1,14 @@
 import IconCircleDashed from '../icons/IconCircleDashed.jsx';
 
-import styles from './ButtonTabs.module.scss';
+import styles from './TabButton.module.scss';
 
 const ButtonTabs = ({
   id,
   selected,
   icon = <IconCircleDashed />,
   description = 'Кнопка табов',
-  onSelect,
+  tabIndex,
+  onClick,
   ref,
 }) => {
   return (
@@ -15,8 +16,9 @@ const ButtonTabs = ({
       ref={ref}
       id={id}
       className={`${styles.button} ${selected ? styles['is-active'] : ''} reset-button `}
-      onClick={onSelect}
+      onClick={onClick}
       data-selected={selected}
+      tabIndex={tabIndex}
     >
       <span className={`${styles.button__icon}`} aria-hidden='true'>
         {icon}
