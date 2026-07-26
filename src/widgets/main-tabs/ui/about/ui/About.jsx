@@ -2,7 +2,7 @@ import { Accordion } from '@/shared/ui/atoms/Accordion';
 
 import { accordionsData } from '../config/accordionsData';
 
-const About = ({ props }) => {
+const About = () => {
   return accordionsData.map((accordion) => {
     return (
       <Accordion
