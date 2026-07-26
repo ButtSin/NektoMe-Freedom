@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import { ButtonTabs } from '../../atoms/ButtonTabs';
 import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
+import { ButtonTabs } from '../../atoms/TabButton';
 
 import styles from './Tabs.module.scss';
 
@@ -105,8 +105,9 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
               panel={tab.panel}
               id={tab.id}
               selected={selected === tab.id}
+              tabIndex={selected === tab.id ? 0 : -1}
               key={tab.id}
-              onSelect={() => onSelect(tab.id)}
+              onClick={() => onSelect(tab.id)}
               ref={(el) => addToButtonsRef(el, index)}
             />
           ))}
