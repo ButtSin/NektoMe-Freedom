@@ -1,96 +1,87 @@
 import { useEffect, useRef } from 'react';
 
-import { THEME_TRANSITION_DURATION } from '@/shared/config/constants';
 import { utilClasses } from '@/shared/config/constants';
-import { Animation } from '@/shared/lib/animations/Animation';
-import { TimingFunction } from '@/shared/lib/animations/TimingFunction';
 import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 import { pxToRem } from '@/shared/lib/dom/rootRem';
 
 import styles from './ShadowScroll.module.scss';
 
-const PARENT_EVENTS = ['scroll', 'click', 'dblclick', 'keydown', 'keyup'];
-
 const ShadowScroll = ({ height = 50, parentBackground }) => {
   const shadowScrollRef = useRef(null);
 
   useEffect(() => {
-    const element = shadowScrollRef.current;
-    if (!element) return;
+    const shadow = shadowScrollRef.current;
+    if (!shadow) return;
 
-    const parentElement = element.parentElement;
-    if (!parentElement) return;
+    const container = shadow.parentElement;
+    if (!container) return;
 
-    const style = element.style;
-    const parentStyles = getComputedStyle(parentElement);
+    const shadowStyles = shadow.style;
 
     afterVisualUpdate(() => {
-      element.classList.remove(utilClasses.disableAnimation);
+      shadow.classList.remove('disable-animation');
     });
 
-    const initParentStyles = () => {
-      style.setProperty('--topOffset', parseFloat(parentStyles.paddingTop) + 'px');
-      style.setProperty('--bottomOffset', parseFloat(parentStyles.paddingBottom) + 'px');
-      style.setProperty('--leftOffset', parseFloat(parentStyles.paddingLeft) + 'px');
-      style.setProperty('--rightOffset', parseFloat(parentStyles.paddingRight) + 'px');
-      style.setProperty('--shadowHeight', pxToRem(height) + 'rem');
-      style.setProperty('--shadowBackground', parentBackground || parentStyles.backgroundColor);
-      style.setProperty('--shadowTopOpacity', 1);
-      style.setProperty('--shadowBottomOpacity', 1);
-    };
-
-    const updateShadowOpacity = () => {
-      const {
-        scrollTop: parentElementScrollTop,
-        scrollHeight: parentElementScrollHeight,
-        clientHeight: parentElementClientHeight,
-      } = parentElement;
-
-      const shadowTopOpacity = Math.min(parentElementScrollTop / height, 1);
-      const shadowBottomOpacity = Math.min(
-        (parentElementScrollHeight - parentElementClientHeight - parentElementScrollTop) / height,
-        1,
+    const initShadowStyles = () => {
+      const parentStyles = getComputedStyle(container);
+      shadowStyles.setProperty('--topOffset', parseFloat(parentStyles.paddingTop) + 'px');
+      shadowStyles.setProperty('--bottomOffset', parseFloat(parentStyles.paddingBottom) + 'px');
+      shadowStyles.setProperty('--leftOffset', parseFloat(parentStyles.paddingLeft) + 'px');
+      shadowStyles.setProperty('--rightOffset', parseFloat(parentStyles.paddingRight) + 'px');
+      shadowStyles.setProperty('--shadowHeight', pxToRem(height) + 'rem');
+      shadowStyles.setProperty(
+        '--shadowBackground',
+        parentBackground || parentStyles.backgroundColor,
       );
+    };
+    initShadowStyles();
 
-      style.setProperty('--shadowTopOpacity', shadowTopOpacity);
-      style.setProperty('--shadowBottomOpacity', shadowBottomOpacity);
+    const metrics = { scrollTop: null, scrollHeight: null, clientHeight: null };
+    const cacheMetrics = () => {
+      metrics.scrollTop = container.scrollTop;
+      metrics.scrollHeight = container.scrollHeight;
+      metrics.clientHeight = container.clientHeight;
+    };
+    const writeOpacity = () => {
+      shadowStyles.setProperty('--shadowTopOpacity', Math.min(metrics.scrollTop / height, 1));
+      shadowStyles.setProperty(
+        '--shadowBottomOpacity',
+        Math.min((metrics.scrollHeight - metrics.clientHeight - metrics.scrollTop) / height, 1),
+      );
+    };
+    const update = () => {
+      cacheMetrics();
+      writeOpacity();
+    };
+    update();
+
+    let rafId = null;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        update();
+      });
     };
 
-    const timingFunctions = new TimingFunction();
-    const shadowAnimation = new Animation({
-      duration: THEME_TRANSITION_DURATION,
-      timing: timingFunctions.linear,
-      draw: updateShadowOpacity,
-    });
-
-    const handleParentEvent = (event) => {
-      if (event.type === 'scroll') {
-        updateShadowOpacity();
-        return;
-      } else {
-        shadowAnimation.cancel();
-        shadowAnimation.enable();
+    const ro = new ResizeObserver(update);
+    const observeChildren = () => {
+      for (const child of container.children) {
+        ro.observe(child);
       }
-
-      shadowAnimation.animate();
     };
+    observeChildren();
 
-    const bindEvents = () => {
-      for (const event of PARENT_EVENTS) {
-        parentElement.addEventListener(event, handleParentEvent, { passive: true });
-      }
-    };
+    const mo = new MutationObserver(observeChildren);
+    mo.observe(container, { childList: true, subtree: true });
 
-    initParentStyles();
-    updateShadowOpacity();
-    bindEvents();
+    container.addEventListener('scroll', onScroll, { passive: true });
 
     return () => {
-      for (const event of PARENT_EVENTS) {
-        parentElement.removeEventListener(event, handleParentEvent);
-      }
-
-      shadowAnimation.cancel();
+      container.removeEventListener('scroll', onScroll);
+      ro.disconnect();
+      mo.disconnect();
+      cancelAnimationFrame(rafId);
     };
   }, [height, parentBackground]);
 
