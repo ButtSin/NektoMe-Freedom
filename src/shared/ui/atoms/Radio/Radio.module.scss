@@ -5,7 +5,7 @@
   измерения. Поэтому храним значение переменной и с px, и без.
 */
 $controlSizeSass: 16;
-$extraSize: if($controlSizeSass % 2 == 0, 1, 0);
+$extraSize: if(sass($controlSizeSass % 2 == 0): 1; else: 0);
 
 .radio {
   --controlSize: #{$controlSizeSass * 1px};
