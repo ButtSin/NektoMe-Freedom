@@ -2,8 +2,7 @@ const manifest = chrome.runtime.getManifest();
 
 const extensionName = manifest.name;
 const extensionVersion = manifest.version;
-const isThemeChangingProvide = Symbol('isThemeChanging');
-const THEME_TRANSITION_DURATION = 250;
+
 const utilClasses = {
   disableAnimation: 'disable-animation',
   hide: 'hide',
@@ -13,11 +12,6 @@ const themeClasses = {
   light: 'is-light',
 };
 
-export {
-  extensionName,
-  extensionVersion,
-  isThemeChangingProvide,
-  THEME_TRANSITION_DURATION,
-  themeClasses,
-  utilClasses,
-};
+const adviceUrl = chrome.runtime.getURL('src/html/advices/index.html');
+
+export { adviceUrl, extensionName, extensionVersion, themeClasses, utilClasses };

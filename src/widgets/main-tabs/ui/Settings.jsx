@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
+import { ThemeSwitcher } from '@/features/theme-switcher';
+import { adviceUrl } from '@/shared/config/constants';
 import { Switch } from '@/shared/ui/atoms/Switch';
 
 import { switches } from '../config/switchesData';
-
-import { ThemeSwitcher } from './ThemeSwitcher';
 
 import styles from './Settings.module.scss';
 
@@ -15,7 +15,6 @@ const SETTER_BY_ID = {
   [STORAGE_KEYS.content.copyUnlocked]: settingsManager.setLocalCopyUnlocked,
   [STORAGE_KEYS.ui.advices]: settingsManager.setLocalAdviceUnlocked,
 };
-const adviceUrl = chrome.runtime.getURL('src/html/advices/index.html');
 
 const Settings = () => {
   const [settings, setSettings] = useState({});

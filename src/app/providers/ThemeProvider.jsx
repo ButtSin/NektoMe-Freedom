@@ -1,11 +1,10 @@
-import { createContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { settingsManager } from '@/entities/settings/';
 import { DEFAULT_SETTINGS } from '@/entities/settings/config/settings';
 import { themeClasses } from '@/shared/config/constants';
+import { ThemeContext } from '@/shared/contexts/ThemeContext';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
-
-const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
   const [selectedTheme, setSelectedTheme] = useState(null);

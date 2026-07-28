@@ -1,6 +1,6 @@
 import { use } from 'react';
 
-import { ThemeContext } from '@/app/providers/ThemeContext';
+import { ThemeContext } from '@/shared/contexts/ThemeContext';
 import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
 
 import { themeSwitcherData } from '../config/themeSwitcherData';

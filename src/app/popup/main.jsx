@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { ThemeProvider } from '@/app/providers/ThemeContext.jsx';
+import { ThemeProvider } from '@/app/providers/ThemeProvider.jsx';
 import { extensionName, extensionVersion } from '@/shared/config/constants';
 import { PromiseRejectionHandler } from '@/shared/lib/PromiseRejectionHandler.js';
 
