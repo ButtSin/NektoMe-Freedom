@@ -4,7 +4,7 @@ import { settingsManager } from '@/entities/settings';
 import { Tabs } from '@/shared/ui/organisms/Tabs';
 
 import { tabsKey } from '../config/constants';
-import { tabsPanel } from '../config/tabsPanel';
+import { tabsPanel } from '../config/tabsData';
 
 const MainTabs = () => {
   const [selectedTab, setSelectedTab] = useState(null);
