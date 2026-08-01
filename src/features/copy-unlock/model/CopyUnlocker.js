@@ -1,4 +1,4 @@
-import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
+import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
 
 class CopyUnlocker {
   _restrictedEvents = ['copy', 'cut'];
@@ -27,7 +27,7 @@ class CopyUnlocker {
   };
 
   _onChromeStorageChange = (event) => {
-    const copyChange = event[STORAGE_KEYS.content.copyUnlocked];
+    const copyChange = event[SETTINGS_IDS.copyUnlocked];
 
     if (!copyChange) return;
 

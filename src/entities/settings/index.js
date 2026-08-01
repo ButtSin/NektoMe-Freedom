@@ -4,4 +4,4 @@ const settingsManager = new SettingsManager();
 
 export { settingsManager };
 
-export { STORAGE_KEYS } from './config/settings';
+export { SETTINGS_IDS } from './config/settings';

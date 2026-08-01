@@ -21,4 +21,10 @@ const STORAGE_KEYS = Object.freeze({
   },
 });
 
-export { DEFAULT_SETTINGS, STORAGE_KEYS };
+const SETTINGS_IDS = {
+  sexFieldUnlocked: 'sexFieldUnlocked',
+  copyUnlocked: 'copyUnlocked',
+  advices: 'advices',
+};
+
+export { DEFAULT_SETTINGS, SETTINGS_IDS, STORAGE_KEYS };

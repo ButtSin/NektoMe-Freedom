@@ -1,4 +1,4 @@
-import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
+import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
 import { getAlertHtml } from '@/features/sex-field-unlock/lib/dom/getAlertHtml';
 
 import { selectors, stateClasses } from '../config/constants';
@@ -296,7 +296,7 @@ class SexFieldUnlocker {
   };
 
   _onChromeStorageChange = (event) => {
-    const sexFieldChange = event[STORAGE_KEYS.content.sexFieldUnlocked];
+    const sexFieldChange = event[SETTINGS_IDS.sexFieldUnlocked];
 
     if (!sexFieldChange) return;
 
