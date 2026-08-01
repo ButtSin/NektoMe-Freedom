@@ -11,20 +11,20 @@ const switches = [
     mainDescription: 'Отключить ограничения копирования текста',
     secondaryDescription: 'Копируйте текст в начале разговора, не дожидаясь истечения таймера',
   },
-  {
-    id: SETTINGS_IDS.advices,
-    mainDescription: 'Включить советы по безопасности',
-    secondaryDescription: `Читайте cоветы на экране поиска диалога о том, как не попасть в 
-                          неприятную ситуацию и что делать, если вы уже в ней оказались`,
-    requiredContent: (adviceUrl) => (
-      <p>
-        Также с ними можно ознакомиться на этой{' '}
-        <a href={adviceUrl} target='_blank'>
-          странице
-        </a>
-      </p>
-    ),
-  },
+  // {
+  //   id: SETTINGS_IDS.advices,
+  //   mainDescription: 'Включить советы по безопасности',
+  //   secondaryDescription: `Читайте cоветы на экране поиска диалога о том, как не попасть в
+  //                         неприятную ситуацию и что делать, если вы уже в ней оказались`,
+  //   requiredContent: (adviceUrl) => (
+  //     <p>
+  //       Также с ними можно ознакомиться на этой{' '}
+  //       <a href={adviceUrl} target='_blank'>
+  //         странице
+  //       </a>
+  //     </p>
+  //   ),
+  // },
 ];
 
 export { switches };
