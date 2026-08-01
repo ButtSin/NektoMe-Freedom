@@ -1,5 +1,5 @@
 import { browserApi } from '../config/browser';
-import { DEFAULT_SETTINGS, STORAGE_KEYS } from '../config/settings';
+import { DEFAULT_SETTINGS, SETTINGS_IDS, STORAGE_KEYS } from '../config/settings';
 
 class SettingsManager {
   _setSetting = (storageType, key, value) => {
@@ -30,6 +30,16 @@ class SettingsManager {
           : resolve(result[key]);
       });
     });
+  };
+
+  _getSetterById = (id) => {
+    const settingsById = {
+      [SETTINGS_IDS.sexFieldUnlocked]: this.setLocalSexFieldUnlocked,
+      [SETTINGS_IDS.copyUnlocked]: this.setLocalCopyUnlocked,
+      [SETTINGS_IDS.advices]: this.setLocalAdviceUnlocked,
+    };
+
+    return settingsById[id];
   };
 
   getDefaultSettings = () => DEFAULT_SETTINGS;
@@ -83,6 +93,10 @@ class SettingsManager {
 
   setLocalAdviceUnlocked = async (adviceUnlockedValue) => {
     return await this._setSetting('local', STORAGE_KEYS.ui.advices, adviceUnlockedValue);
+  };
+
+  updateLocalSetting = async (id, value) => {
+    await this._getSetterById(id)(value);
   };
 
   initAllLocalSettings = async () => {

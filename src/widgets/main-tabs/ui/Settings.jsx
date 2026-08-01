@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { settingsManager, STORAGE_KEYS } from '@/entities/settings';
+import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
 import { ThemeSwitcher } from '@/features/theme-switcher';
 import { adviceUrl } from '@/shared/config/constants';
 import { Switch } from '@/shared/ui/atoms/Switch';
@@ -10,11 +10,6 @@ import { switches } from '../config/switchesData';
 import styles from './Settings.module.scss';
 
 const defaultSettings = settingsManager.getDefaultSettings();
-const SETTER_BY_ID = {
-  [STORAGE_KEYS.content.sexFieldUnlocked]: settingsManager.setLocalSexFieldUnlocked,
-  [STORAGE_KEYS.content.copyUnlocked]: settingsManager.setLocalCopyUnlocked,
-  [STORAGE_KEYS.ui.advices]: settingsManager.setLocalAdviceUnlocked,
-};
 
 const Settings = () => {
   const [settings, setSettings] = useState({});
@@ -29,9 +24,9 @@ const Settings = () => {
       ]);
 
       setSettings({
-        [STORAGE_KEYS.content.sexFieldUnlocked]: sex ?? defaultSettings.sexFieldUnlocked,
-        [STORAGE_KEYS.content.copyUnlocked]: copy ?? defaultSettings.copyUnlocked,
-        [STORAGE_KEYS.ui.advices]: advices ?? defaultSettings.advices,
+        [SETTINGS_IDS.sexFieldUnlocked]: sex ?? defaultSettings.sexFieldUnlocked,
+        [SETTINGS_IDS.copyUnlocked]: copy ?? defaultSettings.copyUnlocked,
+        [SETTINGS_IDS.advices]: advices ?? defaultSettings.advices,
       });
 
       setIsLoaded(true);
@@ -41,10 +36,9 @@ const Settings = () => {
   }, []);
 
   const handleSwitchChange = async (event, id) => {
-    const currentSetter = SETTER_BY_ID[id];
     const newSwitchValue = event.currentTarget.checked;
 
-    await currentSetter(newSwitchValue);
+    await settingsManager.updateLocalSetting(id, newSwitchValue);
     setSettings((oldSettings) => ({ ...oldSettings, ...{ [id]: newSwitchValue } }));
   };
 
