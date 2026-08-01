@@ -1,4 +1,4 @@
-import { SETTINGS_IDS } from './config/settings';
+import { SETTINGS_IDS } from './config/constants';
 import { SettingsManager } from './model/SettingsManager.js';
 
 const settingsManager = new SettingsManager();
