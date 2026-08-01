@@ -1,0 +1,56 @@
+@use 'helpers' as *;
+
+.popup__header {
+  margin-bottom: var(--spacing-xs);
+}
+
+.popup__footer {
+  padding-top: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  &__title {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    width: fit-content;
+
+    &-text {
+      hyphens: auto;
+
+      transition-duration: var(--transition-duration);
+    }
+
+    &-icon {
+      display: flex;
+
+      transition-duration: var(--transition-duration);
+    }
+  }
+
+  &__version {
+    margin-bottom: toRem(2);
+
+    color: colorToOpacity(var(--opacity));
+    font-size: toRem(12);
+
+    transition-duration: var(--transition-duration);
+  }
+}
+
+.footer {
+  font-style: italic;
+  text-align: right;
+  text-wrap: balance;
+
+  transition-property: color;
+  transition-duration: var(--transition-duration);
+
+  @include separator-line($side: top);
+}
