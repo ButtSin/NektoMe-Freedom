@@ -1,4 +1,5 @@
-import { browserApi } from '../config/browser';
+import { browserApi } from '@/shared/config/browser';
+
 import { DEFAULT_SETTINGS, SETTINGS_IDS, STORAGE_KEYS } from '../config/settings';
 
 class SettingsManager {

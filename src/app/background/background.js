@@ -1,5 +1,5 @@
 import { settingsManager } from '@/entities/settings';
-import { browserApi } from '@/entities/settings/config/browser';
+import { browserApi } from '@/shared/config/browser';
 import { extensionVersion, extensionName } from '@/shared/config/constants';
 
 (async () => {
