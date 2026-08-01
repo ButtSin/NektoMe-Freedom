@@ -34,8 +34,7 @@ class SettingsManager {
   };
 
   _getSessionTabsState = async (currentTabs) => {
-    const state = await this._getSetting('session', STORAGE_KEYS.ui.tabsState);
-    return state?.[currentTabs] ?? DEFAULT_SETTINGS[currentTabs];
+    return (await this._getSetting('session', STORAGE_KEYS.ui.tabsState))?.[currentTabs];
   };
 
   _setSessionTabsState = async (currentTabs, tabStateValue) => {
@@ -116,15 +115,6 @@ class SettingsManager {
     const defaultSetting = tabsKey ? DEFAULT_SETTINGS[tabsKey] : DEFAULT_SETTINGS[id];
 
     return (await this._getGetterById(id, tabsKey)()) ?? defaultSetting;
-  };
-
-  initAllLocalSettings = async () => {
-    await Promise.all([
-      this._getLocalTheme(),
-      this._getLocalSexFieldUnlocked(),
-      this._getLocalCopyUnlocked(),
-      this._getLocalAdvicesUnlocked(),
-    ]);
   };
 }
 

@@ -1,14 +1,5 @@
-import { settingsManager } from '@/entities/settings';
 import { browserApi } from '@/shared/config/browser';
 import { extensionVersion, extensionName } from '@/shared/config/constants';
-
-(async () => {
-  try {
-    await settingsManager.initAllLocalSettings();
-  } catch (error) {
-    console.error(`[${extensionName} v${extensionVersion}] Ошибка инициализации настроек `, error);
-  }
-})();
 
 browserApi.runtime.onInstalled.addListener(async () => {
   const nektoPattern = '*://nekto.me/chat/*';
