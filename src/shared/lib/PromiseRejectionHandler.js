@@ -4,7 +4,7 @@ class PromiseRejectionHandler {
     this.appVersion = appVersion;
   }
 
-  _onPromiseGlobalError(event) {
+  _onPromiseGlobalError = (event) => {
     alert(
       `[${this.appName} v${this.appVersion}] Произошла ошибка обработки асинхронного кода. ` +
         'Приложение может начать работать некорректно.',
@@ -15,7 +15,7 @@ class PromiseRejectionHandler {
     );
 
     event.preventDefault();
-  }
+  };
 
   promiseGlobalErrorSetup() {
     window.addEventListener('unhandledrejection', this._onPromiseGlobalError);
