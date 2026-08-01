@@ -13,17 +13,9 @@ class CopyUnlocker {
   }
 
   _init = async () => {
-    await this._initState();
+    await settingsManager.getSettingValue(SETTINGS_IDS.copyUnlocked);
 
     this._bindEvents();
-  };
-
-  _initState = async () => {
-    this._copyUnlocked = await settingsManager.getLocalCopyUnlocked();
-
-    if (this._copyUnlocked === undefined) {
-      this._copyUnlocked = settingsManager.getDefaultSettings().copyUnlocked;
-    }
   };
 
   _onChromeStorageChange = (event) => {

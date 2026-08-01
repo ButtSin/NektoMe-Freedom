@@ -42,11 +42,7 @@ class SexFieldUnlocker {
   };
 
   _initState = async () => {
-    this._sexFieldUnlocked = await settingsManager.getLocalSexFieldUnlocked();
-
-    if (this._sexFieldUnlocked === undefined) {
-      this._sexFieldUnlocked = settingsManager.getDefaultSettings().sexFieldUnlocked;
-    }
+    this._sexFieldUnlocked = await settingsManager.getSettingValue(SETTINGS_IDS.sexFieldUnlocked);
 
     this._sexFieldUnlockObserver = this._getSexFieldUnlockObserver();
     await this._initSexFieldUnlockObserver();

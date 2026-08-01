@@ -9,8 +9,6 @@ import { switches } from '../config/switchesData';
 
 import styles from './Settings.module.scss';
 
-const defaultSettings = settingsManager.getDefaultSettings();
-
 const Settings = () => {
   const [settings, setSettings] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,15 +16,15 @@ const Settings = () => {
   useEffect(() => {
     const initFieldsValue = async () => {
       const [sex, copy, advices] = await Promise.all([
-        settingsManager.getLocalSexFieldUnlocked(),
-        settingsManager.getLocalCopyUnlocked(),
-        settingsManager.getLocalAdvicesUnlocked(),
+        settingsManager.getSettingValue(SETTINGS_IDS.sexFieldUnlocked),
+        settingsManager.getSettingValue(SETTINGS_IDS.copyUnlocked),
+        settingsManager.getSettingValue(SETTINGS_IDS.advices),
       ]);
 
       setSettings({
-        [SETTINGS_IDS.sexFieldUnlocked]: sex ?? defaultSettings.sexFieldUnlocked,
-        [SETTINGS_IDS.copyUnlocked]: copy ?? defaultSettings.copyUnlocked,
-        [SETTINGS_IDS.advices]: advices ?? defaultSettings.advices,
+        [SETTINGS_IDS.sexFieldUnlocked]: sex,
+        [SETTINGS_IDS.copyUnlocked]: copy,
+        [SETTINGS_IDS.advices]: advices,
       });
 
       setIsLoaded(true);
@@ -38,7 +36,7 @@ const Settings = () => {
   const handleSwitchChange = async (event, id) => {
     const newSwitchValue = event.currentTarget.checked;
 
-    await settingsManager.updateLocalSetting(id, newSwitchValue);
+    await settingsManager.setSettingValue(id, newSwitchValue);
     setSettings((oldSettings) => ({ ...oldSettings, ...{ [id]: newSwitchValue } }));
   };
 

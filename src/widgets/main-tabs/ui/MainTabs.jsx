@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { settingsManager } from '@/entities/settings';
+import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
 import { Tabs } from '@/shared/ui/organisms/Tabs';
 
 import { tabsKey } from '../config/constants';
@@ -9,15 +9,19 @@ import { tabsPanel } from '../config/tabsData';
 const MainTabs = () => {
   const [selectedTab, setSelectedTab] = useState(null);
 
-  const handleSelectTab = (id) => {
-    setSelectedTab(id);
-    settingsManager.setSessionTabsState(tabsKey, id);
+  const handleSelectTab = (tabId) => {
+    setSelectedTab(tabId);
+
+    settingsManager.setSettingValue(SETTINGS_IDS.tabs, tabId, tabsKey);
   };
 
   useEffect(() => {
-    settingsManager.getSessionTabsState(tabsKey).then((savedTab) => {
+    const initMainTabs = async () => {
+      const savedTab = await settingsManager.getSettingValue(SETTINGS_IDS.tabs, tabsKey);
       setSelectedTab(savedTab);
-    });
+    };
+
+    initMainTabs();
   }, []);
 
   return (

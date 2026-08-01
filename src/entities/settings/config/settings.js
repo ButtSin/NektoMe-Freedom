@@ -1,8 +1,6 @@
 const DEFAULT_SETTINGS = Object.freeze({
   theme: 'system',
-  tabsState: {
-    popupMainTabs: 'settings',
-  },
+  popupMainTabs: 'settings',
   sexFieldUnlocked: true,
   copyUnlocked: true,
   advices: true,
@@ -22,6 +20,9 @@ const STORAGE_KEYS = Object.freeze({
 });
 
 const SETTINGS_IDS = {
+  theme: 'theme',
+  tabs: 'tabs',
+  popupMainTabs: 'settings',
   sexFieldUnlocked: 'sexFieldUnlocked',
   copyUnlocked: 'copyUnlocked',
   advices: 'advices',

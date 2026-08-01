@@ -32,24 +32,12 @@ class SettingsManager {
     });
   };
 
-  _getSetterById = (id) => {
-    const settingsById = {
-      [SETTINGS_IDS.sexFieldUnlocked]: this.setLocalSexFieldUnlocked,
-      [SETTINGS_IDS.copyUnlocked]: this.setLocalCopyUnlocked,
-      [SETTINGS_IDS.advices]: this.setLocalAdviceUnlocked,
-    };
-
-    return settingsById[id];
-  };
-
-  getDefaultSettings = () => DEFAULT_SETTINGS;
-
-  getSessionTabsState = async (currentTabs) => {
+  _getSessionTabsState = async (currentTabs) => {
     const state = await this._getSetting('session', STORAGE_KEYS.ui.tabsState);
-    return state?.[currentTabs] ?? DEFAULT_SETTINGS.tabsState[currentTabs];
+    return state?.[currentTabs] ?? DEFAULT_SETTINGS[currentTabs];
   };
 
-  setSessionTabsState = async (currentTabs, tabStateValue) => {
+  _setSessionTabsState = async (currentTabs, tabStateValue) => {
     const state = (await this._getSetting('session', STORAGE_KEYS.ui.tabsState)) || {};
 
     const newState = {
@@ -59,19 +47,19 @@ class SettingsManager {
     await this._setSetting('session', STORAGE_KEYS.ui.tabsState, newState);
   };
 
-  getLocalTheme = async () => {
+  _getLocalTheme = async () => {
     return await this._getSetting('local', STORAGE_KEYS.ui.theme);
   };
 
-  setLocalTheme = async (themeValue) => {
+  _setLocalTheme = async (themeValue) => {
     await this._setSetting('local', STORAGE_KEYS.ui.theme, themeValue);
   };
 
-  getLocalSexFieldUnlocked = async () => {
+  _getLocalSexFieldUnlocked = async () => {
     return await this._getSetting('local', STORAGE_KEYS.content.sexFieldUnlocked);
   };
 
-  setLocalSexFieldUnlocked = async (sexFieldUnlockedValue) => {
+  _setLocalSexFieldUnlocked = async (sexFieldUnlockedValue) => {
     return await this._setSetting(
       'local',
       STORAGE_KEYS.content.sexFieldUnlocked,
@@ -79,40 +67,63 @@ class SettingsManager {
     );
   };
 
-  getLocalCopyUnlocked = async () => {
+  _getLocalCopyUnlocked = async () => {
     return await this._getSetting('local', STORAGE_KEYS.content.copyUnlocked);
   };
 
-  setLocalCopyUnlocked = async (copyUnlockedValue) => {
+  _setLocalCopyUnlocked = async (copyUnlockedValue) => {
     return await this._setSetting('local', STORAGE_KEYS.content.copyUnlocked, copyUnlockedValue);
   };
 
-  getLocalAdvicesUnlocked = async () => {
+  _getLocalAdvicesUnlocked = async () => {
     return await this._getSetting('local', STORAGE_KEYS.ui.advices);
   };
 
-  setLocalAdviceUnlocked = async (adviceUnlockedValue) => {
+  _setLocalAdviceUnlocked = async (adviceUnlockedValue) => {
     return await this._setSetting('local', STORAGE_KEYS.ui.advices, adviceUnlockedValue);
   };
 
-  updateLocalSetting = async (id, value) => {
-    await this._getSetterById(id)(value);
+  _getSetterById = (id, tabsId) => {
+    const setterById = {
+      [SETTINGS_IDS.theme]: this._setLocalTheme,
+      [SETTINGS_IDS.tabs]: (value) => this._setSessionTabsState(tabsId, value),
+      [SETTINGS_IDS.sexFieldUnlocked]: this._setLocalSexFieldUnlocked,
+      [SETTINGS_IDS.copyUnlocked]: this._setLocalCopyUnlocked,
+      [SETTINGS_IDS.advices]: this._setLocalAdviceUnlocked,
+    };
+
+    return setterById[id];
+  };
+
+  _getGetterById = (id, tabsId) => {
+    const gettersById = {
+      [SETTINGS_IDS.theme]: this._getLocalTheme,
+      [SETTINGS_IDS.tabs]: () => this._getSessionTabsState(tabsId),
+      [SETTINGS_IDS.sexFieldUnlocked]: this._getLocalSexFieldUnlocked,
+      [SETTINGS_IDS.copyUnlocked]: this._getLocalCopyUnlocked,
+      [SETTINGS_IDS.advices]: this._getLocalAdvicesUnlocked,
+    };
+
+    return gettersById[id];
+  };
+
+  setSettingValue = async (id, value, tabsKey) => {
+    await this._getSetterById(id, tabsKey)(value);
+  };
+
+  getSettingValue = async (id, tabsKey) => {
+    const defaultSetting = tabsKey ? DEFAULT_SETTINGS[tabsKey] : DEFAULT_SETTINGS[id];
+
+    return (await this._getGetterById(id, tabsKey)()) ?? defaultSetting;
   };
 
   initAllLocalSettings = async () => {
-    const { theme, sexFieldUnlocked, copyUnlocked, advices } = this.getDefaultSettings();
-
-    const [themeRes, sexRes, copyRes, adviceRes] = await Promise.all([
-      this.getLocalTheme(),
-      this.getLocalSexFieldUnlocked(),
-      this.getLocalCopyUnlocked(),
-      this.getLocalAdvicesUnlocked(),
+    await Promise.all([
+      this._getLocalTheme(),
+      this._getLocalSexFieldUnlocked(),
+      this._getLocalCopyUnlocked(),
+      this._getLocalAdvicesUnlocked(),
     ]);
-
-    if (themeRes === undefined) await this.setLocalTheme(theme);
-    if (sexRes === undefined) await this.setLocalSexFieldUnlocked(sexFieldUnlocked);
-    if (copyRes === undefined) await this.setLocalCopyUnlocked(copyUnlocked);
-    if (adviceRes === undefined) await this.setLocalAdviceUnlocked(advices);
   };
 }
 

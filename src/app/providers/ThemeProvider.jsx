@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { settingsManager } from '@/entities/settings/';
-import { DEFAULT_SETTINGS } from '@/entities/settings/config/settings';
+import { SETTINGS_IDS, settingsManager } from '@/entities/settings/';
 import { themeClasses } from '@/shared/config/constants';
 import { ThemeContext } from '@/shared/contexts/ThemeContext';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
@@ -11,7 +10,7 @@ function ThemeProvider({ children }) {
 
   useEffect(() => {
     const initTheme = async () => {
-      const savedTheme = (await settingsManager.getLocalTheme()) ?? DEFAULT_SETTINGS.theme;
+      const savedTheme = await settingsManager.getSettingValue(SETTINGS_IDS.theme);
 
       applyTheme(savedTheme, themeClasses);
       setSelectedTheme(savedTheme);
@@ -21,7 +20,7 @@ function ThemeProvider({ children }) {
   }, []);
 
   const changeTheme = async (theme) => {
-    await settingsManager.setLocalTheme(theme);
+    await settingsManager.setSettingValue(SETTINGS_IDS.theme, theme);
 
     applyTheme(theme, themeClasses);
     setSelectedTheme(theme);
