@@ -1,0 +1,15 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+    {
+      "filename": "public/manifest.json",
+      "type": "json"
+    }
+  ],
+  "scripts": {
+    "postbump": "npm install --package-lock-only"
+  }
+}
