@@ -19,8 +19,14 @@ const pxToRem = (value, rem = getRootRem()) => {
   return isNaN(num) ? 0 : num / rem;
 };
 
+const remToPx = (value, rem = getRootRem()) => {
+  const num = parseFloat(value);
+
+  return isNaN(num) ? 0 : num * rem;
+};
+
 const refreshRootRem = () => {
   calcCurrentRem();
 };
 
-export { getRootRem, pxToRem, refreshRootRem };
+export { getRootRem, pxToRem, refreshRootRem, remToPx };

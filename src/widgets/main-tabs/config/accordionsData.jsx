@@ -3,6 +3,7 @@ import IconExclamationMark from '@/shared/ui/atoms/icons/IconExclamationMark.jsx
 import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
 import IconShield from '@/shared/ui/atoms/icons/IconShield.jsx';
 import IconThumb from '@/shared/ui/atoms/icons/IconThumb.jsx';
+import { Select } from '@/shared/ui/atoms/Select';
 
 const accordionsData = [
   {
@@ -24,19 +25,19 @@ const accordionsData = [
   {
     name: 'base-info',
     children: (
-      <ul>
-        <li>код портирован на React;</li>
-        <li>переработан дизайн с использованием «HeroUI&nbsp;V3»;</li>
-        <li>расширение адаптировано для работы в популярных десктопных браузерах.</li>
-        {/* <li>
-            расширение адаптировано для работы в популярных десктопных браузерах и опубликовано в
-            соответствующих магазинах;
-          </li> */}
-        {/* <li>
-            добавлена новая функция: «Советы по безопасности». Вы можете просматривать их отдельно и
-            во время поиска собеседника.
-          </li> */}
-      </ul>
+      <Select
+        description='Версии'
+        options={[
+          { description: '1', value: '1', isSelected: false },
+          { description: '2', value: '2', isSelected: true },
+          { description: '3', value: '3', isSelected: false },
+          { description: '4', value: '4', isSelected: false },
+          { description: '5', value: '5', isSelected: false },
+          { description: '6', value: '6', isSelected: false },
+          { description: '7', value: '7', isSelected: false },
+          { description: '8', value: '8', isSelected: false },
+        ].map((option) => ({ ...option, id: 'version-' + option.value }))}
+      />
     ),
     title: 'История изменений',
     icon: <IconClockArrow />,

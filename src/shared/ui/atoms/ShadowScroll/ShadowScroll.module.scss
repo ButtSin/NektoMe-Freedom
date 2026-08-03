@@ -10,8 +10,8 @@
   bottom: 0;
 
   width: 100%;
-  height: 100%;
-  margin-top: -100%;
+  height: calc(var(--heightCompensation) - var(--topOffset) - var(--bottomOffset));
+  margin-top: calc(var(--heightCompensation) * var(--sizeFactor));
 
   pointer-events: none;
 
