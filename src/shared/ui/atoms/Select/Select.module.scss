@@ -1,0 +1,102 @@
+.select {
+  display: flex;
+  width: min-content;
+  flex-direction: column;
+
+  column-gap: toRem(4);
+
+  &__original-control {
+    @include visually-hidden;
+  }
+
+  &__description {
+    width: min-content;
+    max-width: toRem(256);
+
+    font-weight: 500;
+    font-size: toRem(14);
+    line-height: var(--line-height-xxxl);
+    color: var(--color-default-foreground);
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__button {
+    position: relative;
+
+    width: toRem(280);
+    padding: toRem(8) toRem(40) toRem(8) toRem(12);
+    margin-bottom: toRem(8);
+
+    box-shadow: var(--box-shadow);
+    background: var(--color-field-background);
+    border-radius: var(--border-radius-xl);
+
+    user-select: none;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--outline);
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: toRem(15);
+      translate: 0 -50%;
+
+      content: '';
+      @include square(toRem(16));
+
+      mask: url('@/shared/assets/icons/arrow.svg') no-repeat center / contain;
+      background-color: var(--color-default-foreground);
+
+      transition-property: rotate;
+      transition-duration: var(--transition-duration);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+
+    padding: toRem(4);
+    width: toRem(256);
+
+    box-shadow: var(--box-shadow-inner);
+    border-radius: var(--border-radius-3xl);
+  }
+
+  &__option {
+    min-height: toRem(36);
+    padding: toRem(6) toRem(12);
+
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: toRem(14);
+    line-height: var(--line-height-xxxl);
+    color: var(--color-default-foreground);
+
+    border-radius: var(--border-radius-2xl);
+
+    &:focus-visible {
+      outline: var(--outline);
+    }
+  }
+
+  // &__controller {
+  //   &::picker(select) {
+  //     appearance: base-select;
+  //     max-width: 200px;
+  //     max-block-size: 150px;
+  //     width: 200px;
+  //     background-color: red;
+  //   }
+
+  //   &::picker-icon {
+  //     display: none;
+  //   }
+  // }
+}
