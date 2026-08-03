@@ -1,7 +1,7 @@
-import IconCloudArrowUp from '@/shared/ui/atoms/icons/IconCloudArrowUp.jsx';
+import IconClockArrow from '@/shared/ui/atoms/icons/IconClockArrow';
 import IconExclamationMark from '@/shared/ui/atoms/icons/IconExclamationMark.jsx';
 import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
-import IconSourceCode from '@/shared/ui/atoms/icons/IconSourceCode.jsx';
+import IconShield from '@/shared/ui/atoms/icons/IconShield.jsx';
 import IconThumb from '@/shared/ui/atoms/icons/IconThumb.jsx';
 
 const accordionsData = [
@@ -39,7 +39,7 @@ const accordionsData = [
       </ul>
     ),
     title: 'История изменений',
-    icon: <IconCloudArrowUp />,
+    icon: <IconClockArrow />,
   },
   {
     name: 'base-info',
@@ -54,7 +54,7 @@ const accordionsData = [
       </p>
     ),
     title: 'Исходный код и конфиденциальность',
-    icon: <IconSourceCode />,
+    icon: <IconShield />,
   },
   {
     name: 'base-info',
