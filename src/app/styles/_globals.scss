@@ -1,6 +1,8 @@
 @use 'helpers' as *;
 
 body {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   height: var(--container-height);

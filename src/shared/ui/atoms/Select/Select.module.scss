@@ -60,7 +60,7 @@
 
   &__dropdown {
     position: absolute;
-    top: 100%;
+    z-index: 9999;
 
     padding: toRem(4);
     width: toRem(256);
