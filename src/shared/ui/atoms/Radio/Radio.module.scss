@@ -2,13 +2,13 @@
 
 /*
   В firefox баг: свойство scale с calc() не работает, если в выражении есть числа с единицами 
-  измерения. Поэтому храним значение переменной и с px, и без.
+  измерения. Поэтому храним значение переменной и с rem, и без.
 */
 $controlSizeSass: 16;
 $extraSize: if(sass($controlSizeSass % 2 == 0): 1; else: 0);
 
 .radio {
-  --controlSize: #{$controlSizeSass * 1px};
+  --controlSize: #{toRem($controlSizeSass)};
   --controlSizeUnitless: #{$controlSizeSass};
   --controlIndicatorSize: #{math.div($controlSizeSass, 2) + $extraSize};
   --controlIndicatorSizeActive: #{math.div($controlSizeSass, 2) - math.div($controlSizeSass, 8) +
