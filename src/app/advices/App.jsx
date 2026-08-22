@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react';
-// импорт стилей (если нужны только для этого компонента)
+import { AdvicesPage } from '@/pages/advices';
+
+import { ExtensionLayout } from '../layouts/ExtensionLayout';
 
 const App = () => {
-  return <div className='app'></div>;
+  return (
+    <ExtensionLayout>
+      <AdvicesPage />
+    </ExtensionLayout>
+  );
 };
 
-export default App;
+export { App };

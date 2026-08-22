@@ -24,8 +24,8 @@
   @include reset-input-number;
 }
 
-.container {
-  @include container;
+.popup-container {
+  @include popup-container;
 }
 
 .disable-scrollbar {

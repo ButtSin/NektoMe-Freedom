@@ -4,7 +4,6 @@ body {
   display: flex;
   flex-direction: column;
   height: var(--container-height);
-  width: calc(var(--container-width) + var(--container-padding-x) * 2);
   padding-inline: var(--container-padding-x);
   padding-block: var(--container-padding-y);
 
@@ -126,6 +125,6 @@ h1,
   background-color: var(--color-field-background);
   box-shadow: 0 toRem(2) toRem(8) 0 var(--color-field-shadow-alt);
 
-  transition-property: box-shadow;
+  transition-property: box-shadow, background-color;
   transition-duration: var(--transition-duration);
 }

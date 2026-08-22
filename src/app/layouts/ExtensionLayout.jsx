@@ -1,12 +1,12 @@
 import { extensionVersion } from '@/shared/config/constants';
 import IconLock from '@/shared/ui/atoms/icons/IconLock.jsx';
 
-import styles from './PopupLayout.module.scss';
+import styles from './ExtensionLayout.module.scss';
 
-const PopupLayout = ({ children }) => {
+const ExtensionLayout = ({ children }) => {
   return (
     <>
-      <header className={`${styles.popup__header} ${styles.header}`}>
+      <header className={`${styles.extension__header} ${styles.header}`}>
         <h1 className={`${styles.header__title}`}>
           <span className={`${styles['header__title-text']}`}>
             NektoMe Freedom — говорите вне лимитов
@@ -19,7 +19,7 @@ const PopupLayout = ({ children }) => {
         <p className={`${styles.header__version}`}>v.&nbsp;{extensionVersion}</p>
       </header>
       <main>{children}</main>
-      <footer className={`${styles.popup__footer} ${styles.footer}`}>
+      <footer className={`${styles.extension__footer} ${styles.footer}`}>
         <p>
           С уважением и признательностью посвящается моей хорошей подруге Мали. Спасибо тебе за всё.
         </p>
@@ -28,4 +28,4 @@ const PopupLayout = ({ children }) => {
   );
 };
 
-export { PopupLayout };
+export { ExtensionLayout };

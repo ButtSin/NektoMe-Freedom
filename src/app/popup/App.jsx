@@ -4,7 +4,7 @@ import { PopupPage } from '@/pages/popup';
 import { utilClasses } from '@/shared/config/constants';
 import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 
-import { PopupLayout } from '../layouts';
+import { ExtensionLayout } from '../layouts/ExtensionLayout';
 
 const App = () => {
   useEffect(() => {
@@ -19,9 +19,9 @@ const App = () => {
   }, []);
 
   return (
-    <PopupLayout>
+    <ExtensionLayout>
       <PopupPage />
-    </PopupLayout>
+    </ExtensionLayout>
   );
 };
 

@@ -1,16 +1,19 @@
 @use 'helpers' as *;
 
-.popup__header {
-  margin-bottom: var(--spacing-xs);
-}
+.extension {
+  &__header {
+    margin-bottom: var(--spacing-xs);
+  }
 
-.popup__footer {
-  padding-top: var(--spacing-xs);
-  margin-top: var(--spacing-xs);
+  &__footer {
+    padding-top: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
+  }
 }
 
 .header {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: end;
 
