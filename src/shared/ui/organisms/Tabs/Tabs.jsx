@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
 
+import { UI_EVENTS } from '@/shared/config/constants';
+import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
+
 import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
 import { ButtonTabs } from '../../atoms/TabButton';
 
@@ -9,6 +12,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
   const statusRef = useRef(null);
   const buttonsRef = useRef([]);
   const cachedStatusPaddingLeftRef = useRef(null);
+  const isFirstUpdateRef = useRef(false);
 
   const addToButtonsRef = (el, index) => {
     if (el) {
@@ -18,6 +22,12 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
 
   useEffect(() => {
     if (!selected) return;
+
+    if (!isFirstUpdateRef.current) {
+      isFirstUpdateRef.current = true;
+
+      afterVisualUpdate(() => document.dispatchEvent(new Event(UI_EVENTS.firstTabsUpdate)));
+    }
 
     const getActiveButtonRef = () =>
       buttonsRef.current?.find((button) => button.dataset.selected === 'true');
