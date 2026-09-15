@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
 import { Tabs } from '@/shared/ui/organisms/Tabs';
@@ -15,7 +15,7 @@ const MainTabs = () => {
     settingsManager.setSettingValue(SETTINGS_IDS.tabs, tabId, tabsKey);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const initMainTabs = async () => {
       const savedTab = await settingsManager.getSettingValue(SETTINGS_IDS.tabs, tabsKey);
       setSelectedTab(savedTab);
