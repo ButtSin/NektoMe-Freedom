@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { utilClasses } from '@/shared/config/constants';
+import { UTIL_CLASSES } from '@/shared/config/constants';
 import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 import { pxToRem } from '@/shared/lib/dom/rootRem';
 
@@ -86,7 +86,7 @@ const ShadowScroll = ({ height = 50, parentBackground }) => {
   }, [height, parentBackground]);
 
   return (
-    <div className={`${styles.shadow} ${utilClasses.disableAnimation}`} ref={shadowScrollRef} />
+    <div className={`${styles.shadow} ${UTIL_CLASSES.disableAnimation}`} ref={shadowScrollRef} />
   );
 };
 

@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
 import { PopupPage } from '@/pages/popup';
-import { UI_EVENTS, utilClasses } from '@/shared/config/constants';
+import { UI_EVENTS, UTIL_CLASSES } from '@/shared/config/constants';
 
 import { PopupLayout } from '../layouts';
 
 const App = () => {
   useEffect(() => {
     const showApp = () => {
-      document.documentElement.classList.remove(utilClasses.hide, utilClasses.disableAnimation);
+      document.documentElement.classList.remove(UTIL_CLASSES.hide, UTIL_CLASSES.disableAnimation);
     };
 
     document.addEventListener(UI_EVENTS.firstTabsUpdate, showApp, { once: true });

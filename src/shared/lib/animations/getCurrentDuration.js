@@ -1,6 +1,6 @@
 function getCurrentDuration(targetElement) {
   const documentStyles = getComputedStyle(targetElement);
-  const durationVar = documentStyles.transitionDuration;
+  const durationVar = documentStyles.TRANSITION_DURATION;
   const unit = durationVar.split('').at(-2) === 'm' ? 'ms' : 's';
 
   let numberDecimalPlaces =
