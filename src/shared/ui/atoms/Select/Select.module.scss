@@ -1,12 +1,9 @@
 .select {
   display: flex;
-  width: min-content;
-
-  min-width: min-content;
   width: var(--buttonWidth);
   flex-direction: column;
 
-  column-gap: toRem(4);
+  row-gap: toRem(4);
 
   &__original-control {
     @include visually-hidden;
@@ -29,13 +26,10 @@
   &__button {
     position: relative;
 
+    display: flex;
+    align-items: center;
     height: toRem(36);
     padding: toRem(8) toRem(40) toRem(8) toRem(12);
-
-    font-weight: 500;
-    font-size: toRem(14);
-    line-height: var(--line-height-3xl);
-    color: var(--color-default-foreground);
 
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius-xl);
@@ -45,6 +39,9 @@
 
     &:focus,
     &:focus-visible {
+      position: relative;
+      z-index: 1;
+
       outline: var(--outline);
       box-shadow: none;
     }
@@ -70,6 +67,18 @@
         rotate: -180deg;
       }
     }
+
+    &-text {
+          font-weight: 500;
+    font-size: toRem(14);
+    line-height: var(--line-height-3xl);
+    color: var(--color-default-foreground);
+        white-space: nowrap;
+          text-overflow: ellipsis;
+    
+        overflow: hidden;
+  
+    }
   }
 
   &__placeholder {
@@ -84,8 +93,8 @@
     z-index: 9999;
 
     display: flex;
-    min-width: min-content;
     width: calc(var(--dropdownWidth));
+    max-width: calc(var(--dropdownWidth));
     flex-direction: column;
     padding-inline: toRem(4);
 
@@ -112,20 +121,14 @@
 
     &--hidden {
       opacity: 0;
-
       pointer-events: none;
     }
   }
 
   &__option {
     display: flex;
-    padding-inline: toRem(12);
     align-items: center;
-
-    font-weight: 500;
-    font-size: toRem(14);
-    line-height: var(--line-height-3xl);
-    color: var(--color-default-foreground);
+    padding-inline: toRem(12);
 
     border-radius: var(--border-radius-2xl);
 
@@ -146,6 +149,17 @@
       z-index: 10000;
 
       background-color: var(--color-default-hover);
+    }
+
+    &-text {
+      font-weight: 500;
+      font-size: toRem(14);
+      line-height: var(--line-height-3xl);
+      color: var(--color-default-foreground);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+            overflow: hidden;
     }
   }
 }

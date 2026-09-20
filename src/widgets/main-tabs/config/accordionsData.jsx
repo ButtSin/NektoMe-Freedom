@@ -1,9 +1,9 @@
+import { Changelog } from '@/entities/changelog';
 import IconClockArrow from '@/shared/ui/atoms/icons/IconClockArrow';
 import IconExclamationMark from '@/shared/ui/atoms/icons/IconExclamationMark.jsx';
 import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
 import IconShield from '@/shared/ui/atoms/icons/IconShield.jsx';
 import IconThumb from '@/shared/ui/atoms/icons/IconThumb.jsx';
-import { Select } from '@/shared/ui/atoms/Select';
 
 const accordionsData = [
   {
@@ -24,21 +24,7 @@ const accordionsData = [
   },
   {
     name: 'base-info',
-    children: (
-      <Select
-        description='Версии'
-        options={[
-          { description: '1', value: '1', isSelected: false },
-          { description: '2', value: '2', isSelected: true },
-          { description: '3', value: '3', isSelected: false },
-          { description: '4', value: '4', isSelected: false },
-          { description: '5', value: '5', isSelected: false },
-          { description: '6', value: '6', isSelected: false },
-          { description: '7', value: '7', isSelected: false },
-          { description: '8', value: '8', isSelected: false },
-        ].map((option) => ({ ...option, id: 'version-' + option.value }))}
-      />
-    ),
+    children: <Changelog />,
     title: 'История изменений',
     icon: <IconClockArrow />,
   },
