@@ -18,8 +18,6 @@ const UI_EVENTS = {
 
 const TRANSITION_DURATION = 2550;
 
-
-
 const adviceUrl = chrome.runtime.getURL('src/html/advices/index.html');
 
 export {

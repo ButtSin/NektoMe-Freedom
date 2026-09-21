@@ -1,7 +1,7 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { transitionDuration } from '@/shared/config/constants';
+import { TRANSITION_DURATION } from '@/shared/config/constants';
 import { useAnimation } from '@/shared/hooks/useAnimation';
 import { pxToRem, remToPx } from '@/shared/lib/dom/rootRem';
 
@@ -50,7 +50,7 @@ const Select = ({
   const optionsRef = useRef([]);
 
   const [isOpen, setIsOpen] = useState(false);
-  const { isVisible, isMounted } = useAnimation(isOpen, transitionDuration);
+  const { isVisible, isMounted } = useAnimation(isOpen, TRANSITION_DURATION);
   const [selectedOption, setSelectedOption] = useState(
     options.find((option) => option.isSelected) ?? options[0] ?? null,
   );
