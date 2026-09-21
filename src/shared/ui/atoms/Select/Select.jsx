@@ -319,7 +319,7 @@ const Select = ({
               style={{
                 ...dropdownCoords,
                 height:
-                  options.length === maxVisibleOptions
+                  options.length <= maxVisibleOptions
                     ? 'auto'
                     : `calc(${dropdownHeight}rem - 
                       ${DROPDOWN_PD_BLOCK - rowGap}rem - ${CLIP_GUARD}px)`,
