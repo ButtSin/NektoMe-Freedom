@@ -16,7 +16,9 @@ const UI_EVENTS = {
   firstTabsUpdate: 'ui:first-tabs-update',
 };
 
-const TRANSITION_DURATION = 3500;
+const TRANSITION_DURATION = 2550;
+
+
 
 const adviceUrl = chrome.runtime.getURL('src/html/advices/index.html');
 

@@ -1,3 +1,4 @@
+import { Changelog } from '@/entities/changelog';
 import IconClockArrow from '@/shared/ui/atoms/icons/IconClockArrow';
 import IconExclamationMark from '@/shared/ui/atoms/icons/IconExclamationMark.jsx';
 import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
@@ -23,21 +24,7 @@ const accordionsData = [
   },
   {
     name: 'base-info',
-    children: (
-      <ul>
-        <li>код портирован на React;</li>
-        <li>переработан дизайн с использованием «HeroUI&nbsp;V3»;</li>
-        <li>расширение адаптировано для работы в популярных десктопных браузерах.</li>
-        {/* <li>
-            расширение адаптировано для работы в популярных десктопных браузерах и опубликовано в
-            соответствующих магазинах;
-          </li> */}
-        {/* <li>
-            добавлена новая функция: «Советы по безопасности». Вы можете просматривать их отдельно и
-            во время поиска собеседника.
-          </li> */}
-      </ul>
-    ),
+    children: <Changelog />,
     title: 'История изменений',
     icon: <IconClockArrow />,
   },
