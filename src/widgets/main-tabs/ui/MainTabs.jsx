@@ -1,10 +1,25 @@
 import { useLayoutEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
+import { SETTINGS_TABS_IDS } from '@/entities/settings/api/constants';
 import { Tabs } from '@/shared/ui/organisms/Tabs';
 
-import { tabsKey } from '../config/constants';
-import { tabsPanel } from '../config/tabsData';
+import { mainTabsPanelsData } from '../model/mainTabsPanelsData';
+
+import { getMainTabsPanelContent } from './mainTabsPanelsContent';
+
+const tabsPanel = mainTabsPanelsData.map((tab) => {
+  const content = getMainTabsPanelContent(tab.id);
+
+  return {
+    id: tab.id,
+    description: tab.description,
+    icon: content.icon,
+    panel: content.panel,
+  };
+});
+
+const tabsKey = SETTINGS_TABS_IDS.mainTabs;
 
 const MainTabs = () => {
   const [selectedTab, setSelectedTab] = useState(null);

@@ -6,19 +6,6 @@ const DEFAULT_SETTINGS = Object.freeze({
   advices: true,
 });
 
-const STORAGE_KEYS = Object.freeze({
-  ui: {
-    theme: 'theme',
-    tabsState: 'tabsState',
-    advices: 'advices',
-  },
-
-  content: {
-    sexFieldUnlocked: 'sexFieldUnlocked',
-    copyUnlocked: 'copyUnlocked',
-  },
-});
-
 const SETTINGS_IDS = {
   theme: 'theme',
   tabs: 'tabs',
@@ -27,4 +14,4 @@ const SETTINGS_IDS = {
   advices: 'advices',
 };
 
-export { DEFAULT_SETTINGS, SETTINGS_IDS, STORAGE_KEYS };
+export { DEFAULT_SETTINGS, SETTINGS_IDS };

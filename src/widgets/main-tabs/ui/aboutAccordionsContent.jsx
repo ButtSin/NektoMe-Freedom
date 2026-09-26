@@ -5,10 +5,12 @@ import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
 import IconShield from '@/shared/ui/atoms/icons/IconShield.jsx';
 import IconThumb from '@/shared/ui/atoms/icons/IconThumb.jsx';
 
-const accordionsData = [
-  {
-    name: 'base-info',
-    children: (
+import { ABOUT_ACCORDION_IDS } from '../model/constants';
+
+const aboutAccordionContent = {
+  [ABOUT_ACCORDION_IDS.disclaimer]: {
+    icon: <IconExclamationMark />,
+    content: (
       <p>
         Автор данного расширения не пропагандирует какие-либо социальные, политические или
         идеологические взгляды. Оно — лишь технический инструмент, выполняющий множество различных
@@ -19,18 +21,16 @@ const accordionsData = [
         иных правил и законов.
       </p>
     ),
-    title: 'Дисклеймер',
-    icon: <IconExclamationMark />,
   },
-  {
-    name: 'base-info',
-    children: <Changelog />,
-    title: 'История изменений',
+
+  [ABOUT_ACCORDION_IDS.changelog]: {
     icon: <IconClockArrow />,
+    content: <Changelog />,
   },
-  {
-    name: 'base-info',
-    children: (
+
+  [ABOUT_ACCORDION_IDS.privacy]: {
+    icon: <IconShield />,
+    content: (
       <p>
         Данное расширение не собирает и, соответственно, не использует никаких данных. Вы можете
         убедиться в этом сами, ознакомившись с его исходным кодом, выложенным на{' '}
@@ -40,12 +40,11 @@ const accordionsData = [
         под лицензией MIT.
       </p>
     ),
-    title: 'Конфиденциальность и исходный код',
-    icon: <IconShield />,
   },
-  {
-    name: 'base-info',
-    children: (
+
+  [ABOUT_ACCORDION_IDS.credits]: {
+    icon: <IconThumb />,
+    content: (
       <p>
         Спасибо{' '}
         <a target='_blank' href='https://github.com/VolrakNik'>
@@ -54,12 +53,11 @@ const accordionsData = [
         за объяснение работы backend-части сайта «nekto.me».
       </p>
     ),
-    title: 'Благодарности',
-    icon: <IconThumb />,
   },
-  {
-    name: 'base-info',
-    children: (
+
+  [ABOUT_ACCORDION_IDS.materials]: {
+    icon: <IconHummer />,
+    content: (
       <>
         <p>Текущая версия расширения использует следующие материалы:</p>
         <ul>
@@ -78,9 +76,9 @@ const accordionsData = [
         </ul>
       </>
     ),
-    title: 'Использованные материалы',
-    icon: <IconHummer />,
   },
-];
+};
 
-export { accordionsData };
+const getAboutAccordionContent = (id) => aboutAccordionContent[id] ?? { icon: null, content: null };
+
+export { getAboutAccordionContent };

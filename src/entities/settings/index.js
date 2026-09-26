@@ -1,5 +1,5 @@
-import { SETTINGS_IDS } from './config/constants';
-import { SettingsManager } from './model/SettingsManager.js';
+import { SettingsManager } from './api/SettingsManager.js';
+import { SETTINGS_IDS } from './model/constants';
 
 const settingsManager = new SettingsManager();
 

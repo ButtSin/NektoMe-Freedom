@@ -1,18 +1,23 @@
 import { Accordion } from '@/shared/ui/atoms/Accordion';
 
-import { accordionsData } from '../config/accordionsData';
+import { accordionsAboutData } from '../model/aboutAccordionsData';
+
+import { getAboutAccordionContent } from './aboutAccordionsContent';
+
+const ABOUT_ACCORDION_GROUP = 'about';
 
 const About = () => {
-  return accordionsData.map((accordion) => {
+  return accordionsAboutData.map((accordion) => {
+    const { icon, content } = getAboutAccordionContent(accordion.id);
+
     return (
       <Accordion
-        key={accordion.title}
-        name={accordion.name}
+        key={accordion.id}
+        name={ABOUT_ACCORDION_GROUP}
         title={accordion.title}
-        open={accordion.open}
-        icon={accordion.icon}
+        icon={icon}
       >
-        {accordion.children}
+        {content}
       </Accordion>
     );
   });

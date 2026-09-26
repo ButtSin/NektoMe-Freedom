@@ -5,7 +5,7 @@ import { ThemeSwitcher } from '@/features/theme-switcher';
 import { adviceUrl } from '@/shared/config/constants';
 import { Switch } from '@/shared/ui/atoms/Switch';
 
-import { switches } from '../config/switchesData';
+import { switches } from '../model/switchesSettingsData';
 
 import styles from './Settings.module.scss';
 
