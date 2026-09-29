@@ -5,7 +5,7 @@ import IconHummer from '@/shared/ui/atoms/icons/IconHummer.jsx';
 import IconShield from '@/shared/ui/atoms/icons/IconShield.jsx';
 import IconThumb from '@/shared/ui/atoms/icons/IconThumb.jsx';
 
-const accordionsData = [
+const mainTabsAccordionsData = [
   {
     name: 'base-info',
     children: (
@@ -83,4 +83,4 @@ const accordionsData = [
   },
 ];
 
-export { accordionsData };
+export { mainTabsAccordionsData };

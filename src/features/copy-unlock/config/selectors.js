@@ -1,5 +1,5 @@
-const selectors = {
+const SELECTORS = {
   sendButtonClass: '.sendMessageBtn',
 };
 
-export { selectors };
+export { SELECTORS };

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-import { UI_EVENTS } from '@/shared/config/constants';
 import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 
 import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
@@ -8,7 +7,7 @@ import { ButtonTabs } from '../../atoms/TabButton';
 
 import styles from './Tabs.module.scss';
 
-const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
+const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) => {
   const statusRef = useRef(null);
   const buttonsRef = useRef([]);
   const cachedStatusPaddingLeftRef = useRef(null);
@@ -26,7 +25,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
     if (!isFirstUpdateRef.current) {
       isFirstUpdateRef.current = true;
 
-      afterVisualUpdate(() => document.dispatchEvent(new Event(UI_EVENTS.firstTabsUpdate)));
+      afterVisualUpdate(() => onFirstRender?.());
     }
 
     const getActiveButtonRef = () =>

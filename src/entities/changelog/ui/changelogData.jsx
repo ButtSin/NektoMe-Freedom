@@ -1,5 +1,3 @@
-import { compareVersions } from '../model/compareVersions';
-
 const changelogData = [
   {
     description: '1.0.0 (публиковалась лишь в GitHub)',
@@ -28,9 +26,6 @@ const changelogData = [
       </ul>
     ),
   } */
-]
-
-  .sort((a, b) => compareVersions(a.value, b.value))
-  .map((option, index) => ({ ...option, id: 'version-' + option.value, isSelected: index === 0 }));
+];
 
 export { changelogData };

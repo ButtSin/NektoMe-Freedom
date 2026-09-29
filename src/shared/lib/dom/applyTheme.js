@@ -1,22 +1,22 @@
-const applyTheme = (theme, THEME_CLASSES) => {
+const applyTheme = (theme, themeClass) => {
   const htmlElement = document.documentElement;
 
-  htmlElement.classList.remove(THEME_CLASSES.dark, THEME_CLASSES.light);
+  htmlElement.classList.remove(themeClass.dark, themeClass.light);
 
   switch (theme) {
     case 'light': {
-      htmlElement.classList.add(THEME_CLASSES.light);
+      htmlElement.classList.add(themeClass.light);
 
       break;
     }
     case 'dark': {
-      htmlElement.classList.add(THEME_CLASSES.dark);
+      htmlElement.classList.add(themeClass.dark);
 
       break;
     }
     case 'system': {
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      htmlElement.classList.add(systemDark ? THEME_CLASSES.dark : THEME_CLASSES.light);
+      htmlElement.classList.add(systemDark ? themeClass.dark : themeClass.light);
 
       break;
     }

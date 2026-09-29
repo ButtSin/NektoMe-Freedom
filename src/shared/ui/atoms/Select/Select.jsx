@@ -1,9 +1,9 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { TRANSITION_DURATION } from '@/shared/config/constants';
-import { useAnimation } from '@/shared/hooks/useAnimation';
+import { TRANSITION_DURATION } from '@/shared/lib/animations/constants';
 import { pxToRem, remToPx } from '@/shared/lib/dom/rootRem';
+import { useAnimation } from '@/shared/lib/hooks/useAnimation';
 
 import { ShadowScroll } from '../ShadowScroll/ShadowScroll';
 

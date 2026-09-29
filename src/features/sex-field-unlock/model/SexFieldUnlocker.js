@@ -1,7 +1,8 @@
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
 import { getAlertHtml } from '@/features/sex-field-unlock/lib/dom/getAlertHtml';
 
-import { selectors, stateClasses } from '../config/constants';
+import { SELECTORS } from '../config/selectors';
+import { STATE_CLASSES } from '../config/stateClasses';
 import { disableButtons, enableButtons } from '../lib/dom/button-utils';
 
 class SexFieldUnlocker {
@@ -50,10 +51,10 @@ class SexFieldUnlocker {
 
   _getSexFieldUnlockObserver = () => {
     this._observerCallback = () => {
-      let search = document.querySelector(selectors.searchButtonID);
+      let search = document.querySelector(SELECTORS.searchButtonID);
       if (search) this._searchButtonElement = search;
 
-      let field = document.querySelector(selectors.sexFieldClass);
+      let field = document.querySelector(SELECTORS.sexFieldClass);
       if (field) {
         this._setupSexFieldElements(field);
 
@@ -85,9 +86,9 @@ class SexFieldUnlocker {
   _setupSexFieldElements = (main) => {
     const MIN_COMMUNICATION_TOPIC_BUTTONS = 4;
 
-    this._sexFieldElement = main ?? document.querySelector(selectors.sexFieldClass);
+    this._sexFieldElement = main ?? document.querySelector(SELECTORS.sexFieldClass);
     this._sexButtonElements = Array.from(
-      this._sexFieldElement.querySelectorAll(selectors.buttonsClass),
+      this._sexFieldElement.querySelectorAll(SELECTORS.buttonsClass),
     );
     this._isInCommunicationTopic = this._sexButtonElements.length > MIN_COMMUNICATION_TOPIC_BUTTONS;
     this._ownSexButtonElements = this._sexButtonElements.slice(
@@ -125,11 +126,11 @@ class SexFieldUnlocker {
 
     this._ownSexState = this._ownSexButtonElements
       .slice(startIndex)
-      .map((button) => button.classList.contains(stateClasses.checked));
+      .map((button) => button.classList.contains(STATE_CLASSES.checked));
 
     this._companionSexState = this._companionSexButtonElements
       .slice(startIndex)
-      .map((button) => button.classList.contains(stateClasses.checked));
+      .map((button) => button.classList.contains(STATE_CLASSES.checked));
   };
 
   _setButtonStates = (button) => {
@@ -156,7 +157,7 @@ class SexFieldUnlocker {
         case 0:
           this._ownSexState.fill(false);
           this._companionSexState.fill(false);
-          this._companionSexButtonElements[0].classList.add(stateClasses.checked);
+          this._companionSexButtonElements[0].classList.add(STATE_CLASSES.checked);
           break;
         case 1:
         case 2:
@@ -170,7 +171,7 @@ class SexFieldUnlocker {
       switch (originalIndex) {
         case 0:
           this._companionSexState.fill(false);
-          this._companionSexButtonElements[0].classList.add(stateClasses.checked);
+          this._companionSexButtonElements[0].classList.add(STATE_CLASSES.checked);
           break;
         case 1:
         case 2:
@@ -187,30 +188,30 @@ class SexFieldUnlocker {
     disableButtons(this._companionSexButtonElements);
 
     for (const button of this._companionSexButtonElements) {
-      button.classList.remove(stateClasses.checked);
+      button.classList.remove(STATE_CLASSES.checked);
     }
 
     if (this._ownSexState[0]) {
-      this._companionSexButtonElements[1].classList.add(stateClasses.checked);
-      this._companionSexButtonElements[0].classList.remove(stateClasses.checked);
+      this._companionSexButtonElements[1].classList.add(STATE_CLASSES.checked);
+      this._companionSexButtonElements[0].classList.remove(STATE_CLASSES.checked);
     }
 
     if (this._ownSexState[1]) {
-      this._companionSexButtonElements[0].classList.add(stateClasses.checked);
-      this._companionSexButtonElements[1].classList.remove(stateClasses.checked);
+      this._companionSexButtonElements[0].classList.add(STATE_CLASSES.checked);
+      this._companionSexButtonElements[1].classList.remove(STATE_CLASSES.checked);
     }
   };
 
   _adjustCommunicationButtons = () => {
     const isCommunicationUpdate = this._isInCommunicationTopic && !this._isFirstUpdate;
     const ownButtonSomeoneChecked = this._ownSexButtonElements[0].classList.contains(
-      stateClasses.checked,
+      STATE_CLASSES.checked,
     );
     const hasCompanionSelection = this._companionSexState[0] || this._companionSexState[1];
 
     if (isCommunicationUpdate) {
       if (!ownButtonSomeoneChecked && hasCompanionSelection) {
-        this._companionSexButtonElements[0].classList.remove(stateClasses.checked);
+        this._companionSexButtonElements[0].classList.remove(STATE_CLASSES.checked);
       }
 
       if (ownButtonSomeoneChecked && hasCompanionSelection) {
@@ -230,19 +231,19 @@ class SexFieldUnlocker {
     this._ownSexButtonElements
       .slice(startIndex)
       .forEach((button, index) =>
-        button.classList.toggle(stateClasses.checked, this._ownSexState[index]),
+        button.classList.toggle(STATE_CLASSES.checked, this._ownSexState[index]),
       );
 
     this._companionSexButtonElements
       .slice(startIndex)
       .forEach((button, index) =>
-        button.classList.toggle(stateClasses.checked, this._companionSexState[index]),
+        button.classList.toggle(STATE_CLASSES.checked, this._companionSexState[index]),
       );
   };
 
   _syncRequestStateBeforeSubmit = () => {
     for (let button of this._companionSexButtonElements) {
-      if (button.classList.contains(stateClasses.checked)) {
+      if (button.classList.contains(STATE_CLASSES.checked)) {
         button.dispatchEvent(new Event('click'));
       }
     }
@@ -258,7 +259,7 @@ class SexFieldUnlocker {
   };
 
   _onSexFieldClick = (event) => {
-    if (!event.target.classList.contains(selectors.buttonBaseClass)) return;
+    if (!event.target.classList.contains(SELECTORS.buttonBaseClass)) return;
 
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -299,7 +300,7 @@ class SexFieldUnlocker {
     this._sexFieldUnlocked = sexFieldChange.newValue;
 
     if (this._sexFieldUnlocked) {
-      this._searchButtonElement = document.querySelector(selectors.searchButtonID);
+      this._searchButtonElement = document.querySelector(SELECTORS.searchButtonID);
 
       this._setupSexFieldElements();
 

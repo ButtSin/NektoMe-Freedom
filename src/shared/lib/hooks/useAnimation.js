@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 
-import { afterVisualUpdate } from '../lib/dom/afterVisualUpdate';
+import { afterVisualUpdate } from '../dom/afterVisualUpdate';
 
 const useAnimation = (shouldRender, duration) => {
   const [isVisible, setIsVisible] = useState(false);

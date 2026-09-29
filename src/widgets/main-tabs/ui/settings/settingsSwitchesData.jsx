@@ -1,6 +1,6 @@
 import { SETTINGS_IDS } from '@/entities/settings';
 
-const switches = [
+const mainTabsSwitchesData = [
   {
     id: SETTINGS_IDS.sexFieldUnlocked,
     mainDescription: 'Отключить ограничения выбора собеседников',
@@ -27,4 +27,4 @@ const switches = [
   // },
 ];
 
-export { switches };
+export { mainTabsSwitchesData };

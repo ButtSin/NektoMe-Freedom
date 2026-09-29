@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings/';
-import { THEME_CLASSES } from '@/shared/config/constants';
-import { ThemeContext } from '@/shared/contexts/ThemeContext';
+import { ThemeContext } from '@/entities/settings/ui/ThemeContext';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
+import { THEME_CLASSES } from '@/shared/ui/externalStateClasses';
 
 function ThemeProvider({ children }) {
   const [selectedTheme, setSelectedTheme] = useState(null);
