@@ -1,8 +1,6 @@
 import { browserApi } from '@/shared/config/browser';
 
-import { DEFAULT_SETTINGS, SETTINGS_IDS } from '../model/constants';
-
-import { STORAGE_KEYS } from './constants';
+import { DEFAULT_SETTINGS, SETTINGS_IDS, STORAGE_KEYS } from '../config/constants';
 
 class SettingsManager {
   _setSetting = (storageType, key, value) => {

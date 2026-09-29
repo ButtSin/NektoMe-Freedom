@@ -3,7 +3,7 @@ import { use } from 'react';
 import { ThemeContext } from '@/shared/contexts/ThemeContext';
 import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
 
-import { themeSwitcherData } from '../model/themeSwitcherData';
+import { themeSwitcherData } from '../config/themeSwitcherData';
 
 function ThemeSwitcher() {
   const { selectedTheme, changeTheme } = use(ThemeContext);
