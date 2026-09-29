@@ -51,6 +51,8 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
     };
 
     updateStatus();
+    //TODO: применить потом latest-ref паттерн
+    // eslint-disable-next-line @eslint-react/exhaustive-deps, react-hooks/exhaustive-deps
   }, [selected]);
 
   const handleKeyDown = (event) => {
