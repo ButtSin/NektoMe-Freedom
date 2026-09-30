@@ -1,6 +1,10 @@
 @use 'helpers' as *;
-
+html {
+  overflow: hidden;
+}
 body {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   height: var(--container-height);
@@ -15,6 +19,8 @@ body {
   letter-spacing: var(--letter-spacing-sm);
 
   background-color: var(--color-background);
+
+  overflow: hidden;
 
   transition-property: background-color;
   transition-duration: var(--transition-duration);
@@ -117,7 +123,7 @@ h1,
 .h1 {
   color: var(--color-default-foreground);
   font-size: toRem(16);
-  line-height: var(--line-height-xxl);
+  line-height: var(--line-height-2xl);
   font-weight: 600;
 }
 
@@ -127,4 +133,8 @@ h1,
 
   transition-property: box-shadow, background-color;
   transition-duration: var(--transition-duration);
+
+  &--secondary {
+    background-color: var(--color-surface-secondary);
+  }
 }

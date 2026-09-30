@@ -1,14 +1,17 @@
 import { useEffect, useRef } from 'react';
 
+import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
+
 import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
 import { ButtonTabs } from '../../atoms/TabButton';
 
 import styles from './Tabs.module.scss';
 
-const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
+const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) => {
   const statusRef = useRef(null);
   const buttonsRef = useRef([]);
   const cachedStatusPaddingLeftRef = useRef(null);
+  const isFirstUpdateRef = useRef(false);
 
   const addToButtonsRef = (el, index) => {
     if (el) {
@@ -18,6 +21,12 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
 
   useEffect(() => {
     if (!selected) return;
+
+    if (!isFirstUpdateRef.current) {
+      isFirstUpdateRef.current = true;
+
+      afterVisualUpdate(() => onFirstRender?.());
+    }
 
     const getActiveButtonRef = () =>
       buttonsRef.current?.find((button) => button.dataset.selected === 'true');
@@ -42,6 +51,8 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect }) => {
     };
 
     updateStatus();
+    //TODO: применить потом latest-ref паттерн
+    // eslint-disable-next-line @eslint-react/exhaustive-deps, react-hooks/exhaustive-deps
   }, [selected]);
 
   const handleKeyDown = (event) => {

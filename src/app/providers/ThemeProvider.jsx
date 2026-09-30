@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings/';
-import { themeClasses } from '@/shared/config/constants';
-import { ThemeContext } from '@/shared/contexts/ThemeContext';
+import { ThemeContext } from '@/entities/settings/ui/ThemeContext';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
+import { THEME_CLASSES } from '@/shared/ui/externalStateClasses';
 
 function ThemeProvider({ children }) {
   const [selectedTheme, setSelectedTheme] = useState(null);
@@ -12,7 +12,7 @@ function ThemeProvider({ children }) {
     const initTheme = async () => {
       const savedTheme = await settingsManager.getSettingValue(SETTINGS_IDS.theme);
 
-      applyTheme(savedTheme, themeClasses);
+      applyTheme(savedTheme, THEME_CLASSES);
       setSelectedTheme(savedTheme);
     };
 
@@ -22,7 +22,7 @@ function ThemeProvider({ children }) {
   const changeTheme = async (theme) => {
     await settingsManager.setSettingValue(SETTINGS_IDS.theme, theme);
 
-    applyTheme(theme, themeClasses);
+    applyTheme(theme, THEME_CLASSES);
     setSelectedTheme(theme);
   };
 

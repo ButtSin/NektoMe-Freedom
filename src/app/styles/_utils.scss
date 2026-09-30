@@ -148,3 +148,17 @@
 .show {
   @include show;
 }
+
+.animation-hide {
+  @include hide;
+
+  transform-origin: top;
+  scale: 0;
+}
+
+.animation-show {
+  @include show;
+
+  transform-origin: top;
+  scale: 1;
+}

@@ -1,5 +1,5 @@
-import { browserApi } from '@/shared/config/browser';
-import { extensionVersion, extensionName } from '@/shared/config/constants';
+import { browserApi } from '@/shared/lib/browser';
+import { EXTENSION_NAME, EXTENSION_VERSION } from '@/shared/config/appMeta';
 
 browserApi.runtime.onInstalled.addListener(async () => {
   const nektoPattern = '*://nekto.me/chat/*';
@@ -13,6 +13,6 @@ browserApi.runtime.onInstalled.addListener(async () => {
       }
     }
   } catch (error) {
-    console.error(`[${extensionName} v${extensionVersion}] Ошибка перезагрузки вкладок `, error);
+    console.error(`[${EXTENSION_NAME} v${EXTENSION_VERSION}] Ошибка перезагрузки вкладок `, error);
   }
 });

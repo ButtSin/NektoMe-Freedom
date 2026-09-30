@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
+import { UI_EVENTS } from '@/shared/config/events';
 import { Tabs } from '@/shared/ui/organisms/Tabs';
 
-import { tabsKey } from '../config/constants';
-import { tabsPanel } from '../config/tabsData';
+import { mainTabsData } from './mainTabsData';
+
+const tabsKey = SETTINGS_IDS.popupMainTabs;
 
 const MainTabs = () => {
   const [selectedTab, setSelectedTab] = useState(null);
@@ -15,7 +17,7 @@ const MainTabs = () => {
     settingsManager.setSettingValue(SETTINGS_IDS.tabs, tabId, tabsKey);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const initMainTabs = async () => {
       const savedTab = await settingsManager.getSettingValue(SETTINGS_IDS.tabs, tabsKey);
       setSelectedTab(savedTab);
@@ -28,9 +30,10 @@ const MainTabs = () => {
     <Tabs
       heading='Навигация по расширению'
       headingId='main-navigation'
-      tabs={tabsPanel}
+      tabs={mainTabsData}
       selected={selectedTab}
       onSelect={handleSelectTab}
+      onFirstRender={() => document.dispatchEvent(new Event(UI_EVENTS.firstTabsUpdate))}
     />
   );
 };

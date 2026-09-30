@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
-import { ThemeSwitcher } from '@/features/theme-switcher';
-import { adviceUrl } from '@/shared/config/constants';
+import { adviceUrl } from '@/shared/config/routes';
 import { Switch } from '@/shared/ui/atoms/Switch';
 
-import { switches } from '../config/switchesData';
+import { mainTabsSwitchesData } from './settingsSwitchesData';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 import styles from './Settings.module.scss';
 
@@ -44,7 +44,7 @@ const Settings = () => {
 
   return (
     <div className={`${styles.settings}`}>
-      {switches.map((switchItem) => {
+      {mainTabsSwitchesData.map((switchItem) => {
         return (
           <Switch
             key={switchItem.id}

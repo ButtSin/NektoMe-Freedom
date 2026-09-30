@@ -1,9 +1,9 @@
 import { Accordion } from '@/shared/ui/atoms/Accordion';
 
-import { accordionsData } from '../config/accordionsData';
+import { mainTabsAccordionsData } from './aboutAccordionsData';
 
 const About = () => {
-  return accordionsData.map((accordion) => {
+  return mainTabsAccordionsData.map((accordion) => {
     return (
       <Accordion
         key={accordion.title}

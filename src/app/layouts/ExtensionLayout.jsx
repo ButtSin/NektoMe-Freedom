@@ -1,4 +1,4 @@
-import { extensionVersion } from '@/shared/config/constants';
+import { EXTENSION_VERSION } from '@/shared/config/appMeta';
 import IconLock from '@/shared/ui/atoms/icons/IconLock.jsx';
 
 import styles from './ExtensionLayout.module.scss';
@@ -16,7 +16,7 @@ const ExtensionLayout = ({ children }) => {
             <IconLock />
           </span>
         </h1>
-        <p className={`${styles.header__version}`}>v.&nbsp;{extensionVersion}</p>
+        <p className={`${styles.header__version}`}>v.&nbsp;{EXTENSION_VERSION}</p>
       </header>
       <main>{children}</main>
       <footer className={`${styles.extension__footer} ${styles.footer}`}>
