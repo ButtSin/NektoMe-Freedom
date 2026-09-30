@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
+import { UTIL_CLASSES } from '@/shared/config/externalStateClasses';
 import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 import { pxToRem } from '@/shared/lib/dom/rootRem';
-import { UTIL_CLASSES } from '@/shared/ui/externalStateClasses';
 
 import styles from './ShadowScroll.module.scss';
 

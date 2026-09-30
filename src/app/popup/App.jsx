@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { PopupPage } from '@/pages/popup';
 import { UI_EVENTS } from '@/shared/config/events';
-import { UTIL_CLASSES } from '@/shared/ui/externalStateClasses';
+import { UTIL_CLASSES } from '@/shared/config/externalStateClasses';
 
 import { ExtensionLayout } from '../layouts/ExtensionLayout';
 
