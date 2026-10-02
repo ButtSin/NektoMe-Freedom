@@ -1,6 +1,6 @@
 import { use } from 'react';
 
-import { ThemeContext } from '@/entities/settings/ui/ThemeContext';
+import { ThemeContext } from '@/entities/settings/model/ThemeContext';
 import { RadioGroup } from '@/shared/ui/molecules/RadioGroup';
 
 import { themeSwitcherData } from './themeSwitcherData';

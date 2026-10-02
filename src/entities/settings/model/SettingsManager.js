@@ -9,6 +9,7 @@ import {
   setLocalSexFieldUnlocked,
   setLocalTheme,
   setSessionTabsState,
+  subscribeToSettings,
 } from '../api/settingsRepository.js';
 
 import { DEFAULT_SETTINGS } from './settingsDefaults';
@@ -48,6 +49,10 @@ class SettingsManager {
 
     return (await this._getGetterById(id, tabsKey)()) ?? defaultSetting;
   };
+
+  subscribe(handler) {
+    return subscribeToSettings(handler);
+  }
 }
 
 export { SettingsManager };

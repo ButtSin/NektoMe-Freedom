@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { ThemeContext } from '@/entities/settings';
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings/';
-import { ThemeContext } from '@/entities/settings/ui/ThemeContext';
 import { THEME_CLASSES } from '@/shared/config/externalStateClasses';
 import { applyTheme } from '@/shared/lib/dom/applyTheme';
 
@@ -29,4 +29,4 @@ function ThemeProvider({ children }) {
   return <ThemeContext value={{ selectedTheme, changeTheme }}>{children}</ThemeContext>;
 }
 
-export { ThemeContext, ThemeProvider };
+export { ThemeProvider };

@@ -4,6 +4,7 @@ class CopyUnlocker {
   _restrictedEvents = ['copy', 'cut'];
 
   _copyUnlocked = null;
+  _unsubscribeSetting = null;
 
   static async create() {
     const copyUnlocker = new CopyUnlocker();
@@ -13,13 +14,13 @@ class CopyUnlocker {
   }
 
   _init = async () => {
-    await settingsManager.getSettingValue(SETTINGS_IDS.copyUnlocked);
+    this._copyUnlocked = await settingsManager.getSettingValue(SETTINGS_IDS.copyUnlocked);
 
     this._bindEvents();
   };
 
-  _onChromeStorageChange = (event) => {
-    const copyChange = event[SETTINGS_IDS.copyUnlocked];
+  _onSettingsChange = (changes) => {
+    const copyChange = changes[SETTINGS_IDS.copyUnlocked];
 
     if (!copyChange) return;
 
@@ -41,7 +42,7 @@ class CopyUnlocker {
   };
 
   _bindEvents = () => {
-    chrome.storage.onChanged.addListener(this._onChromeStorageChange);
+    this._unsubscribeSetting = settingsManager.subscribe(this._onSettingsChange);
 
     if (!this._copyUnlocked) return;
 

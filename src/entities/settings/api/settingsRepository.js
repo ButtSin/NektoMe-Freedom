@@ -1,4 +1,4 @@
-import { browserApi } from '@/shared/lib/browser';
+import { browserApi } from '@/shared/lib/extension/browserApi';
 
 import { STORAGE_KEYS } from './settingsStorageKeys';
 
@@ -76,6 +76,11 @@ const setLocalAdviceUnlocked = async (adviceUnlockedValue) => {
   return await setSetting('local', STORAGE_KEYS.ui.advices, adviceUnlockedValue);
 };
 
+const subscribeToSettings = (callback) => {
+  browserApi.storage.onChanged.addListener(callback);
+  return () => browserApi.storage.onChanged.removeListener(callback);
+};
+
 export {
   getLocalAdvicesUnlocked,
   getLocalCopyUnlocked,
@@ -87,4 +92,5 @@ export {
   setLocalSexFieldUnlocked,
   setLocalTheme,
   setSessionTabsState,
+  subscribeToSettings,
 };

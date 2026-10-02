@@ -1,9 +1,9 @@
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
-import { getAlertHtml } from '@/features/sex-field-unlock/lib/dom/getAlertHtml';
 
 import { SELECTORS } from '../config/selectors';
 import { STATE_CLASSES } from '../config/stateClasses';
 import { disableButtons, enableButtons } from '../lib/dom/button-utils';
+import { getAlertHtml } from '../lib/dom/getAlertHtml';
 
 class SexFieldUnlocker {
   _searchButtonElement = null;
@@ -28,6 +28,8 @@ class SexFieldUnlocker {
   _observerPromiseResolve = null;
 
   _sexFieldUnlocked = null;
+
+  _unsubscribeSetting = null;
 
   static create = async () => {
     const sexFieldUnlocker = new SexFieldUnlocker();
@@ -292,8 +294,8 @@ class SexFieldUnlocker {
     this._syncRequestStateBeforeSubmit();
   };
 
-  _onChromeStorageChange = (event) => {
-    const sexFieldChange = event[SETTINGS_IDS.sexFieldUnlocked];
+  _onSettingsChange = (changes) => {
+    const sexFieldChange = changes[SETTINGS_IDS.sexFieldUnlocked];
 
     if (!sexFieldChange) return;
 
@@ -329,7 +331,7 @@ class SexFieldUnlocker {
   };
 
   _bindEvents = () => {
-    chrome.storage.onChanged.addListener(this._onChromeStorageChange);
+    this._unsubscribeSetting = settingsManager.subscribe(this._onChromeStorageChange);
 
     if (!this._sexFieldUnlocked) return;
 

@@ -1,5 +1,7 @@
-import { browserApi } from '@/shared/lib/browser';
-import { EXTENSION_NAME, EXTENSION_VERSION } from '@/shared/config/appMeta';
+import { browserApi } from '@/shared/lib/extension/browserApi';
+import { getExtensionInfo } from '@/shared/lib/extension/info';
+
+const { EXTENSION_NAME, EXTENSION_VERSION } = getExtensionInfo();
 
 browserApi.runtime.onInstalled.addListener(async () => {
   const nektoPattern = '*://nekto.me/chat/*';

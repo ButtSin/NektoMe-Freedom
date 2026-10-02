@@ -26,6 +26,10 @@ const changelogData = [
       </ul>
     ),
   } */
-];
+].map((option, index) => ({
+  ...option,
+  id: `version-${option.value}`,
+  isSelected: index === 0,
+}));
 
 export { changelogData };

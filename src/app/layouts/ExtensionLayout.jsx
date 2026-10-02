@@ -1,7 +1,9 @@
-import { EXTENSION_VERSION } from '@/shared/config/appMeta';
+import { getExtensionInfo } from '@/shared/lib/extension/info';
 import IconLock from '@/shared/ui/atoms/icons/IconLock.jsx';
 
 import styles from './ExtensionLayout.module.scss';
+
+const { EXTENSION_VERSION } = getExtensionInfo();
 
 const ExtensionLayout = ({ children }) => {
   return (
