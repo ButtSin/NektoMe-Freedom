@@ -31,8 +31,6 @@ function ThemeProvider({ children }) {
 
   const changeTheme = async (theme) => {
     await settingsManager.setSettingValue(SETTINGS_IDS.theme, theme);
-    applyTheme(theme, THEME_CLASSES);
-    setSelectedTheme(theme);
   };
 
   return <ThemeContext value={{ selectedTheme, changeTheme }}>{children}</ThemeContext>;
