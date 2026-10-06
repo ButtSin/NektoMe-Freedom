@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "release": "standard-version",
-    "watch:chromium": "npx rimraf dist && node scripts/watch.js && node scripts/build-manifest.js chromium",
-    "watch:firefox": "npx rimraf dist && node scripts/watch.js && node scripts/build-manifest.js firefox",
+    "watch:chromium": "npx rimraf dist && node scripts/watch.js chromium",
+    "watch:firefox": "npx rimraf dist && node scripts/watch.js firefox",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "format": "prettier . --write",
