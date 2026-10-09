@@ -8,19 +8,22 @@ import { Settings } from './settings/Settings';
 
 const mainTabsData = [
   {
-    id: 'settings',
+    tabId: 'settings',
+    buttonId: 'button-settings',
     icon: <IconGear />,
     description: 'Настройки',
     panel: <Settings />,
   },
   {
-    id: 'about',
+    tabId: 'about',
+    buttonId: 'button-about',
     icon: <IconInfo />,
     description: 'О расширении',
     panel: <About />,
   },
   {
-    id: 'help',
+    tabId: 'help',
+    buttonId: 'button-help',
     icon: <IconHeart />,
     description: 'Помочь проекту',
     panel: <Help />,

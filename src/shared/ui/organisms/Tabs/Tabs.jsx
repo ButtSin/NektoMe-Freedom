@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { afterVisualUpdate } from '@/shared/lib/dom/afterVisualUpdate';
 
 import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
-import { ButtonTabs } from '../../atoms/TabButton';
+import { TabButton } from '../../atoms/TabButton';
 
 import styles from './Tabs.module.scss';
 
@@ -29,7 +29,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
     }
 
     const getActiveButtonRef = () =>
-      buttonsRef.current?.find((button) => button.dataset.selected === 'true');
+      buttonsRef.current?.find((button) => button.ariaSelected === 'true');
 
     const updateStatus = async () => {
       const activeButtonRef = getActiveButtonRef();
@@ -63,7 +63,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
     event.preventDefault();
 
     const activeButtonIndex = buttonsRef.current.findIndex(
-      (button) => button.dataset.selected === 'true',
+      (button) => button.ariaSelected === 'true',
     );
 
     const lastButtonIndex = buttonsRef.current.length - 1;
@@ -89,11 +89,13 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
     }
 
     if (newButtonIndex !== activeButtonIndex) {
-      const newActiveButtonId = buttonsRef.current[newButtonIndex].id;
+      const newButton = buttonsRef.current[newButtonIndex];
 
-      onSelect(newActiveButtonId);
+      const newTabId = newButton.getAttribute('aria-controls');
 
-      buttonsRef.current[newButtonIndex].focus();
+      onSelect(newTabId);
+
+      newButton.focus();
     }
   };
 
@@ -110,15 +112,16 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
           aria-labelledby={headingId}
         >
           {tabs.map((tab, index) => (
-            <ButtonTabs
+            <TabButton
               icon={tab.icon}
               description={tab.description}
               panel={tab.panel}
-              id={tab.id}
-              selected={selected === tab.id}
-              tabIndex={selected === tab.id ? 0 : -1}
-              key={tab.id}
-              onClick={() => onSelect(tab.id)}
+              buttonId={tab.buttonId}
+              tabId={tab.tabId}
+              selected={selected === tab.tabId}
+              tabIndex={selected === tab.tabId ? 0 : -1}
+              key={tab.tabId}
+              onClick={() => onSelect(tab.tabId)}
               ref={(el) => addToButtonsRef(el, index)}
             />
           ))}
@@ -129,12 +132,13 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
       <div className={`${styles.tabs__body}`}>
         {tabs.map((tab) => {
           return (
-            selected === tab.id && (
+            selected === tab.tabId && (
               <div
+                id={tab.tabId}
                 className={`${styles.tabs__content} surface disable-scrollbar`}
                 role='tabpanel'
-                aria-labelledby={tab.id}
-                key={tab.id}
+                aria-labelledby={tab.buttonId}
+                key={tab.tabId}
                 tabIndex='0'
               >
                 {tab.panel}
