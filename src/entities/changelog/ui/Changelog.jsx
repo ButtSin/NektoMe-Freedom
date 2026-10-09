@@ -1,6 +1,6 @@
 import { useId, useState } from 'react';
 
-import { Select } from '@/shared/ui/atoms/Select';
+import { Select } from '@/shared/ui/molecules/Select';
 
 import { prepareChangelogData } from '../model/prepareChangelogData';
 

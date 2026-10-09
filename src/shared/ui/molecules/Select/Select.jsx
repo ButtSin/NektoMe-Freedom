@@ -5,7 +5,7 @@ import { TRANSITION_DURATION } from '@/shared/lib/animations/constants';
 import { pxToRem, remToPx } from '@/shared/lib/dom/rootRem';
 import { useAnimation } from '@/shared/lib/hooks/useAnimation';
 
-import { ShadowScroll } from '../ShadowScroll/ShadowScroll';
+import { ShadowScroll } from '../../atoms/ShadowScroll/ShadowScroll';
 
 import styles from './Select.module.scss';
 
