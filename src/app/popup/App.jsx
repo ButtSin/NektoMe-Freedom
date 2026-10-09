@@ -1,21 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PopupPage } from '@/pages/popup';
 import { UI_EVENTS } from '@/shared/config/events';
-import { UTIL_CLASSES } from '@/shared/config/externalStateClasses';
+import { useRevealApp } from '@/shared/lib/hooks/useRevealApp';
 
 import { ExtensionLayout } from '../layouts/ExtensionLayout';
 
 const App = () => {
+  const [isTabReady, setIsTabReady] = useState(false);
+
+  useRevealApp();
+
   useEffect(() => {
-    const showApp = () => {
-      document.documentElement.classList.remove(UTIL_CLASSES.hide, UTIL_CLASSES.disableAnimation);
-    };
+    const handleTabsReady = () => setIsTabReady(true);
 
-    document.addEventListener(UI_EVENTS.firstTabsUpdate, showApp, { once: true });
+    document.addEventListener(UI_EVENTS.firstTabsUpdate, handleTabsReady, { once: true });
 
-    return () => document.removeEventListener(UI_EVENTS.firstTabsUpdate, showApp);
+    return () => document.removeEventListener(UI_EVENTS.firstTabsUpdate, handleTabsReady);
   }, []);
+
+  useEffect(() => {
+    if (isTabReady) {
+      document.dispatchEvent(new Event(UI_EVENTS.appReady));
+    }
+  }, [isTabReady]);
 
   return (
     <ExtensionLayout>

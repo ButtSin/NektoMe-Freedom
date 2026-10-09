@@ -14,9 +14,8 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'theme-init',
+      name: 'copy-theme-init',
       apply: 'build',
-
       closeBundle() {
         const root = process.cwd();
         const src = path.resolve(root, 'src/app/advices/theme-init.js');
@@ -26,13 +25,6 @@ export default defineConfig({
           fs.mkdirSync(path.dirname(dest), { recursive: true });
           fs.copyFileSync(src, dest);
         }
-      },
-
-      transformIndexHtml(html, ctx) {
-        if (!ctx.path.includes('advices')) return html;
-
-        const scriptTag = '<script src="./theme-init.js"></script>';
-        return html.replace('</head>', `  ${scriptTag}\n  </head>`);
       },
     },
   ],

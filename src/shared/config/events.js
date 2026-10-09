@@ -1,5 +1,7 @@
 const UI_EVENTS = {
-  firstTabsUpdate: 'ui:first-tabs-update',
+  firstTabsUpdate: 'tabs:first-update',
+  themeReady: 'theme:ready',
+  appReady: 'app:ready',
 };
 
 export { UI_EVENTS };

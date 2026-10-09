@@ -14,6 +14,10 @@ for (const cfg of configs) {
   const proc = spawn('npx', ['vite', 'build', '--watch', '--config', cfg.file], {
     stdio: 'inherit',
     shell: true,
+    env: {
+      ...process.env,
+      BROWSER: browser,
+    },
   });
 
   processes.push(proc);
@@ -28,7 +32,7 @@ const rewriteManifest = () => {
 
 rewriteManifest();
 
-const manifestTimer = setInterval(rewriteManifest, 1000);
+const manifestTimer = setInterval(rewriteManifest, 500);
 
 process.on('SIGINT', () => {
   console.log('\nОстановка всех процессов...');
