@@ -3,12 +3,13 @@ import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const toPosix = (p) => p.replace(/\\/g, '/');
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '#': path.resolve(__dirname, './'),
+      '@': toPosix(path.resolve(__dirname, './src')),
+      '#': toPosix(path.resolve(__dirname, './')),
     },
   },
 
@@ -16,7 +17,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: false,
     rollupOptions: {
-      input: path.resolve(__dirname, './src/app/background/background.js'),
+      input: toPosix(path.resolve(__dirname, './src/app/background/background.js')),
       output: {
         format: 'iife',
         entryFileNames: 'src/background.js',

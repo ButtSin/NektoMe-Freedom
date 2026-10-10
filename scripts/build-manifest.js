@@ -9,11 +9,18 @@ const sourceFile = path.resolve(__dirname, '../public/manifest.json');
 const destFile = path.resolve(__dirname, '../dist/manifest.json');
 
 if (!fs.existsSync(sourceFile)) {
-  console.error(`❌ Файл ${sourceFile} не найден!`);
+  console.error(`Файл ${sourceFile} не найден`);
   process.exit(1);
 }
 
-const manifest = JSON.parse(fs.readFileSync(sourceFile, 'utf-8'));
+let manifest;
+
+try {
+  manifest = JSON.parse(fs.readFileSync(sourceFile, 'utf-8'));
+} catch (error) {
+  console.error(`Ошибка чтения ${sourceFile}:`, error.message);
+  process.exit(1);
+}
 
 if (browser === 'firefox') {
   if (manifest.background?.service_worker) {
@@ -31,9 +38,16 @@ if (browser === 'firefox') {
 }
 
 const destDir = path.dirname(destFile);
+
 if (!fs.existsSync(destDir)) {
   fs.mkdirSync(destDir, { recursive: true });
 }
 
-fs.writeFileSync(destFile, JSON.stringify(manifest, null, 2));
-console.log(`✅ Манифест для ${browser.toUpperCase()} (v${manifest.version}) собран в dist/`);
+try {
+  fs.writeFileSync(destFile, JSON.stringify(manifest, null, 2));
+} catch (error) {
+  console.error(`Ошибка записи ${destFile}:`, error.message);
+  process.exit(1);
+}
+
+console.log(`Манифест для ${browser} (v${manifest.version}) собран в dist/`);

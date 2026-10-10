@@ -10,7 +10,7 @@ import globals from 'globals';
 export default defineConfig([
   globalIgnores(['dist', 'node_modules']),
   {
-    files: ['scripts/**/*.js', 'src/app/background/**/*.js'],
+    files: ['scripts/**/*.js', 'src/app/background/**/*.js', 'vite.config.*.js'],
     languageOptions: {
       globals: {
         ...globals.node,
