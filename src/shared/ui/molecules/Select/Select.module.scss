@@ -37,6 +37,10 @@
     user-select: none;
     cursor: pointer;
 
+    &:hover {
+      background-color: var(--color-default);
+    }
+
     &:focus,
     &:focus-visible {
       position: relative;
@@ -69,15 +73,14 @@
     }
 
     &-text {
-          font-weight: 500;
-    font-size: toRem(14);
-    line-height: var(--line-height-3xl);
-    color: var(--color-default-foreground);
-        white-space: nowrap;
-          text-overflow: ellipsis;
-    
-        overflow: hidden;
-  
+      font-weight: 500;
+      font-size: toRem(14);
+      line-height: var(--line-height-3xl);
+      color: var(--color-default-foreground);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      overflow: hidden;
     }
   }
 
@@ -159,7 +162,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
 
-            overflow: hidden;
+      overflow: hidden;
     }
   }
 }
