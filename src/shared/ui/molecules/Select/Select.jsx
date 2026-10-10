@@ -65,6 +65,10 @@ const Select = ({
   };
 
   const handleButtonClick = () => {
+    if (!isOpen) {
+      setActiveOptionId(selectedOption?.id);
+    }
+
     setIsOpen((prev) => !prev);
   };
 
@@ -105,6 +109,10 @@ const Select = ({
         onChange?.(event, newSelectedOption);
 
         return;
+      }
+
+      if (!isOpen) {
+        setActiveOptionId(selectedOption?.id);
       }
 
       setIsOpen(true);
