@@ -1,3 +1,6 @@
-const adviceUrl = chrome.runtime.getURL('src/app/advices/index.html');
+const ROUTES = {
+  advicesMainPage: '/',
+  adviceDetail: '/:adviceId',
+};
 
-export { adviceUrl };
+export { ROUTES };

@@ -1,0 +1,11 @@
+@use 'helpers' as *;
+
+.popup-container {
+  width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  height: var(--container-height);
+  max-height: var(--container-height);
+  min-height: 0;
+  margin-inline: auto;
+
+  overflow: hidden;
+}

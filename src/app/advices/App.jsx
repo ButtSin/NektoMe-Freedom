@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { RouterProvider } from 'react-router-dom';
 
-import { AdvicesPage } from '@/pages/advices';
 import { UI_EVENTS } from '@/shared/config/events';
 import { useRevealApp } from '@/shared/lib/hooks/useRevealApp';
 
 import { ExtensionLayout } from '../layouts/ExtensionLayout';
+
+import { router } from './router';
 
 const App = () => {
   const [isThemeReady, setIsThemeReady] = useState(false);
@@ -27,7 +29,7 @@ const App = () => {
 
   return (
     <ExtensionLayout>
-      <AdvicesPage />
+      <RouterProvider router={router} />
     </ExtensionLayout>
   );
 };

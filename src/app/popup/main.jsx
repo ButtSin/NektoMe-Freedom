@@ -8,6 +8,7 @@ import { PromiseRejectionHandler } from '@/shared/lib/PromiseRejectionHandler.js
 import { App } from './App.jsx';
 
 import '@/app/styles/main.scss';
+import './popup.scss';
 
 const { EXTENSION_NAME, EXTENSION_VERSION } = getExtensionInfo();
 

@@ -1,0 +1,30 @@
+.advice-list-page {
+  display: flex;
+  max-width: toRem(1000);
+  padding-block: var(--spacing);
+  justify-self: center;
+  flex-direction: column;
+  row-gap: var(--spacing);
+
+  &__header {
+    max-width: 50%;
+
+    text-wrap: balance;
+
+    @include tablet {
+      max-width: 100%;
+    }
+  }
+
+  &__advices-list {
+    display: grid;
+    padding: 0;
+    grid-template-columns: repeat(auto-fit, minmax(toRem(180), 1fr));
+    gap: var(--spacing);
+
+    list-style: none;
+  }
+
+  &__advices-item {
+  }
+}

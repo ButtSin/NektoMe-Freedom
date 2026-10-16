@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { SETTINGS_IDS, settingsManager } from '@/entities/settings';
-import { adviceUrl } from '@/shared/config/routes';
 import { Switch } from '@/shared/ui/atoms/Switch';
+import { getAdviceUrl } from '@/widgets/main-tabs/lib/getAdviceUrl';
 
 import { mainTabsSwitchesData } from './settingsSwitchesData';
 import { ThemeSwitcher } from './ThemeSwitcher';
@@ -51,7 +51,7 @@ const Settings = () => {
             mainDescription={switchItem.mainDescription}
             secondaryDescription={switchItem.secondaryDescription}
             isActive={settings[switchItem.id]}
-            requiredContent={switchItem.requiredContent?.(adviceUrl)}
+            requiredContent={switchItem.requiredContent?.(getAdviceUrl())}
             onChange={(event) => handleSwitchChange(event, switchItem.id)}
           />
         );

@@ -5,7 +5,7 @@ function IconHummer({ size = '1rem' }) {
       width={size}
       height={size}
       viewBox='0 0 16 16'
-      fill='currenColor'
+      fill='currentColor'
     >
       <g clip-path='url(#a)'>
         <path

@@ -24,10 +24,6 @@
   @include reset-input-number;
 }
 
-.popup-container {
-  @include popup-container;
-}
-
 .disable-scrollbar {
   &::-webkit-scrollbar {
     display: none;

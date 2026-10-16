@@ -100,7 +100,7 @@ const Tabs = ({ heading, headingId, selected, tabs, onSelect, onFirstRender }) =
   };
 
   return (
-    <section>
+    <section className={`${styles.tabs}`}>
       <h2 className='visually-hidden' id={headingId}>
         {heading}
       </h2>

@@ -1,15 +1,10 @@
 @use 'helpers' as *;
 
-html {
-  overflow: hidden;
-}
-
 body {
   position: relative;
 
   display: flex;
   flex-direction: column;
-  height: var(--container-height);
   padding-inline: var(--container-padding-x);
   padding-block: var(--container-padding-y);
 
@@ -22,13 +17,12 @@ body {
 
   background-color: var(--color-background);
 
-  overflow: hidden;
-
   transition-property: background-color;
   transition-duration: var(--transition-duration);
 }
 
 main {
+  display: grid;
   flex-grow: 1;
 }
 
@@ -37,7 +31,7 @@ main {
   color: var(--color-default);
 }
 
-a {
+a:not([class]) {
   --aOffsetX: #{toRem(2)};
   --aOffsetY: 0.19em;
   --backgroundUrl: url('@/shared/assets/icons/squareArrow.svg');
@@ -117,6 +111,10 @@ p {
   --paragraphMarginBottom: var(--spacing-xs);
 }
 
+strong {
+  font-weight: 400;
+}
+
 address {
   font-style: normal;
 }
@@ -129,14 +127,18 @@ h1,
   font-weight: 600;
 }
 
-:where(.surface) {
-  background-color: var(--color-field-background);
-  box-shadow: 0 toRem(2) toRem(8) 0 var(--color-field-shadow-alt);
-
-  transition-property: box-shadow, background-color;
-  transition-duration: var(--transition-duration);
+h2,
+.h2 {
+  color: var(--color-default-foreground);
+  font-size: toRem(14);
+  line-height: var(--line-height-2xl);
+  font-weight: 600;
 }
 
-:where(.surface--secondary) {
-  background-color: var(--color-surface-secondary);
+h3,
+.h3 {
+  color: var(--color-default-foreground);
+  font-size: toRem(14);
+  line-height: var(--line-height-lg);
+  font-weight: 400;
 }
