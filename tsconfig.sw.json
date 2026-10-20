@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "WebWorker"],
+    "types": ["chrome", "firefox-webext-browser"]
+  },
+  "include": ["src/app/background"],
+  "exclude": []
+}
